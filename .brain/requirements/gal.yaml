@@ -14,7 +14,12 @@
   title: Uploading a Photo adds it to the Gallery
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_photos_http.py
+    - tests/e2e/test_upload.py
+    - tests/test_store.py
+    - tests/test_validation.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -57,7 +62,10 @@
   title: Every Photo carries an identifier the application issues on Upload
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/test_identity.py
+    - tests/test_store.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -89,7 +97,12 @@
   title: The Gallery shows a Thumbnail for every Photo, newest Photo first
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_gallery_http.py
+    - tests/e2e/test_gallery_browser.py
+    - tests/test_gallery.py
+    - tests/test_thumbnails.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
@@ -240,7 +253,10 @@
   title: A Gallery holding no Photos says so, and does not look broken
   module: GAL
   priority: should
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_gallery_browser.py
+    - tests/test_gallery.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery" — the
@@ -350,7 +366,10 @@
   title: Content that is not an accepted image format does not become a Photo
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_photos_http.py
+    - tests/test_validation.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos"; Photo

@@ -85,11 +85,45 @@ def documented_port(readme_text: str) -> int:
     return ports.pop()
 
 
+# --- photos -----------------------------------------------------------------
+
+
+def an_image(fmt: str = "JPEG", size: tuple[int, int] = (64, 48)) -> bytes:
+    """Real encoded image bytes. Validation reads content, so fakes will not do."""
+    from io import BytesIO
+
+    from PIL import Image
+
+    buffer = BytesIO()
+    Image.new("RGB", size, (200, 120, 60)).save(buffer, format=fmt)
+    return buffer.getvalue()
+
+
+@pytest.fixture
+def gallery_dir(tmp_path, monkeypatch):
+    """Point the application at a throwaway Gallery folder for one test."""
+    from mygallery import config
+
+    root = tmp_path / "MyGallery"
+    monkeypatch.setattr(config, "GALLERY_DIR", root)
+    monkeypatch.setattr(config, "PHOTO_DIR", root / "photos")
+    monkeypatch.setattr(config, "THUMBNAIL_DIR", root / "thumbnails")
+    monkeypatch.setattr(config, "INDEX_PATH", root / "index.db")
+    return root
+
+
+@pytest.fixture
+def store(gallery_dir):
+    from mygallery.photos.store import PhotoStore
+
+    return PhotoStore.open()
+
+
 # --- the application --------------------------------------------------------
 
 
 @pytest.fixture
-def client():
+def client(gallery_dir):
     from mygallery.app import create_app
 
     app = create_app()
@@ -104,7 +138,7 @@ class RunningServer:
 
 
 @pytest.fixture
-def running_server():
+def running_server(gallery_dir):
     """The real app on a real socket, bound the way the application binds it."""
     from werkzeug.serving import make_server
 
@@ -133,3 +167,46 @@ def lan_ipv4() -> str | None:
     except OSError:
         return None
     return None
+
+
+def a_noisy_image(size: tuple[int, int] = (1400, 1100)) -> bytes:
+    """A large PNG that does not compress away.
+
+    REQ-GAL-003 compares a Thumbnail's byte size against its Photo's, so the
+    Photo has to be genuinely big. A flat colour compresses to a few hundred
+    bytes and would make that comparison meaningless.
+    """
+    import random
+    from io import BytesIO
+
+    from PIL import Image
+
+    rng = random.Random(1234)  # noqa: S311 - test fixture, not security
+    image = Image.new("RGB", size)
+    image.putdata([
+        (rng.randrange(256), rng.randrange(256), rng.randrange(256))
+        for _ in range(size[0] * size[1])
+    ])
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def a_coloured_image(colour: tuple[int, int, int], size: tuple[int, int] = (64, 48)) -> bytes:
+    """A flat image of a known colour, so a Thumbnail can be traced to its Photo."""
+    from io import BytesIO
+
+    from PIL import Image
+
+    buffer = BytesIO()
+    Image.new("RGB", size, colour).save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def dominant_colour(content: bytes) -> tuple[int, int, int]:
+    from io import BytesIO
+
+    from PIL import Image
+
+    with Image.open(BytesIO(content)) as image:
+        return image.convert("RGB").resize((1, 1)).getpixel((0, 0))

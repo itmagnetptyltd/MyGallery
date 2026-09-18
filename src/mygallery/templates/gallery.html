@@ -9,12 +9,38 @@
   <body>
     <header class="bar">
       <h1>MyGallery</h1>
+      <label class="upload" data-testid="upload-control">
+        <span>Upload photos</span>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/gif,image/webp"
+          multiple
+          data-testid="upload-input"
+        />
+      </label>
+      <span class="count" data-testid="photo-count">0</span>
     </header>
 
     <main>
-      <!-- Slice 1 renders the Gallery region. What it says when it holds no
-           Photos is REQ-GAL-007, slice 2. -->
+      <!-- REQ-GAL-007: an empty Gallery says so. An unreadable one reports an
+           error instead — the two must not look the same. -->
+      <p class="empty" data-testid="empty-gallery" hidden>
+        No photos yet. Click Upload to add your first photos.
+      </p>
+
+      <p class="error" data-testid="gallery-error" hidden>
+        The Gallery could not be read.
+      </p>
+
       <section class="gallery" data-testid="gallery" aria-label="Gallery"></section>
+
+      <!-- Watched by the page to load more as the user scrolls. REQ-GAL-003
+           asks for no numbered page control, so there is none. -->
+      <div class="sentinel" data-testid="scroll-sentinel"></div>
     </main>
+
+    <!-- External, not inline: slice 1 set default-src 'self', which forbids
+         an inline script. An inline handler would silently not run. -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
 </html>
