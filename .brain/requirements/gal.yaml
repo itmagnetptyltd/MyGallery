@@ -386,7 +386,14 @@
   title: The application starts on the client's PC by following its written start steps
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_boot.py
+    - tests/test_app.py
+    - tests/test_binding.py
+    - tests/test_config.py
+    - tests/test_launcher.py
+    - tests/test_start_instructions.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "Keep it easy to run on my PC";
