@@ -340,7 +340,11 @@
   title: A file that fails to upload leaves nothing behind and is reported
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_upload_failures_http.py
+    - tests/e2e/test_upload_failures_browser.py
+    - tests/test_upload_failures.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos" — the

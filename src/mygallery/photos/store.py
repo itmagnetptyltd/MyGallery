@@ -99,38 +99,61 @@ class PhotoStore:
         named for the identifier this issues, which is what makes REQ-GAL-002's
         traversal criterion structural rather than a sanitising step someone
         can forget.
+
+        REQ-GAL-009: a save that does not finish must leave no Photo and no
+        partial file. Bytes go to sibling ``*.tmp`` paths, then ``replace``
+        into place, then the index row. Anything this call created is unlinked
+        if a later step throws.
         """
         photo_id = new_photo_id()
         extension = config.EXTENSION_FOR_FORMAT.get(image_format, ".bin")
         self._photo_dir.mkdir(parents=True, exist_ok=True)
-        (self._photo_dir / f"{photo_id}{extension}").write_bytes(content)
-
-        # REQ-GAL-003: a Thumbnail is stored, not derived on each request, so
-        # opening the Gallery never touches the full-size Photo.
         self._thumbnail_dir.mkdir(parents=True, exist_ok=True)
-        thumbnail_path = self._thumbnail_dir / f"{photo_id}{thumbnails.THUMBNAIL_EXTENSION}"
-        thumbnail_path.write_bytes(thumbnails.render(content))
 
-        photo = Photo(
-            id=photo_id,
-            filename=filename,
-            format=image_format,
-            byte_size=len(content),
-            uploaded_at=datetime.now(UTC).isoformat(),
-        )
-        with self._connect() as connection:
-            connection.execute(
-                "INSERT INTO photos (id, filename, format, byte_size, uploaded_at, sequence)"
-                " VALUES (?, ?, ?, ?, ?,"
-                " (SELECT COALESCE(MAX(sequence), 0) + 1 FROM photos))",
-                (
-                    photo.id,
-                    photo.filename,
-                    photo.format,
-                    photo.byte_size,
-                    photo.uploaded_at,
-                ),
+        photo_final = self._photo_dir / f"{photo_id}{extension}"
+        photo_tmp = self._photo_dir / f"{photo_id}{extension}.tmp"
+        thumbnail_final = self._thumbnail_dir / f"{photo_id}{thumbnails.THUMBNAIL_EXTENSION}"
+        thumbnail_tmp = self._thumbnail_dir / f"{photo_id}{thumbnails.THUMBNAIL_EXTENSION}.tmp"
+        created: list[Path] = []
+
+        try:
+            photo_tmp.write_bytes(content)
+            created.append(photo_tmp)
+            # REQ-GAL-003: a Thumbnail is stored, not derived on each request.
+            thumbnail_tmp.write_bytes(thumbnails.render(content))
+            created.append(thumbnail_tmp)
+            photo_tmp.replace(photo_final)
+            created.remove(photo_tmp)
+            created.append(photo_final)
+            thumbnail_tmp.replace(thumbnail_final)
+            created.remove(thumbnail_tmp)
+            created.append(thumbnail_final)
+
+            photo = Photo(
+                id=photo_id,
+                filename=filename,
+                format=image_format,
+                byte_size=len(content),
+                uploaded_at=datetime.now(UTC).isoformat(),
             )
+            with self._connect() as connection:
+                connection.execute(
+                    "INSERT INTO photos (id, filename, format, byte_size, uploaded_at, sequence)"
+                    " VALUES (?, ?, ?, ?, ?,"
+                    " (SELECT COALESCE(MAX(sequence), 0) + 1 FROM photos))",
+                    (
+                        photo.id,
+                        photo.filename,
+                        photo.format,
+                        photo.byte_size,
+                        photo.uploaded_at,
+                    ),
+                )
+        except Exception:
+            for path in (photo_tmp, thumbnail_tmp, *created):
+                path.unlink(missing_ok=True)
+            raise
+
         return photo
 
     def delete(self, photo_id: str) -> None:
@@ -222,6 +245,24 @@ class PhotoStore:
                 connection.executescript(_SCHEMA)
         except sqlite3.Error as error:
             raise GalleryUnreadable(str(error)) from error
+        self._sweep_unfinished_writes()
+
+    def _sweep_unfinished_writes(self) -> None:
+        """REQ-GAL-009: leftovers from a save that never finished.
+
+        ``*.tmp`` is a write in flight. A file whose identifier is not a row
+        is a replace that happened before the INSERT. The inverse — a row
+        whose file is gone — is the Explorer-delete case ADR-0004 deferred.
+        """
+        known_ids = {row[0] for row in self._query("SELECT id FROM photos")}
+        for directory in (self._photo_dir, self._thumbnail_dir):
+            if not directory.exists():
+                continue
+            for path in directory.iterdir():
+                if not path.is_file():
+                    continue
+                if path.name.endswith(".tmp") or path.stem not in known_ids:
+                    path.unlink(missing_ok=True)
 
     def _query(self, sql: str, parameters: tuple = ()) -> list[tuple]:
         try:
