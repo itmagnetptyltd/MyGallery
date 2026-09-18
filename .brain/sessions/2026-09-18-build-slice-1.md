@@ -37,14 +37,11 @@ be the right call and took about five minutes.
 
 ## Left unfinished
 
-- **Both pull requests are open and unmerged.** `main` is still at the toolkit
-  install commit and holds no requirements, no decisions and no constraints —
-  the entire record lives on `brain/checkpoint-2026-09-18`.
-- **Ordering matters.** `feat/gal-boot` is branched from the first checkpoint
-  commit, so its diff against `main` carries the whole brain record. Merge the
-  checkpoint pull request **first**, with a merge or rebase commit rather than a
-  squash — a squash rewrites `1155c3f` and leaves `feat/gal-boot` carrying a
-  duplicate of it.
+- **Both pull requests merged while this checkpoint was being written** — #1
+  (`brain/checkpoint-2026-09-18`) then #2 (`feat/gal-boot`), in that order and
+  with merge commits rather than squashes, so the duplicate-brain-diff risk did
+  not materialise. `main` is now `6477faf` and holds the record and slice 1.
+  This checkpoint was branched before that and has had `main` merged into it.
 - **`58fe9fc` was committed outside this session** and pushed to
   `feat/gal-boot`. It adds the two session plan files that `/pr-prepare` had
   deliberately kept out of the code pull request, so that pull request now
@@ -75,9 +72,12 @@ be the right call and took about five minutes.
 - `constraints/g7-blocks-once-a-belt-c-requirement-is-agreed.md` — **updated.**
   `pytest -q -m integration` exits 5 on an empty belt-C set. Recorded last
   session as an unverified expectation; now measured.
-- `constraints/g3-passes-vacuously-with-no-adapter-manifest.md` — **updated,
-  not deleted.** Cleared on `feat/gal-boot` (7 files scanned), still true of
-  `main` until that merges. Delete at the first checkpoint afterwards.
+- `constraints/g3-passes-vacuously-with-no-adapter-manifest.md` — **deleted.**
+  It was first marked "cleared, pending merge"; slice 1 then merged to `main`
+  mid-checkpoint, so its own deletion condition was met and it went. Re-measured
+  on this branch with `main` merged in: `adapters python, scanned 7 test
+  file(s)`. Leaving it would have cast doubt on a gate that had started working.
+  It survives in history on `1155c3f` if the reasoning is ever needed.
 
 Nothing was added to `rejected/`. The standard-library HTTP layer was argued
 against and never written, so there is no evidence to record; it is in ADR-0002's
