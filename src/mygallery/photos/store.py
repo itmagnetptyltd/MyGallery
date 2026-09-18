@@ -133,6 +133,29 @@ class PhotoStore:
             )
         return photo
 
+    def delete(self, photo_id: str) -> None:
+        """Remove a Photo entirely.
+
+        REQ-GAL-005 criterion 6: nothing may be retained. ADR-0004 puts a Photo
+        in three places, so all three go — the file, its Thumbnail, and the
+        index row. The client asked for deletion to be permanent ("once I
+        delete it, it's gone"), so these are unlinks, not moves.
+        """
+        if self.get(photo_id) is None:
+            raise KeyError(photo_id)
+
+        # Files first, then the row: a row without files shows a broken tile,
+        # whereas files without a row are invisible and harmless.
+        self.path_for(photo_id).unlink(missing_ok=True)
+        thumbnail = self._thumbnail_dir / f"{photo_id}{thumbnails.THUMBNAIL_EXTENSION}"
+        thumbnail.unlink(missing_ok=True)
+
+        try:
+            with self._connect() as connection:
+                connection.execute("DELETE FROM photos WHERE id = ?", (photo_id,))
+        except sqlite3.Error as error:
+            raise GalleryUnreadable(str(error)) from error
+
     # --- reading ------------------------------------------------------------
 
     def all(self) -> list[Photo]:

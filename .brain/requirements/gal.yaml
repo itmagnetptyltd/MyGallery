@@ -178,7 +178,11 @@
   title: Deleting a Photo removes it and its Thumbnail from the Gallery
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_delete_http.py
+    - tests/e2e/test_delete_browser.py
+    - tests/test_delete.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "be able to delete and download a
@@ -294,7 +298,9 @@
   title: A Photo stays in the Gallery until it is deleted, including across restarts
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/test_durability.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clauses "see them in a gallery" and "be

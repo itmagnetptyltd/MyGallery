@@ -88,6 +88,17 @@ def photo(photo_id: str):
     return Response(content, mimetype=media_type)
 
 
+@api.delete("/photos/<photo_id>")
+def delete_photo(photo_id: str):
+    """Delete a Photo. REQ-GAL-005."""
+    store = PhotoStore.open()
+    try:
+        store.delete(photo_id)
+    except KeyError:
+        return jsonify({"error": "No such Photo."}), 404
+    return "", 204
+
+
 @api.get("/photos/<photo_id>/thumbnail")
 def photo_thumbnail(photo_id: str):
     store = PhotoStore.open()
