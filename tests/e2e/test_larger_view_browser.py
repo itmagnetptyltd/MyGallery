@@ -27,7 +27,7 @@ def test_the_larger_view_is_not_shown_before_a_thumbnail_is_activated(page, gall
     expect(page.get_by_test_id("larger-view")).to_be_hidden()
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_activating_a_thumbnail_shows_the_larger_view(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
@@ -37,7 +37,7 @@ def test_activating_a_thumbnail_shows_the_larger_view(page, gallery_url, tmp_pat
     expect(page.get_by_test_id("larger-view")).to_be_visible()
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_the_larger_view_shows_the_photo_that_was_activated(page, gallery_url, tmp_path):
     red = tmp_path / "red.png"
     red.write_bytes(a_coloured_image((220, 20, 20), size=(900, 700)))
@@ -55,7 +55,7 @@ def test_the_larger_view_shows_the_photo_that_was_activated(page, gallery_url, t
     )
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_the_photo_is_rendered_larger_than_its_thumbnail(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
@@ -68,7 +68,7 @@ def test_the_photo_is_rendered_larger_than_its_thumbnail(page, gallery_url, tmp_
     assert photo_box["width"] > thumbnail_box["width"]
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_pressing_escape_closes_the_larger_view(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
@@ -80,7 +80,7 @@ def test_pressing_escape_closes_the_larger_view(page, gallery_url, tmp_path):
     expect(page.get_by_test_id("larger-view")).to_be_hidden()
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_the_gallery_is_shown_again_after_escape(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
@@ -91,7 +91,7 @@ def test_the_gallery_is_shown_again_after_escape(page, gallery_url, tmp_path):
     expect(page.get_by_test_id("gallery")).to_be_visible()
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_activating_the_close_control_closes_the_larger_view(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
@@ -103,7 +103,7 @@ def test_activating_the_close_control_closes_the_larger_view(page, gallery_url, 
     expect(page.get_by_test_id("larger-view")).to_be_hidden()
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_the_gallery_is_shown_again_after_the_close_control(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
@@ -114,7 +114,7 @@ def test_the_gallery_is_shown_again_after_the_close_control(page, gallery_url, t
     expect(page.get_by_test_id("gallery")).to_be_visible()
 
 
-# @covers REQ-GAL-004@v1
+# @covers REQ-GAL-004@v2
 def test_the_gallery_keeps_its_scroll_position_when_the_larger_view_closes(
     page, gallery_url, tmp_path
 ):

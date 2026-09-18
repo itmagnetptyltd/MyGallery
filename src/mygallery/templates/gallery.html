@@ -9,15 +9,11 @@
   <body>
     <header class="bar">
       <h1>MyGallery</h1>
-      <label class="upload" data-testid="upload-control">
-        <span>Upload photos</span>
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/gif,image/webp"
-          multiple
-          data-testid="upload-input"
-        />
-      </label>
+      <div data-testid="upload-control">
+        <button type="button" class="upload" data-testid="upload-open">
+          Upload photos
+        </button>
+      </div>
       <span class="count" data-testid="photo-count">0</span>
     </header>
 
@@ -45,15 +41,30 @@
          opened with showModal() gives Escape-to-close, a focus trap and a
          backdrop without any of it being written here, and because it does not
          navigate, the Gallery keeps its scroll position underneath. -->
+    <dialog class="upload-popup" data-testid="upload-popup" aria-label="Upload">
+      <p>Choose photos to add to the Gallery.</p>
+      <label class="upload-pick">
+        <span>Choose files</span>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/gif,image/webp"
+          multiple
+          data-testid="upload-input"
+        />
+      </label>
+    </dialog>
+
     <dialog class="larger-view" data-testid="larger-view" aria-label="Photo">
-      <button
-        type="button"
-        class="larger-view-close"
-        data-testid="larger-view-close"
-        aria-label="Close"
-      >
-        &times;
-      </button>
+      <header class="larger-view-bar">
+        <button
+          type="button"
+          class="larger-view-close"
+          data-testid="larger-view-close"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </header>
       <img class="larger-view-photo" data-testid="larger-view-photo" alt="" />
       <div class="larger-view-actions">
         <button type="button" class="danger" data-testid="delete-photo">Delete</button>

@@ -47,8 +47,8 @@ main {
 
 .gallery {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   min-height: 120px;
 }
 
@@ -56,31 +56,55 @@ main {
   margin-right: auto;
 }
 
-.upload span {
+.upload,
+.upload-pick span {
   display: inline-block;
   padding: 7px 14px;
   border: 1px solid var(--line);
   border-radius: 7px;
   background: var(--bg);
+  color: inherit;
   cursor: pointer;
+  font: inherit;
   font-weight: 500;
 }
 
-.upload input {
+.upload-pick input {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
 }
 
-.upload:focus-within span {
+.upload:focus-visible,
+.upload-pick:focus-within span {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+.upload-popup {
+  max-width: 420px;
+  padding: 24px;
+  border: none;
+  border-radius: 10px;
+  background: var(--bar);
+  color: var(--fg);
+}
+
+.upload-popup::backdrop {
+  background: rgb(0 0 0 / 60%);
 }
 
 .count {
   font-variant-numeric: tabular-nums;
   opacity: 0.6;
+}
+
+.thumbnail-card {
+  background: var(--bar);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
 }
 
 .tile {
@@ -90,6 +114,7 @@ main {
   border-radius: 8px;
   background: var(--line);
   display: block;
+  cursor: pointer;
 }
 
 .empty,
@@ -120,30 +145,33 @@ main {
 .larger-view {
   max-width: min(92vw, 1400px);
   max-height: 92vh;
-  padding: 0;
+  padding: 16px;
   border: none;
   border-radius: 10px;
   background: var(--bar);
-  overflow: visible;
+  overflow: hidden;
 }
 
 .larger-view::backdrop {
   background: rgb(0 0 0 / 72%);
 }
 
+.larger-view-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
 .larger-view-photo {
   display: block;
-  max-width: min(92vw, 1400px);
-  max-height: 92vh;
+  max-width: min(88vw, 1360px);
+  max-height: calc(92vh - 120px);
   width: auto;
   height: auto;
   border-radius: 10px;
 }
 
 .larger-view-close {
-  position: absolute;
-  top: -14px;
-  right: -14px;
   width: 36px;
   height: 36px;
   border: 1px solid var(--line);
@@ -164,17 +192,10 @@ main {
   outline-offset: 2px;
 }
 
-.tile {
-  cursor: pointer;
-}
-
 .larger-view-actions {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -52px;
   display: flex;
   justify-content: center;
+  padding: 12px 0 0;
 }
 
 button.danger {

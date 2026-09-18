@@ -3,14 +3,14 @@
 from tests.conftest import an_image
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_saving_a_photo_puts_it_in_the_gallery(store):
     store.save(filename="one.jpg", content=an_image("JPEG"))
 
     assert len(store.all()) == 1
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_saving_a_second_photo_leaves_the_first_in_place(store):
     store.save(filename="one.jpg", content=an_image("JPEG"))
     store.save(filename="two.jpg", content=an_image("JPEG"))
@@ -18,14 +18,14 @@ def test_saving_a_second_photo_leaves_the_first_in_place(store):
     assert len(store.all()) == 2
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_a_saved_photo_can_be_retrieved_afterwards(store):
     saved = store.save(filename="one.jpg", content=an_image("JPEG"))
 
     assert store.get(saved.id) is not None
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_a_retrieved_photo_carries_the_bytes_that_were_saved(store):
     content = an_image("JPEG")
     saved = store.save(filename="one.jpg", content=content)
