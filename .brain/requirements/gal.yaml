@@ -222,7 +222,11 @@
   title: Downloading a Photo delivers the file exactly as it was uploaded
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_download_http.py
+    - tests/e2e/test_download_browser.py
+    - tests/test_download.py
   version: 1
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "be able to delete and download a

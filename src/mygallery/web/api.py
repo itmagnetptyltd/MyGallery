@@ -1,9 +1,12 @@
 """The JSON endpoints the Gallery page talks to."""
 
-from flask import Blueprint, Response, jsonify, request
+import io
+
+from flask import Blueprint, Response, jsonify, request, send_file
 
 from mygallery import config
 from mygallery.photos import thumbnails
+from mygallery.photos.download import download_name
 from mygallery.photos.store import GalleryUnreadable, PhotoStore
 from mygallery.photos.validation import validate_upload
 
@@ -75,17 +78,48 @@ def photo(photo_id: str):
     Content-Disposition and the filename — extend this rather than duplicating
     the read.
     """
+    record, content = _photo_and_bytes(photo_id)
+    if record is None:
+        return jsonify({"error": "No such Photo."}), 404
+    return Response(content, mimetype=_media_type(record))
+
+
+@api.get("/photos/<photo_id>/download")
+def download_photo(photo_id: str):
+    """The Photo as a file to save. REQ-GAL-006.
+
+    The same bytes as the route above — the difference is Content-Disposition
+    and the name. send_file builds that header: it applies RFC 5987 encoding
+    and escaping, which is what stops a filename from breaking or injecting a
+    header. Do not assemble it by hand.
+    """
+    record, content = _photo_and_bytes(photo_id)
+    if record is None:
+        return jsonify({"error": "No such Photo."}), 404
+
+    return send_file(
+        io.BytesIO(content),
+        mimetype=_media_type(record),
+        as_attachment=True,
+        download_name=download_name(record.filename, record.format, record.id),
+    )
+
+
+def _photo_and_bytes(photo_id: str):
+    """One read shared by every route that serves a Photo, so they cannot
+    drift apart on what "the Photo" means."""
     store = PhotoStore.open()
     record = store.get(photo_id)
     if record is None:
-        return jsonify({"error": "No such Photo."}), 404
+        return None, None
     try:
-        content = store.read_bytes(photo_id)
+        return record, store.read_bytes(photo_id)
     except (KeyError, FileNotFoundError):
-        return jsonify({"error": "No such Photo."}), 404
+        return None, None
 
-    media_type = config.MEDIA_TYPE_FOR_FORMAT.get(record.format, "application/octet-stream")
-    return Response(content, mimetype=media_type)
+
+def _media_type(record) -> str:
+    return config.MEDIA_TYPE_FOR_FORMAT.get(record.format, "application/octet-stream")
 
 
 @api.delete("/photos/<photo_id>")
