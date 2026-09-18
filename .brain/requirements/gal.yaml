@@ -3,9 +3,9 @@
 # Decomposed from .brain/requirements/BRIEF.md (client brief, 2026-09-18) and
 # resolved against .brain/requirements/ANSWERS.md (client answers, 2026-09-18).
 #
-# All seventeen open questions were answered. Every requirement below is at
-# `agreed` with an empty `ambiguities` list. A requirement that changes meaning
-# from here gets a new `version` and a `history` entry — it is never rewritten.
+# All seventeen open questions were answered. A requirement that changes
+# meaning gets a new `version` and a `history` entry — it is never rewritten.
+# REQ-GAL-001, 003, 007 and 004 moved v1 → v2 on 2026-09-18 (CHG-0001–0004).
 #
 # Vocabulary is fixed by .brain/glossary.md: Photo, Gallery, Thumbnail,
 # Larger view, Upload, Download.
@@ -14,16 +14,12 @@
   title: Uploading a Photo adds it to the Gallery
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/api/test_photos_http.py
-    - tests/e2e/test_upload.py
-    - tests/test_store.py
-    - tests/test_validation.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
-    clarified by client answers 2026-09-18 (ANSWERS.md)
+    clarified by client answers 2026-09-18 (ANSWERS.md); Upload-from-a-popup
+    added by CHG-0003 (FB-0002, absorbed 2026-09-18)
   rationale: >-
     Upload is the only way a Photo enters the application. Without it the
     Gallery has nothing to show and every other requirement is unreachable.
@@ -55,8 +51,19 @@
     - given: The application is running on the user's PC
       when: Its local address is opened in a web browser
       then: The Gallery is shown without any sign-in step
+    - given: The Gallery is shown
+      when: The user starts an Upload
+      then: The files are chosen from a popup
   ambiguities: []
   belts: [A, B, C]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required that an Upload adds Photos to the Gallery. It did not
+        say where the file picker lives. Superseded by CHG-0003: the files
+        are chosen from a popup.
 
 - id: REQ-GAL-002
   title: Every Photo carries an identifier the application issues on Upload
@@ -97,17 +104,13 @@
   title: The Gallery shows a Thumbnail for every Photo, newest Photo first
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/api/test_gallery_http.py
-    - tests/e2e/test_gallery_browser.py
-    - tests/test_gallery.py
-    - tests/test_thumbnails.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
     Thumbnail defined in .brain/glossary.md; clarified by client answers
-    2026-09-18 (ANSWERS.md)
+    2026-09-18 (ANSWERS.md); larger designed Thumbnail cards added by
+    CHG-0001 and CHG-0002 (FB-0001, absorbed 2026-09-18)
   rationale: >-
     Seeing the Photos together is the client's stated reason for the
     application. A Photo that is stored but never shown is invisible to the
@@ -131,24 +134,40 @@
     - given: A Gallery holding more Photos than have been loaded
       when: The user scrolls to the end of what is loaded
       then: Further Thumbnails are loaded without the user activating a page control
+    - given: Photos are in the Gallery
+      when: The Gallery is shown
+      then: >-
+        Each Thumbnail is shown in a card wider than the 160-pixel-minimum
+        tile delivered at v1
+    - given: Photos are in the Gallery
+      when: The Gallery is shown
+      then: >-
+        Each Thumbnail is shown as a card with a visible surface around the
+        image, not as a bare image
   ambiguities: []
   depends_on:
     - REQ-GAL-001
   belts: [A, B, C]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required a Thumbnail per Photo, newest first, smaller in bytes
+        than the Photo. It did not size or style the on-screen card.
+        Superseded by CHG-0001 (larger cards) and CHG-0002 (card design).
 
 - id: REQ-GAL-004
   title: Activating a Thumbnail shows the Larger view over the Gallery
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/e2e/test_larger_view_browser.py
-    - tests/test_larger_view.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "click one to see it larger";
     Larger view defined in .brain/glossary.md; clarified by client answers
-    2026-09-18 (ANSWERS.md)
+    2026-09-18 (ANSWERS.md); panel redesign and in-panel close/Delete added
+    by CHG-0004 (FB-0003, absorbed 2026-09-18)
   rationale: >-
     A Thumbnail is too small to judge a Photo by. The client asked to be able
     to go from the overview to one Photo at a usable size, and back to the
@@ -169,10 +188,26 @@
     - given: The Gallery has been scrolled to a known position and a Thumbnail activated
       when: The Larger view is closed
       then: The Gallery is at the position it was scrolled to
+    - given: The Larger view of a Photo is shown
+      when: The close control is shown
+      then: The close control is inside the Larger view panel
+    - given: The Larger view of a Photo is shown
+      when: The Delete control is shown
+      then: The Delete control is inside the Larger view panel
   ambiguities: []
   depends_on:
     - REQ-GAL-003
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required the right Photo, rendered larger than its Thumbnail,
+        Escape, a close control, and scroll restore. It did not place the
+        close control or Delete inside the panel. Superseded by CHG-0004
+        and the absorbed FB-0003 placement: both sit inside the Larger
+        view panel.
 
 - id: REQ-GAL-005
   title: Deleting a Photo removes it and its Thumbnail from the Gallery
@@ -264,15 +299,13 @@
   title: A Gallery holding no Photos says so, and does not look broken
   module: GAL
   priority: should
-  status: verified
-  verified_by:
-    - tests/e2e/test_gallery_browser.py
-    - tests/test_gallery.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery" — the
     case of no Photos, which the brief does not mention; clarified by client
-    answers 2026-09-18 (ANSWERS.md)
+    answers 2026-09-18 (ANSWERS.md); empty-Gallery Upload opener for the
+    popup added by CHG-0003 (FB-0002, absorbed 2026-09-18)
   rationale: >-
     The empty Gallery is the first thing the client sees on the first run. An
     empty screen that looks like a crash makes a working application look
@@ -293,10 +326,21 @@
     - given: The Gallery cannot be read
       when: The Gallery is shown
       then: An error is reported, and the no-Photos-yet message is not shown
+    - given: No Photo has been uploaded
+      when: The Gallery is shown
+      then: A control that opens the Upload popup is shown
   ambiguities: []
   depends_on:
     - REQ-GAL-003
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required an empty Gallery to say so, not look broken, and show
+        an Upload control. It did not require a popup. Superseded by
+        CHG-0003: the empty-Gallery control opens the Upload popup.
 
 - id: REQ-GAL-008
   title: A Photo stays in the Gallery until it is deleted, including across restarts
@@ -456,4 +500,83 @@
       when: A connection is attempted from another device on the same network
       then: The connection is refused
   ambiguities: []
+  belts: [A, B]
+
+- id: REQ-GAL-012
+  title: Home Gallery Thumbnail cards are larger and designed as cards
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    FB-0001, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0001 and CHG-0002.
+    The same criteria are on REQ-GAL-003@v2.
+  rationale: >-
+    The delivered v1 tiles were too small and looked unfinished. The client
+    asked for larger cards whose design has changed, while still serving
+    Thumbnails rather than full Photos.
+  acceptance:
+    - given: Photos are in the Gallery
+      when: The Gallery is shown
+      then: >-
+        Each Thumbnail is shown in a card wider than the 160-pixel-minimum
+        tile delivered at REQ-GAL-003@v1
+    - given: Photos are in the Gallery
+      when: The Gallery is shown
+      then: >-
+        Each Thumbnail is shown as a card with a visible surface around the
+        image, not as a bare image
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-003
+  belts: [A, B]
+
+- id: REQ-GAL-013
+  title: Upload is started from a popup
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    FB-0002, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0003. The same
+    criteria are on REQ-GAL-001@v2 and REQ-GAL-007@v2.
+  rationale: >-
+    The header file picker was not the surface they wanted. Upload still
+    has to be reachable on an empty Gallery, or REQ-GAL-007 fails.
+  acceptance:
+    - given: The Gallery is shown
+      when: The user starts an Upload
+      then: The files are chosen from a popup
+    - given: No Photo has been uploaded
+      when: The Gallery is shown
+      then: A control that opens the Upload popup is shown
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+    - REQ-GAL-007
+  belts: [A, B]
+
+- id: REQ-GAL-014
+  title: Larger view close and Delete sit inside the panel
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    FB-0003, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0004, with the
+    escalate on placement answered: close and Delete stay inside the
+    panel. The same criteria are on REQ-GAL-004@v2.
+  rationale: >-
+    The v1 close control and Delete sat outside the Larger view panel.
+    The client asked for a redesigned panel with those controls inside.
+  acceptance:
+    - given: The Larger view of a Photo is shown
+      when: The close control is shown
+      then: The close control is inside the Larger view panel
+    - given: The Larger view of a Photo is shown
+      when: The Delete control is shown
+      then: The Delete control is inside the Larger view panel
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-004
   belts: [A, B]

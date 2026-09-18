@@ -1,0 +1,23 @@
+id: CHG-0001
+raised: 2026-09-18
+stream: scope_change
+source: "Chat, 2026-09-18, KCB/DEV (FB-0001, ask 1)"
+raw: "Thumbnail /card on hoem need to larger and design need to change in  agood way"
+affects: [REQ-GAL-003]
+analysis:
+  dependants: [REQ-GAL-004, REQ-GAL-005, REQ-GAL-007, REQ-GAL-008]
+  tests_invalidated: 21
+  estimate: "Cannot estimate a number. Larger on-screen cards, if they name a size and the grid still serves Thumbnails, is a layout change on REQ-GAL-003's surface. A new stored Thumbnail size would also retouch generation (REQ-GAL-003 criterion 4) and is not priced from the graph alone."
+  notes: >-
+    This record is ask 1 only: home Thumbnail cards need to be larger.
+    variation-agent: not-covered. REQ-GAL-003@v1 criterion 4 is byte size of
+    the delivered Thumbnail, not rendered card size. REQ-GAL-004@v1
+    "rendered larger than its Thumbnail" is the Larger view. If accepted,
+    REQ-GAL-003 would move v1 -> v2 and the 21 tests pinned to @v1 would
+    go stale. Enlarging cards must still serve Thumbnails, not full Photos,
+    or it contradicts REQ-GAL-003@v1 criterion 4. Ask 2 is CHG-0002.
+    Requirement versions are not moved until decision is filled.
+decision: absorbed
+commercial: "UAT 2026-09-18, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-003: v2

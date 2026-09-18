@@ -1,0 +1,23 @@
+id: CHG-0004
+raised: 2026-09-18
+stream: scope_change
+source: "Chat, 2026-09-18, KCB/DEV (FB-0003, ask 1)"
+raw: "Onclick details the pannel need to redesign button and cross are out of side"
+affects: [REQ-GAL-004]
+analysis:
+  dependants: []
+  tests_invalidated: 11
+  estimate: "Unknown until they name an observable look. \"need to redesign\" is not a criterion."
+  notes: >-
+    This record is ask 1 only: the details panel (read as the Larger view)
+    needs to be redesigned. variation-agent: not-covered. REQ-GAL-004@v1
+    criteria are the right Photo, larger than its Thumbnail, Escape, close
+    control, and scroll restore — not layout or styling. No other GAL
+    requirement depends_on REQ-GAL-004. 11 tests pinned to REQ-GAL-004@v1
+    would go stale if 004 is versioned. Ask 2 (controls outside the panel)
+    was partial and is not this CHG. Versions are not moved until decision
+    is filled.
+decision: absorbed
+commercial: "UAT 2026-09-18, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-004: v2
