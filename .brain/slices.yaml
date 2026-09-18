@@ -63,3 +63,9 @@
   branch: feat/gal-upload-failures
   why: "A batch of thirty with three bad files keeps the twenty-seven, names each failure with a plain-words reason, and leaves no partial file behind"
   covers: [REQ-GAL-009]
+
+- id: 7
+  name: UAT visual
+  branch: feat/gal-uat-visual
+  why: "Home Thumbnail cards are larger and designed as cards, Upload starts from a popup, and Larger view close and Delete sit inside the panel"
+  covers: [REQ-GAL-012, REQ-GAL-013, REQ-GAL-014]

@@ -4,6 +4,8 @@
 // user scrolls. No numbered page control — REQ-GAL-003 asks for none.
 
 const input = document.querySelector('[data-testid="upload-input"]');
+const uploadOpen = document.querySelector('[data-testid="upload-open"]');
+const uploadPopup = document.querySelector('[data-testid="upload-popup"]');
 const count = document.querySelector('[data-testid="photo-count"]');
 const gallery = document.querySelector('[data-testid="gallery"]');
 const empty = document.querySelector('[data-testid="empty-gallery"]');
@@ -36,6 +38,9 @@ let total = 0;
 function tileFor(photo) {
   // createElement and textContent, never innerHTML: the filename came from a
   // user, and a Photo called <img onerror=...> must stay text.
+  const card = document.createElement("article");
+  card.className = "thumbnail-card";
+  card.dataset.testid = "thumbnail-card";
   const tile = document.createElement("img");
   tile.className = "tile";
   tile.src = `/api/photos/${photo.id}/thumbnail`;
@@ -43,7 +48,8 @@ function tileFor(photo) {
   tile.dataset.testid = "thumbnail";
   tile.dataset.filename = photo.filename;
   tile.dataset.photoId = photo.id;
-  return tile;
+  card.append(tile);
+  return card;
 }
 
 function showState() {
@@ -116,7 +122,10 @@ async function upload(files) {
 
 // REQ-GAL-004. Delegated, because tiles arrive as the user scrolls.
 gallery.addEventListener("click", (event) => {
-  const tile = event.target.closest('[data-testid="thumbnail"]');
+  const card = event.target.closest('[data-testid="thumbnail-card"]');
+  const tile =
+    event.target.closest('[data-testid="thumbnail"]') ||
+    (card ? card.querySelector('[data-testid="thumbnail"]') : null);
   if (!tile) {
     return;
   }
@@ -152,9 +161,15 @@ deleteConfirm.addEventListener("click", () => {
   })();
 });
 
+uploadOpen.addEventListener("click", () => {
+  uploadPopup.showModal();
+});
+
 input.addEventListener("change", (event) => {
   if (event.target.files.length > 0) {
+    uploadPopup.close();
     void upload(event.target.files);
+    event.target.value = "";
   }
 });
 

@@ -12,7 +12,7 @@ def _fill(store, count: int) -> None:
 # --- REQ-GAL-003: order and paging -------------------------------------------
 
 
-# @covers REQ-GAL-003@v1
+# @covers REQ-GAL-003@v2
 def test_photos_are_listed_with_the_most_recently_uploaded_first(store):
     first = store.save(filename="first.jpg", content=an_image("JPEG"))
     second = store.save(filename="second.jpg", content=an_image("JPEG"))
@@ -21,14 +21,14 @@ def test_photos_are_listed_with_the_most_recently_uploaded_first(store):
     assert [p.id for p in store.all()] == [third.id, second.id, first.id]
 
 
-# @covers REQ-GAL-003@v1
+# @covers REQ-GAL-003@v2
 def test_a_page_holds_no_more_than_the_page_size(store):
     _fill(store, 5)
 
     assert len(store.page(limit=2).photos) == 2
 
 
-# @covers REQ-GAL-003@v1
+# @covers REQ-GAL-003@v2
 def test_a_page_of_a_long_gallery_is_not_the_whole_gallery(store):
     from mygallery import config
 
@@ -37,7 +37,7 @@ def test_a_page_of_a_long_gallery_is_not_the_whole_gallery(store):
     assert len(store.page().photos) == config.PAGE_SIZE
 
 
-# @covers REQ-GAL-003@v1
+# @covers REQ-GAL-003@v2
 def test_the_next_page_continues_where_the_previous_one_ended(store):
     _fill(store, 5)
     first_page = store.page(limit=2)
@@ -47,7 +47,7 @@ def test_the_next_page_continues_where_the_previous_one_ended(store):
     assert [p.id for p in second_page.photos] == [p.id for p in store.all()[2:4]]
 
 
-# @covers REQ-GAL-003@v1
+# @covers REQ-GAL-003@v2
 def test_a_page_reports_no_cursor_once_the_gallery_is_exhausted(store):
     _fill(store, 2)
 
@@ -57,17 +57,17 @@ def test_a_page_reports_no_cursor_once_the_gallery_is_exhausted(store):
 # --- REQ-GAL-007: the empty Gallery ------------------------------------------
 
 
-# @covers REQ-GAL-007@v1
+# @covers REQ-GAL-007@v2
 def test_an_empty_gallery_holds_no_photos(store):
     assert store.all() == []
 
 
-# @covers REQ-GAL-007@v1
+# @covers REQ-GAL-007@v2
 def test_reading_an_empty_gallery_raises_no_error(store):
     store.page()  # must not raise
 
 
-# @covers REQ-GAL-007@v1
+# @covers REQ-GAL-007@v2
 def test_a_gallery_that_cannot_be_read_reports_a_failure(gallery_dir):
     # A directory where the index file belongs. sqlite cannot open it, which is
     # what a corrupt or locked index looks like from here.

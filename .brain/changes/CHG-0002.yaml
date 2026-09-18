@@ -1,0 +1,23 @@
+id: CHG-0002
+raised: 2026-09-18
+stream: scope_change
+source: "Chat, 2026-09-18, KCB/DEV (FB-0001, ask 2)"
+raw: "Thumbnail /card on hoem need to larger and design need to change in  agood way"
+affects: [REQ-GAL-003]
+analysis:
+  dependants: [REQ-GAL-004, REQ-GAL-005, REQ-GAL-007]
+  tests_invalidated: 21
+  estimate: "Unknown until they name an observable look. \"in a good way\" is not a criterion."
+  notes: >-
+    This record is ask 2 only: the design of those Thumbnail cards needs to
+    change in a good way. variation-agent: not-covered. No agreed criterion
+    describes Gallery tile appearance. REQ-GAL-007@v1 "does not look broken"
+    is the empty Gallery only. A v2 cannot be drafted until the client
+    answers what "a good way" looks like. If accepted, REQ-GAL-003 would
+    move v1 -> v2 (or a new requirement would be added) and pins to
+    REQ-GAL-003@v1 would go stale. Ask 1 is CHG-0001. Requirement versions
+    are not moved until decision is filled.
+decision: absorbed
+commercial: "UAT 2026-09-18, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-003: v2

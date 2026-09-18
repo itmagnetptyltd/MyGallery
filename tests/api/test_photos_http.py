@@ -22,28 +22,28 @@ def _upload(client, files):
     )
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_uploading_one_photo_reports_success(client, gallery_dir):
     response = _upload(client, [("one.jpg", an_image("JPEG"))])
 
     assert response.status_code == 201
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_an_uploaded_photo_is_listed_afterwards(client, gallery_dir):
     _upload(client, [("one.jpg", an_image("JPEG"))])
 
     assert len(client.get("/api/photos").get_json()["photos"]) == 1
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_uploading_thirty_photos_in_one_request_creates_thirty_photos(client, gallery_dir):
     _upload(client, [(f"p{n}.jpg", an_image("JPEG")) for n in range(30)])
 
     assert len(client.get("/api/photos").get_json()["photos"]) == 30
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_uploading_thirty_of_which_three_are_not_images_creates_twenty_seven(
     client, gallery_dir
 ):
@@ -55,7 +55,7 @@ def test_uploading_thirty_of_which_three_are_not_images_creates_twenty_seven(
     assert len(client.get("/api/photos").get_json()["photos"]) == 27
 
 
-# @covers REQ-GAL-001@v1
+# @covers REQ-GAL-001@v2
 def test_a_batch_with_failures_names_each_failed_file(client, gallery_dir):
     files = [("good.jpg", an_image("JPEG")), ("bad.jpg", b"not an image")]
 

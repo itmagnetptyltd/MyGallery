@@ -1,0 +1,32 @@
+id: CHG-0003
+raised: 2026-09-18
+stream: scope_change
+source: "Chat, 2026-09-18, KCB/DEV (FB-0002)"
+raw: "File upload should be from a popup"
+affects: [REQ-GAL-001, REQ-GAL-007]
+analysis:
+  dependants:
+    - REQ-GAL-002
+    - REQ-GAL-003
+    - REQ-GAL-004
+    - REQ-GAL-005
+    - REQ-GAL-006
+    - REQ-GAL-008
+    - REQ-GAL-009
+    - REQ-GAL-010
+    - REQ-GAL-011
+  tests_invalidated: 16
+  estimate: "Cannot estimate from the graph. A dialog around the existing file picker is a surface change; REQ-GAL-009's failure list would need a home on that surface."
+  notes: >-
+    One ask. variation-agent: not-covered. REQ-GAL-001@v1 is what lands in
+    the Gallery, not where the picker lives. REQ-GAL-007@v1 requires that
+    an upload control is shown on an empty Gallery; it does not require a
+    popup. A popup that hid that control would put REQ-GAL-007@v1 at risk.
+    16 tests are pinned to REQ-GAL-001@v1; they go stale only if 001 is
+    versioned. REQ-GAL-007 pins are not counted here unless 007 is also
+    versioned. Versions are not moved until decision is filled.
+decision: absorbed
+commercial: "UAT 2026-09-18, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-001: v2
+  - REQ-GAL-007: v2
