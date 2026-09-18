@@ -1,0 +1,416 @@
+# MyGallery — module GAL
+#
+# Decomposed from .brain/requirements/BRIEF.md (client brief, 2026-09-18) and
+# resolved against .brain/requirements/ANSWERS.md (client answers, 2026-09-18).
+#
+# All seventeen open questions were answered. Every requirement below is at
+# `agreed` with an empty `ambiguities` list. A requirement that changes meaning
+# from here gets a new `version` and a `history` entry — it is never rewritten.
+#
+# Vocabulary is fixed by .brain/glossary.md: Photo, Gallery, Thumbnail,
+# Larger view, Upload, Download.
+
+- id: REQ-GAL-001
+  title: Uploading a Photo adds it to the Gallery
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
+    clarified by client answers 2026-09-18 (ANSWERS.md)
+  rationale: >-
+    Upload is the only way a Photo enters the application. Without it the
+    Gallery has nothing to show and every other requirement is unreachable.
+  acceptance:
+    - given: The Gallery holds no Photos
+      when: The user uploads one Photo
+      then: The Gallery holds exactly one Photo
+    - given: The Gallery already holds one Photo
+      when: The user uploads a second Photo
+      then: The Gallery holds two Photos
+    - given: A Photo has been uploaded
+      when: The Upload reports success
+      then: The uploaded Photo can be retrieved from the Gallery afterwards
+    - given: One file in each of JPEG, PNG, GIF and WebP format
+      when: Each is uploaded
+      then: Each one becomes a Photo in the Gallery
+    - given: A file in an accepted image format that is 25 MB or smaller
+      when: It is uploaded
+      then: It becomes a Photo in the Gallery
+    - given: A file in an accepted image format that is larger than 25 MB
+      when: It is uploaded
+      then: No Photo is added to the Gallery
+    - given: Thirty files in accepted image formats, selected together
+      when: They are uploaded as one Upload
+      then: Thirty Photos are in the Gallery
+    - given: Thirty selected files of which three are not in an accepted image format
+      when: They are uploaded as one Upload
+      then: The twenty-seven accepted files are in the Gallery as Photos
+    - given: The application is running on the user's PC
+      when: Its local address is opened in a web browser
+      then: The Gallery is shown without any sign-in step
+  ambiguities: []
+  belts: [A, B, C]
+
+- id: REQ-GAL-002
+  title: Every Photo carries an identifier the application issues on Upload
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
+    identifier rule from .brain/glossary.md, entry "Photo — Identified by"
+  rationale: >-
+    Deleting, downloading and showing a Larger view each name one Photo. A
+    caller-supplied filename is neither unique nor trusted, so naming a Photo
+    by it would make two Photos indistinguishable and let the caller choose
+    which Photo a request reaches.
+  acceptance:
+    - given: A Photo is being uploaded
+      when: The Upload completes
+      then: The application has issued an identifier for that Photo
+    - given: Two Photos have been uploaded under the same caller-supplied filename
+      when: Their identifiers are compared
+      then: The two identifiers differ
+    - given: A Photo with a known identifier is in the Gallery
+      when: A second Photo is uploaded
+      then: The second Photo's identifier is not the identifier of the first
+    - given: A Photo uploaded under a filename containing path separators or ".."
+      when: The location the application stored it at is inspected
+      then: The stored Photo is inside the application's Photo directory
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+  belts: [A]
+
+- id: REQ-GAL-003
+  title: The Gallery shows a Thumbnail for every Photo, newest Photo first
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
+    Thumbnail defined in .brain/glossary.md; clarified by client answers
+    2026-09-18 (ANSWERS.md)
+  rationale: >-
+    Seeing the Photos together is the client's stated reason for the
+    application. A Photo that is stored but never shown is invisible to the
+    only person who uses the system.
+  acceptance:
+    - given: Three Photos are in the Gallery
+      when: The Gallery is shown
+      then: A Thumbnail is shown for each of the three Photos
+    - given: A Photo is in the Gallery
+      when: Its Thumbnail is shown
+      then: The Thumbnail renders that Photo and not another Photo in the Gallery
+    - given: Three Photos uploaded at known and different times
+      when: The Gallery is shown
+      then: They appear in order of Upload time, most recently uploaded first
+    - given: A Photo whose stored file is several megabytes
+      when: Its Thumbnail is requested
+      then: The Thumbnail delivered is smaller in bytes than that Photo
+    - given: A Gallery holding more Photos than one screenful
+      when: The Gallery is first shown
+      then: Only part of the Gallery is loaded, and no numbered page control is shown
+    - given: A Gallery holding more Photos than have been loaded
+      when: The user scrolls to the end of what is loaded
+      then: Further Thumbnails are loaded without the user activating a page control
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+  belts: [A, B, C]
+
+- id: REQ-GAL-004
+  title: Activating a Thumbnail shows the Larger view over the Gallery
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "click one to see it larger";
+    Larger view defined in .brain/glossary.md; clarified by client answers
+    2026-09-18 (ANSWERS.md)
+  rationale: >-
+    A Thumbnail is too small to judge a Photo by. The client asked to be able
+    to go from the overview to one Photo at a usable size, and back to the
+    place in the Gallery they left.
+  acceptance:
+    - given: The Gallery shows a Thumbnail for a known Photo
+      when: The user activates that Thumbnail
+      then: The Larger view shows that same Photo
+    - given: The Larger view of a Photo is shown
+      when: Its rendered size is compared with that Photo's Thumbnail
+      then: The Photo is rendered larger than its Thumbnail
+    - given: The Larger view of a Photo is shown over the Gallery
+      when: The user presses Escape
+      then: The Larger view is no longer shown and the Gallery is shown again
+    - given: The Larger view of a Photo is shown over the Gallery
+      when: The user activates the close control
+      then: The Larger view is no longer shown and the Gallery is shown again
+    - given: The Gallery has been scrolled to a known position and a Thumbnail activated
+      when: The Larger view is closed
+      then: The Gallery is at the position it was scrolled to
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-003
+  belts: [A, B]
+
+- id: REQ-GAL-005
+  title: Deleting a Photo removes it and its Thumbnail from the Gallery
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "be able to delete and download a
+    photo"; Thumbnail removal from .brain/glossary.md, "Deleting a Photo
+    removes its Thumbnail"; clarified by client answers 2026-09-18 (ANSWERS.md)
+  rationale: >-
+    Without deletion the Gallery only grows, and a Photo the client regrets
+    uploading cannot be taken back. Deletion is the only removal the brief
+    names, and it is permanent, so the client asked to be stopped before it
+    happens by accident.
+  acceptance:
+    - given: A known Photo is in the Gallery and the user has confirmed the deletion
+      when: The user deletes that Photo
+      then: The Gallery no longer holds that Photo
+    - given: A known Photo is in the Gallery alongside two other Photos
+      when: That Photo is deleted and the deletion confirmed
+      then: Both other Photos are still in the Gallery
+    - given: A Photo has been deleted
+      when: The Gallery is shown
+      then: No Thumbnail for the deleted Photo is shown
+    - given: A known Photo is in the Gallery
+      when: The user asks to delete it
+      then: The user is asked "Are you sure you want to delete this photo?"
+    - given: The user has been asked to confirm deleting a Photo
+      when: The user declines
+      then: That Photo is still in the Gallery
+    - given: A Photo has been deleted after the user confirmed
+      when: The application's stored Photos and Thumbnails are inspected
+      then: Neither that Photo nor its Thumbnail is retained anywhere
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+    - REQ-GAL-003
+  belts: [A, B, C]
+
+- id: REQ-GAL-006
+  title: Downloading a Photo delivers the file exactly as it was uploaded
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "be able to delete and download a
+    photo"; Download defined in .brain/glossary.md; clarified by client answers
+    2026-09-18 (ANSWERS.md)
+  rationale: >-
+    The client keeps the only copy of some Photos in this application. Being
+    able to take one back out, unchanged, is what stops the Gallery from being
+    a trap.
+  acceptance:
+    - given: A known Photo is in the Gallery
+      when: The user downloads that Photo
+      then: A file is delivered to the user's machine
+    - given: A known Photo is in the Gallery alongside other Photos
+      when: The user downloads that Photo
+      then: The delivered file's content is the requested Photo, not another Photo in the Gallery
+    - given: A Photo was uploaded from a known file
+      when: That Photo is downloaded
+      then: The delivered file is byte-for-byte identical to the file that was uploaded
+    - given: A Photo was uploaded from a file named IMG_1234.jpg
+      when: That Photo is downloaded
+      then: The delivered file is named IMG_1234.jpg
+    - given: A Photo whose uploaded filename cannot be used as delivered
+      when: That Photo is downloaded
+      then: The delivered file's name ends in the extension of that Photo's image format
+    - given: No Photo with the requested identifier is in the Gallery
+      when: A Download of that identifier is attempted
+      then: No file is delivered and the request does not report success
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+  belts: [A, B, C]
+
+- id: REQ-GAL-007
+  title: A Gallery holding no Photos says so, and does not look broken
+  module: GAL
+  priority: should
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery" — the
+    case of no Photos, which the brief does not mention; clarified by client
+    answers 2026-09-18 (ANSWERS.md)
+  rationale: >-
+    The empty Gallery is the first thing the client sees on the first run. An
+    empty screen that looks like a crash makes a working application look
+    broken before a single Photo is uploaded.
+  acceptance:
+    - given: No Photo has been uploaded
+      when: The Gallery is shown
+      then: No Thumbnail is shown
+    - given: No Photo has been uploaded
+      when: The Gallery is shown
+      then: The application reports no error
+    - given: No Photo has been uploaded
+      when: The Gallery is shown
+      then: A message stating that there are no Photos yet is shown
+    - given: No Photo has been uploaded
+      when: The Gallery is shown
+      then: The control for uploading a Photo is shown
+    - given: The Gallery cannot be read
+      when: The Gallery is shown
+      then: An error is reported, and the no-Photos-yet message is not shown
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-003
+  belts: [A, B]
+
+- id: REQ-GAL-008
+  title: A Photo stays in the Gallery until it is deleted, including across restarts
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clauses "see them in a gallery" and "be
+    able to delete and download a photo" read together — deletion is the only
+    removal the brief names; clarified by client answers 2026-09-18 (ANSWERS.md)
+  rationale: >-
+    A Photo that disappears without the user deleting it is data loss, and the
+    user has no way to tell it happened. The client keeps Photos here across
+    days and machine restarts, and wants to be able to back them up themselves.
+  acceptance:
+    - given: A Photo has been uploaded and not deleted
+      when: The Gallery is shown again later in the same run of the application
+      then: That Photo is still in the Gallery
+    - given: Two Photos have been uploaded and one of them deleted
+      when: The Gallery is shown
+      then: The Photo that was not deleted is still in the Gallery
+    - given: A Photo has been uploaded and not deleted
+      when: The application is stopped and started again
+      then: That Photo is still in the Gallery
+    - given: A Photo has been uploaded
+      when: The application's storage location is inspected with an ordinary file browser
+      then: That Photo is present there as a file the user can copy
+    - given: A Photo has been deleted after the user confirmed
+      when: The application is stopped and started again
+      then: That Photo is not in the Gallery
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+    - REQ-GAL-005
+  belts: [A]
+
+- id: REQ-GAL-009
+  title: A file that fails to upload leaves nothing behind and is reported
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos" — the
+    failing case, which the brief does not mention; clarified by client answers
+    2026-09-18 (ANSWERS.md)
+  rationale: >-
+    A Photo that is half-written still appears in the Gallery and cannot be
+    viewed or downloaded. The user reads that as the application having
+    corrupted their Photo. When a batch is uploaded the user cannot tell by
+    counting which files went in, so the application has to say.
+  acceptance:
+    - given: An Upload of one file is interrupted before it completes
+      when: The Gallery is shown afterwards
+      then: No Photo from that file is in the Gallery
+    - given: An Upload of one file is interrupted before it completes
+      when: The Photos the application has stored are inspected
+      then: No partial content from that file is retained
+    - given: Thirty selected files of which three cannot be uploaded
+      when: They are uploaded as one Upload
+      then: The twenty-seven that succeeded are in the Gallery as Photos
+    - given: Thirty selected files of which three cannot be uploaded
+      when: They are uploaded as one Upload
+      then: Each of the three failed files is named to the user
+    - given: A file that fails to upload
+      when: The failure is reported
+      then: A reason for that file's failure is shown alongside its name
+    - given: A file larger than the 25 MB limit
+      when: It is uploaded
+      then: The reason shown states that the file is too large and names the 25 MB limit
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+  belts: [A, B, C]
+
+- id: REQ-GAL-010
+  title: Content that is not an accepted image format does not become a Photo
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos"; Photo
+    defined in .brain/glossary.md as "one image the user has uploaded";
+    clarified by client answers 2026-09-18 (ANSWERS.md)
+  rationale: >-
+    The Gallery is defined as a set of Photos. Storing and then serving back
+    content that is not an image puts something in the Gallery that cannot be
+    shown, and hands the user's machine whatever was uploaded instead. The
+    client asked for unsupported content to be refused rather than guessed at.
+  acceptance:
+    - given: Content that is not in an accepted image format
+      when: It is uploaded
+      then: No Photo is added to the Gallery
+    - given: Content that is not in an accepted image format
+      when: It is uploaded
+      then: The Upload does not report success
+    - given: Content renamed to carry the extension of an accepted image format but not in that format
+      when: It is uploaded
+      then: No Photo is added to the Gallery
+    - given: A file in HEIC or a camera RAW format
+      when: It is uploaded
+      then: No Photo is added to the Gallery
+    - given: Content that is not in an accepted image format
+      when: The refusal is reported
+      then: The reason shown states that the file is not a supported image type
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+  belts: [A, C]
+
+- id: REQ-GAL-011
+  title: The application starts on the client's PC by following its written start steps
+  module: GAL
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief 2026-09-18, BRIEF.md; clause "Keep it easy to run on my PC";
+    clarified by client answers 2026-09-18 (ANSWERS.md)
+  rationale: >-
+    The client runs this themselves on Windows 11 and has not said they have a
+    development environment. An application they cannot start is worth nothing
+    to them, however well it works elsewhere. It holds their only copy of some
+    Photos and is never meant to leave the machine.
+  acceptance:
+    - given: A Windows 11 PC with the one named prerequisite installed, and a copy of the application
+      when: The documented start steps are followed in order
+      then: The Gallery is displayed in a web browser
+    - given: The project's start instructions
+      when: They are followed by someone who has not worked on the project
+      then: Reaching a displayed Gallery needs no step absent from those instructions
+    - given: The project's start instructions
+      when: The software they require to be installed is counted
+      then: At most one prerequisite must be installed before the application will start
+    - given: The one named prerequisite is installed
+      when: The application is started
+      then: Starting it takes a single command or a single file to open
+    - given: The application is running on the user's PC
+      when: A connection is attempted from another device on the same network
+      then: The connection is refused
+  ambiguities: []
+  belts: [A, B]
