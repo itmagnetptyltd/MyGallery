@@ -12,6 +12,13 @@ const sentinel = document.querySelector('[data-testid="scroll-sentinel"]');
 const largerView = document.querySelector('[data-testid="larger-view"]');
 const largerViewPhoto = document.querySelector('[data-testid="larger-view-photo"]');
 const largerViewClose = document.querySelector('[data-testid="larger-view-close"]');
+const deletePhoto = document.querySelector('[data-testid="delete-photo"]');
+const deleteConfirmation = document.querySelector('[data-testid="delete-confirmation"]');
+const deleteConfirm = document.querySelector('[data-testid="delete-confirm"]');
+const deleteDecline = document.querySelector('[data-testid="delete-decline"]');
+
+// The Photo the Larger view is currently showing — what Delete acts on.
+let openPhotoId = null;
 
 let nextCursor = null;
 let loading = false;
@@ -90,12 +97,33 @@ gallery.addEventListener('click', (event) => {
   largerViewPhoto.src = `/api/photos/${tile.dataset.photoId}`;
   largerViewPhoto.alt = tile.dataset.filename;
   largerViewPhoto.dataset.filename = tile.dataset.filename;
+  openPhotoId = tile.dataset.photoId;
   largerView.showModal();
 });
 
 // Escape is handled by <dialog> itself; this is the close control.
 largerViewClose.addEventListener('click', () => {
   largerView.close();
+});
+
+// REQ-GAL-005. Asking is not deleting: nothing is removed until confirmed.
+deletePhoto.addEventListener('click', () => {
+  deleteConfirmation.showModal();
+});
+
+deleteDecline.addEventListener('click', () => {
+  deleteConfirmation.close();
+});
+
+deleteConfirm.addEventListener('click', () => {
+  void (async () => {
+    await fetch(`/api/photos/${openPhotoId}`, { method: 'DELETE' });
+    deleteConfirmation.close();
+    largerView.close();
+    openPhotoId = null;
+    nextCursor = null;
+    await loadPage({ reset: true });
+  })();
 });
 
 input.addEventListener('change', (event) => {
