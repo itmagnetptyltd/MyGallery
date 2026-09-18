@@ -39,6 +39,22 @@
       <div class="sentinel" data-testid="scroll-sentinel"></div>
     </main>
 
+    <!-- REQ-GAL-004: the Larger view sits over the Gallery. A native <dialog>
+         opened with showModal() gives Escape-to-close, a focus trap and a
+         backdrop without any of it being written here, and because it does not
+         navigate, the Gallery keeps its scroll position underneath. -->
+    <dialog class="larger-view" data-testid="larger-view" aria-label="Photo">
+      <button
+        type="button"
+        class="larger-view-close"
+        data-testid="larger-view-close"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <img class="larger-view-photo" data-testid="larger-view-photo" alt="" />
+    </dialog>
+
     <!-- External, not inline: slice 1 set default-src 'self', which forbids
          an inline script. An inline handler would silently not run. -->
     <script src="{{ url_for('static', filename='app.js') }}"></script>

@@ -53,3 +53,10 @@ EXTENSION_FOR_FORMAT = {
     "GIF": ".gif",
     "WEBP": ".webp",
 }
+
+MEDIA_TYPE_FOR_FORMAT = {
+    "JPEG": "image/jpeg",
+    "PNG": "image/png",
+    "GIF": "image/gif",
+    "WEBP": "image/webp",
+}

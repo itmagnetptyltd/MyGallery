@@ -2,6 +2,7 @@
 
 from flask import Blueprint, Response, jsonify, request
 
+from mygallery import config
 from mygallery.photos import thumbnails
 from mygallery.photos.store import GalleryUnreadable, PhotoStore
 from mygallery.photos.validation import validate_upload
@@ -63,6 +64,28 @@ def list_photos():
             "nextCursor": page.next_cursor,
         }
     )
+
+
+@api.get("/photos/<photo_id>")
+def photo(photo_id: str):
+    """The Photo itself, as stored.
+
+    REQ-GAL-004: the Larger view shows the Photo, not an upscaled Thumbnail.
+    REQ-GAL-006 (Download) serves these same bytes and differs only by
+    Content-Disposition and the filename — extend this rather than duplicating
+    the read.
+    """
+    store = PhotoStore.open()
+    record = store.get(photo_id)
+    if record is None:
+        return jsonify({"error": "No such Photo."}), 404
+    try:
+        content = store.read_bytes(photo_id)
+    except (KeyError, FileNotFoundError):
+        return jsonify({"error": "No such Photo."}), 404
+
+    media_type = config.MEDIA_TYPE_FOR_FORMAT.get(record.format, "application/octet-stream")
+    return Response(content, mimetype=media_type)
 
 
 @api.get("/photos/<photo_id>/thumbnail")

@@ -9,6 +9,9 @@ const gallery = document.querySelector('[data-testid="gallery"]');
 const empty = document.querySelector('[data-testid="empty-gallery"]');
 const errorMessage = document.querySelector('[data-testid="gallery-error"]');
 const sentinel = document.querySelector('[data-testid="scroll-sentinel"]');
+const largerView = document.querySelector('[data-testid="larger-view"]');
+const largerViewPhoto = document.querySelector('[data-testid="larger-view-photo"]');
+const largerViewClose = document.querySelector('[data-testid="larger-view-close"]');
 
 let nextCursor = null;
 let loading = false;
@@ -23,6 +26,7 @@ function tileFor(photo) {
   tile.alt = photo.filename;
   tile.dataset.testid = 'thumbnail';
   tile.dataset.filename = photo.filename;
+  tile.dataset.photoId = photo.id;
   return tile;
 }
 
@@ -76,6 +80,23 @@ async function upload(files) {
   nextCursor = null;
   await loadPage({ reset: true });
 }
+
+// REQ-GAL-004. Delegated, because tiles arrive as the user scrolls.
+gallery.addEventListener('click', (event) => {
+  const tile = event.target.closest('[data-testid="thumbnail"]');
+  if (!tile) {
+    return;
+  }
+  largerViewPhoto.src = `/api/photos/${tile.dataset.photoId}`;
+  largerViewPhoto.alt = tile.dataset.filename;
+  largerViewPhoto.dataset.filename = tile.dataset.filename;
+  largerView.showModal();
+});
+
+// Escape is handled by <dialog> itself; this is the close control.
+largerViewClose.addEventListener('click', () => {
+  largerView.close();
+});
 
 input.addEventListener('change', (event) => {
   if (event.target.files.length > 0) {

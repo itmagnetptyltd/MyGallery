@@ -107,3 +107,54 @@ main {
 .sentinel {
   height: 1px;
 }
+
+.larger-view {
+  max-width: min(92vw, 1400px);
+  max-height: 92vh;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: var(--bar);
+  overflow: visible;
+}
+
+.larger-view::backdrop {
+  background: rgb(0 0 0 / 72%);
+}
+
+.larger-view-photo {
+  display: block;
+  max-width: min(92vw, 1400px);
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+}
+
+.larger-view-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bar);
+  color: var(--fg);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.larger-view-close:hover {
+  background: var(--bg);
+}
+
+.larger-view-close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.tile {
+  cursor: pointer;
+}
