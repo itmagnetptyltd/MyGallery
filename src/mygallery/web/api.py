@@ -1,6 +1,7 @@
 """The JSON endpoints the Gallery page talks to."""
 
 import io
+import sqlite3
 
 from flask import Blueprint, Response, jsonify, request, send_file
 
@@ -34,11 +35,22 @@ def upload_photos():
                 }
             )
             continue
-        photo = store.save(
-            filename=upload.filename or "",
-            content=content,
-            image_format=result.image_format or "JPEG",
-        )
+        try:
+            photo = store.save(
+                filename=upload.filename or "",
+                content=content,
+                image_format=result.image_format or "JPEG",
+            )
+        except (OSError, sqlite3.Error):
+            # REQ-GAL-009: this file failed; the rest of the batch still runs.
+            # The client's wording for a failure that is not a type or a size.
+            refused.append(
+                {
+                    "filename": upload.filename,
+                    "reason": "upload failed, please try again",
+                }
+            )
+            continue
         stored.append(_as_json(photo))
 
     # Nothing got in: the Upload did not succeed. Some got in: it did, and the
