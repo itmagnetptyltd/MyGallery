@@ -69,12 +69,28 @@ problem. Three routes, none applied:
    `review-change.js` resolves to something. This is the route the gate was
    designed for, and the only one that makes G7 do its job rather than merely
    stop failing.
-2. **Declare the belt-C integration command.** `integrationDeclared` is false
-   because no adapter manifest exists yet. Under ADR-0001 the python adapter
-   supplies `pytest -q -m integration`; it needs a `pyproject.toml` to be
-   detected, and needs to exit clean over an empty belt-C set until slice 2
-   writes the first belt-C test. This clears `integration=missing` but does
+2. **Declare the belt-C integration command.** Under ADR-0001 the python
+   adapter supplies `pytest -q -m integration`. Slice 1 landed the
+   `pyproject.toml` that makes the adapter detectable and registered the
+   `integration` marker in it, which clears `integration=missing`. It does
    **not** on its own clear a `not-configured` G7.
+
+   **Measured 2026-09-18, after slice 1:** that command exits **5**, not 0.
+
+   ```
+   $ .venv/Scripts/python.exe -m pytest -q -m integration
+   19 deselected in 0.02s
+   EXIT: 5
+   ```
+
+   5 is pytest's `EXIT_NOTESTSCOLLECTED`, and belt C has no tests until slice 2
+   writes them. So the command the gate is told to run reports failure for a
+   suite that is simply empty. This was written into the slice 1 plan as an
+   expectation to verify; it is now verified, and it is unfixed.
+
+   The fix is a wrapper that treats exit 5 as success — **not** a placeholder
+   integration test. A test that cannot fail is worse than no test, because it
+   makes the gate report a belt that is not being exercised.
 3. **Run the reviewer locally before pushing**, per `/verifyReq` step 4c:
    `review-change.js --base main --head HEAD --requirements REQ-...`. A local
    machine usually does have a `claude` binary. This gets the review done but

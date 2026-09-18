@@ -5,7 +5,10 @@
 - **Source:** measured on this repository, 2026-09-18 —
   `node .claude/itm-sdlc/scripts/check-traceability.js --project . --strict`;
   adapter detection rules in `.claude/itm-sdlc/adapters/python.json`
-- **Affects:** `.github/workflows/gates.yml` (G3), `/verifyReq`, `pyproject.toml` (absent)
+- **Affects:** `.github/workflows/gates.yml` (G3), `/verifyReq`, `pyproject.toml`
+- **Status:** **cleared by slice 1, pending merge.** Delete this file at the
+  first checkpoint after `feat/gal-boot` reaches `main`. Still true of `main`
+  itself, which has no `pyproject.toml` until that merge lands.
 
 ## The constraint
 
@@ -53,11 +56,24 @@ Until a `pyproject.toml` exists, **read `adapters` and `scanned` before trusting
 the verdict.** A G3 pass whose `scanned` count is 0 carries no information, and
 must not be cited as evidence that requirements are covered.
 
-Creating `pyproject.toml` in slice 1 (ADR-0001) resolves this: the python adapter
-will then match, `tests/` and `e2e/` will be scanned, and G3's pass or fail will
-mean something. **Delete this file once that has happened and the re-measured
-output shows a non-zero `scanned` count** — leaving it in place afterwards would
-cast doubt on a gate that had started working.
+Slice 1 created `pyproject.toml`, and the re-measured output on
+`feat/gal-boot` is no longer vacuous:
+
+```
+$ node .claude/itm-sdlc/scripts/check-traceability.js --project . --strict
+  adapters   python
+  scanned    7 test file(s), 16 annotation(s)
+  coverage   1/1 requirement(s) at 'in_progress' or beyond are annotated
+  0 orphan(s), 0 warning(s)  |  mode: strict
+  PASS
+```
+
+**That is true of `feat/gal-boot`, not of `main`.** `main` is still at the
+toolkit install commit and has no `pyproject.toml`, so a G3 run there would
+still scan nothing and still report PASS. The file therefore stays until slice 1
+merges — deleting it now would claim `main` was fixed by a branch nobody has
+accepted yet. Delete it at the first checkpoint after that merge, and leave it
+in place if slice 1 is rejected.
 
 The same trap applies to any future language added to this project before its
 manifest lands, which is why the review-by date is three months rather than the
