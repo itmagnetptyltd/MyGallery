@@ -75,7 +75,24 @@ problem. Three routes, none applied:
    `integration` marker in it, which clears `integration=missing`. It does
    **not** on its own clear a `not-configured` G7.
 
-   **Measured 2026-09-18, after slice 1:** that command exits **5**, not 0.
+   **Measured 2026-09-18, after slice 1:** that command exited **5**, not 0.
+
+   **Resolved 2026-09-18, by slice 2.** Belt C now has tests, so the command
+   collects and passes:
+
+   ```
+   $ .venv/Scripts/python.exe -m pytest -q -m integration
+   16 passed, 64 deselected
+   EXIT: 0
+   ```
+
+   The exit-5 hazard is gone as long as at least one belt-C test exists, which
+   from here on it always will. No wrapper was written, and none is needed
+   unless belt C is ever emptied again. The rest of this constraint still
+   stands: a collecting integration command does not make G7 resolve a
+   reviewer.
+
+   The original finding, for the record:
 
    ```
    $ .venv/Scripts/python.exe -m pytest -q -m integration
