@@ -49,21 +49,60 @@ they diverge, that divergence is itself worth writing down.
 
 ## Agreed terms
 
-**Engagement** — a single piece of contracted work for one customer, from
-acceptance through to invoicing.
-- **Not to be confused with:** a *Visit*. One Engagement may need several Visits.
-- **Also called:** the client says "job" in operations and "booking" in the
-  customer app. Both mean Engagement. Neither word appears in our code.
-- **Identified by:** its Engagement reference, issued at acceptance.
+All terms below are settled. The client answered every open question on
+2026-09-18; their words are in `requirements/ANSWERS.md`.
 
-_Replace the example above with this project's real terms. Delete this line._
+**Photo** — one image the user has uploaded to this application.
+- **Not to be confused with:** a *Thumbnail*, which is a rendering of a Photo,
+  not a Photo in its own right. Deleting a Photo removes its Thumbnail; there is
+  no way to delete a Thumbnail alone.
+- **Also called:** the client says "photo" throughout the brief. Not "image",
+  "file", "picture" or "asset" — none of those words appear in our code.
+- **Identified by:** an identifier the application issues on Upload. Not the
+  caller-supplied filename, which is not unique and is not trusted.
+
+**Accepted image format** — JPEG, PNG, GIF or WebP. Nothing else is a Photo.
+HEIC and camera RAW are explicitly excluded, and unsupported content is refused
+rather than converted or guessed at.
+- **Identified by:** the content of the file, not its extension. A file renamed
+  to `.jpg` is not a JPEG.
+
+**Gallery** — the complete set of Photos the application shows. Singular: there
+is one Gallery in this application, belonging to the one person who uses it.
+- **Not to be confused with:** an *album* or a *collection*. The brief describes
+  no grouping of Photos below the Gallery, and none may be invented.
+- **Ordered by:** Upload time, most recently uploaded Photo first.
+
+**Thumbnail** — the small rendering of a Photo shown in the Gallery, stored
+separately from the Photo and smaller than it, so that opening the Gallery does
+not transfer full-size Photos.
+
+**Larger view** — the Photo shown bigger after the user activates its Thumbnail,
+displayed **over** the Gallery and dismissed with Escape or a close control,
+returning to the same place in the Gallery. It is not a separate page and has no
+address of its own.
+
+**Upload** — the act of adding one or more Photos to the Gallery. One Upload may
+carry a batch of files; each file in it succeeds or fails on its own.
+
+**Download** — the act of retrieving a Photo as a file onto the user's machine.
+Always the Photo exactly as it was uploaded, byte for byte, under its original
+filename — never the Thumbnail.
+
+**Delete** — the act of removing a Photo and its Thumbnail from the Gallery.
+Permanent: there is no recycle bin and nothing is recoverable. The user is
+asked to confirm before it happens.
+
+**The user** — the one person who uses MyGallery, on their own Windows 11 PC.
+There is no sign-in, no account, and no second user. The application is reached
+in a web browser on that PC only, and refuses connections from other devices.
 
 ---
 
 ## Appears in source documents, not yet defined
 
-List terms the client has used without settling what they mean. Being listed here
-makes clear their absence is known, not overlooked. Each one should have a
-matching question in `requirements/AMBIGUITIES.md`.
+Nothing. Every term the brief used without settling is defined above.
 
-- _(none yet)_
+A term used in a future requirement but not defined here is an **ambiguity**,
+not a decision anyone may make on the client's behalf. Add it here, add the
+matching question to `requirements/AMBIGUITIES.md`, and ask.

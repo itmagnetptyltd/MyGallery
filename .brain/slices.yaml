@@ -27,3 +27,39 @@
 #   branch: feat/grid
 #   why: The home page renders stored items — order, pagination, empty state
 #   covers: [REQ-EXAMPLE-001]
+
+- id: 1
+  name: Boot
+  branch: feat/gal-boot
+  why: "One command on Windows 11 starts MyGallery and a browser on that PC reaches it, while another device on the network cannot"
+  covers: [REQ-GAL-011]
+
+- id: 2
+  name: Upload and Gallery
+  branch: feat/gal-upload-gallery
+  why: "An empty Gallery says so, a batch of photos uploads, non-images are refused, and the accepted ones appear as thumbnails newest first"
+  covers: [REQ-GAL-001, REQ-GAL-002, REQ-GAL-003, REQ-GAL-007, REQ-GAL-010]
+
+- id: 3
+  name: Larger view
+  branch: feat/gal-larger-view
+  why: "Clicking a thumbnail opens the photo over the Gallery, Escape or the close control returns to the same scroll position"
+  covers: [REQ-GAL-004]
+
+- id: 4
+  name: Delete and durability
+  branch: feat/gal-delete
+  why: "Deleting asks first, declining keeps the photo, confirming removes it and its thumbnail for good, and everything undeleted survives a restart"
+  covers: [REQ-GAL-005, REQ-GAL-008]
+
+- id: 5
+  name: Download
+  branch: feat/gal-download
+  why: "Downloading a photo returns the exact file that was uploaded, byte for byte, under its original filename"
+  covers: [REQ-GAL-006]
+
+- id: 6
+  name: Upload failure reporting
+  branch: feat/gal-upload-failures
+  why: "A batch of thirty with three bad files keeps the twenty-seven, names each failure with a plain-words reason, and leaves no partial file behind"
+  covers: [REQ-GAL-009]
