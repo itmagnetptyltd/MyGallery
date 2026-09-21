@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "2b3f156b0a5be11bbba1e7cb3d1190333607e7bb",
+  "commit": "ddc7a69798dc4d4ae0ce5cbb8f1be8288700032c",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T08:34:25.043Z",
+  "installedAt": "2026-09-21T08:38:59.309Z",
   "modules": [
     "GAL"
   ],
@@ -220,7 +220,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "d8be7e4dd10a96c924e30e8379c76a6565e1800123290b43d58f3a446ca2a2e0",
+      "sha256": "f8e4f8dd7c18fe657dba209faaaa8bc3c2ab1ac82b3d372c13db2c8e99fd7b5f",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {

@@ -456,7 +456,7 @@ function renderHtml(data) {
   }
   .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 8px 0; line-height: 1.6; }
   .bar-label { font-size: 12px; color: var(--muted); line-height: 1.6; }
-  .bar { height: 16px; background: #e7dfd2; border-radius: 99px; overflow: hidden; }
+  .bar { height: 21px; background: #e7dfd2; border-radius: 99px; overflow: hidden; }
   .bar i { display: block; height: 100%; border-radius: inherit; }
   .bar i.draft { background: var(--draft); }
   .bar i.agreed { background: var(--agreed); }
