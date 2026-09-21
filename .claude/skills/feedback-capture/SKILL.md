@@ -84,3 +84,8 @@ concerns is hard to act on and easy to lose.
   queue. That is what `sentiment` is for.
 - Capture even when you disagree. Especially then.
 - Work on a branch. `.brain/` reaches `main` through a reviewed pull request.
+
+## Then
+
+Next: `/find-variation` on this FB.
+Lost? `/help`

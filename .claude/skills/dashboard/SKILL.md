@@ -7,7 +7,8 @@ allowed-tools: Read, Grep, Glob, Bash
 # dashboard
 
 Builds an HTML overview from the project files and opens it in the browser.
-**No database.** Read-only.
+**No database.** Read-only. Four tabs: Requirements, Task Sequence, Records,
+Working (`/note` + files in `.brain/docs/ref/`).
 
 ## Before running a vendored script
 
@@ -73,3 +74,7 @@ Those two files are also rewritten by the dashboard hook after a real project ed
 - The path of the file that opened
 
 Do not edit `.brain/`.
+
+## Then
+
+For the one command to type, `/help` is shorter than this page.

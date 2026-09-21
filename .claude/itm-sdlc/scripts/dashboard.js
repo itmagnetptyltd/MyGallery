@@ -19,6 +19,7 @@ const {
 } = require("./lib/requirements");
 const { computeReport } = require("./client-report");
 const { readSlices } = require("./lib/slices");
+const { listNotes, listRefs, parsePromptLog } = require("./lib/working");
 
 const EXIT_OK = 0;
 const EXIT_TOOL_ERROR = 2;
@@ -42,9 +43,7 @@ function listNamed(projectRoot, dir, prefix) {
 }
 
 function promptCount(projectRoot) {
-  const file = path.join(projectRoot, ".claude", "prompt-changes.md");
-  if (!fs.existsSync(file)) return 0;
-  return (fs.readFileSync(file, "utf8").match(/^## /gm) || []).length;
+  return parsePromptLog(projectRoot).length;
 }
 
 function collect(projectRoot) {
@@ -85,6 +84,8 @@ function collect(projectRoot) {
       decisions: listNamed(projectRoot, ".brain/decisions", "ADR-").length,
       versioned: versioned.length,
       prompts: promptCount(projectRoot),
+      notes: listNotes(projectRoot).length,
+      refs: listRefs(projectRoot).length,
       openQuestions: matrix.rows.reduce(
         (n, row) => n + row.openQuestions.length,
         0,
@@ -93,6 +94,9 @@ function collect(projectRoot) {
     changes: listNamed(projectRoot, ".brain/changes", "CHG-"),
     feedback: listNamed(projectRoot, ".brain/feedback", "FB-"),
     decisions: listNamed(projectRoot, ".brain/decisions", "ADR-"),
+    notes: listNotes(projectRoot),
+    refs: listRefs(projectRoot),
+    prompts: parsePromptLog(projectRoot),
     history,
   };
 }
@@ -252,6 +256,35 @@ function renderHtml(data) {
 
   const stat = (n, label, extra = "") =>
     `<div class="stat${extra}"><b>${n}</b><span>${label}</span></div>`;
+
+  const noteItems = (data.notes || [])
+    .map((n) => {
+      const files = (n.files || []).length
+        ? `<p class="note-files">${n.files
+            .map((f) => `<code>${escapeHtml(f)}</code>`)
+            .join(" ")}</p>`
+        : "";
+      return `<li class="note"><code>${escapeHtml(n.id)}</code><div><p>${escapeHtml(n.text)}</p>${files}</div></li>`;
+    })
+    .join("");
+
+  const promptItems = (data.prompts || [])
+    .map(
+      (p) =>
+        `<li class="note"><span class="ver">${escapeHtml(formatStamp(p.at) === p.at ? p.at : formatStamp(p.at))}</span><div><p>${escapeHtml(p.text)}</p></div></li>`,
+    )
+    .join("");
+
+  const refRows = (data.refs || [])
+    .map((r) => {
+      const href = `../../${escapeHtml(r.path)}`;
+      const icon =
+        r.kind === "image"
+          ? `<img class="thumb" data-kind="image" src="${href}" alt="">`
+          : `<span class="file-icon" data-kind="${escapeHtml(r.kind)}" aria-hidden="true"></span>`;
+      return `<tr><td>${escapeHtml(r.serial)}</td><td class="file-cell">${icon}<a href="${href}">${escapeHtml(r.filename)}</a></td><td>${escapeHtml(r.type)}</td></tr>`;
+    })
+    .join("");
 
   return `<!doctype html>
 <html lang="en">
@@ -413,9 +446,13 @@ function renderHtml(data) {
     header { padding-left: 1rem; padding-right: 1rem; }
     main { width: 94vw; }
   }
-  .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 7px 0; }
-  .bar-label { font-size: 12px; color: var(--muted); }
-  .bar { height: 7px; background: #e7dfd2; border-radius: 99px; overflow: hidden; }
+  .status-chart {
+    max-height: 125px;
+    overflow: auto;
+  }
+  .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 8px 0; line-height: 1.6; }
+  .bar-label { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .bar { height: 16px; background: #e7dfd2; border-radius: 99px; overflow: hidden; }
   .bar i { display: block; height: 100%; border-radius: inherit; }
   .bar i.draft { background: var(--draft); }
   .bar i.agreed { background: var(--agreed); }
@@ -460,6 +497,10 @@ function renderHtml(data) {
     border-radius: 8px;
     background: var(--card);
     min-height: min(42vh, 28rem);
+  }
+  .tab-panel[data-panel="reqs"] .table-wrap {
+    max-height: 125px;
+    min-height: 0;
   }
   .paged { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
   .pager {
@@ -546,6 +587,65 @@ function renderHtml(data) {
   .hist p { margin: 2px 0 0; color: #44403c; text-wrap: pretty; }
   .ver { color: var(--muted); font-size: 12px; }
   .empty { color: var(--muted); margin: 0; }
+  .note {
+    display: grid;
+    grid-template-columns: 6.2rem 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .note p { margin: 0; text-wrap: pretty; }
+  .note-files { margin-top: 4px; }
+  .file-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .thumb {
+    width: 22px;
+    height: 22px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .file-icon {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: inline-block;
+    position: relative;
+    border: 1.5px solid var(--muted);
+    border-radius: 3px;
+    background: #fff;
+  }
+  .file-icon[data-kind="pdf"] { border-color: #b3261e; }
+  .file-icon[data-kind="pdf"]::after {
+    content: "P";
+    position: absolute;
+    inset: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: #b3261e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .file-icon[data-kind="text"]::after {
+    content: "";
+    position: absolute;
+    left: 4px; right: 4px; top: 5px;
+    border-top: 1.5px solid var(--muted);
+    box-shadow: 0 4px 0 var(--muted), 0 8px 0 var(--muted);
+    height: 0;
+  }
+  .file-icon[data-kind="file"]::after {
+    content: "";
+    position: absolute;
+    left: 5px; right: 5px; top: 6px; bottom: 6px;
+    border: 1.5px solid var(--muted);
+  }
+  table.refs .file-cell a { color: inherit; }
 </style>
 </head>
 <body>
@@ -568,13 +668,14 @@ function renderHtml(data) {
     <button type="button" role="tab" class="tab on" data-tab="reqs" aria-selected="true">Requirements <b>${data.counts.requirements}</b></button>
     <button type="button" role="tab" class="tab" data-tab="slices" aria-selected="false">Task Sequence <b>${slices.slices.length}</b></button>
     <button type="button" role="tab" class="tab" data-tab="records" aria-selected="false">Records <b>${data.counts.feedback + data.counts.decisions + data.counts.changes}</b></button>
+    <button type="button" role="tab" class="tab" data-tab="working" aria-selected="false">Working <b>${(data.counts.notes || 0) + (data.counts.refs || 0)}</b></button>
   </div>
 
   <div class="board">
     <div class="board-main">
       <section class="tab-panel grow" data-panel="reqs" role="tabpanel">
         <div class="split">
-          <section>
+          <section class="status-chart">
             <h2>Status</h2>
             ${bars}
           </section>
@@ -626,6 +727,23 @@ function renderHtml(data) {
             ${list(highestFirst(data.changes), "None yet.", 8)}
           </section>
         </div>
+      </section>
+
+      <section class="tab-panel" data-panel="working" role="tabpanel" hidden>
+        <h2>Working notes <span class="count">${data.counts.notes || 0}</span></h2>
+        <p class="empty-note">Polish and screenshots. Not a requirement. Saved with <code>/note</code>.</p>
+        <ul class="records">${noteItems || '<li class="empty">None yet.</li>'}</ul>
+        <h2 class="spaced">Reference files <span class="count">${data.counts.refs || 0}</span></h2>
+        <p class="empty-note">Kept in <code>.brain/docs/ref/</code>.</p>
+        <div class="table-wrap">
+          <table class="refs">
+            <thead><tr><th>Serial</th><th>Filename</th><th>Type</th></tr></thead>
+            <tbody>${refRows || '<tr><td colspan="3">None yet.</td></tr>'}</tbody>
+          </table>
+        </div>
+        <h2 class="spaced">Logged prompts <span class="count">${data.counts.prompts}</span></h2>
+        <p class="empty-note">Chat that changed files. From the prompt hook, not the brain.</p>
+        <ul class="records">${promptItems || '<li class="empty">None yet.</li>'}</ul>
       </section>
     </div>
   </div>

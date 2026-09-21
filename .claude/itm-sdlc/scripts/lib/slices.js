@@ -138,19 +138,38 @@ function stateOf(statuses) {
  * What to type next. The dashboard was showing In progress with no instruction,
  * so people finished /tdd and did not know the slice was not Done.
  */
-function nextAction(slice) {
+function unfinishedIds(slice) {
+  if (!Array.isArray(slice.members)) return [];
+  return slice.members
+    .filter(
+      (m) => !m.missing && m.status !== "verified" && m.status !== "signed_off",
+    )
+    .map((m) => m.id);
+}
+
+function nextAction(slice, previous) {
   if (slice.missing.length > 0) {
     return `${slice.missing.join(", ")} not in the requirement record.`;
   }
   const remaining = slice.total - slice.doneCount;
+  const ids = unfinishedIds(slice);
+  const named = ids.length ? ids.join(", ") : "";
   switch (slice.state) {
     case "blocked":
-      return "Agree remaining drafts. /tdd refuses draft.";
+      return named
+        ? `${named} still draft. Answer in ANSWERS.md, then /resolve-ambiguities.`
+        : "Agree remaining drafts. /tdd refuses draft.";
     case "done":
       return "Done. Next slice may start.";
     case "not_started":
-      return "/feature-plan then /tdd. Previous slice must be Done.";
+      if (previous && previous.state !== "done") {
+        return `Wait. Finish slice ${previous.id} first.`;
+      }
+      return "/feature-plan then /tdd.";
     case "in_progress":
+      if (named) {
+        return `/tdd ${named}, then /close-slice. Not Done until ${remaining} more are verified.`;
+      }
       return `/tdd the remaining ${remaining} id(s), then /close-slice. Not Done until ${remaining} more are verified.`;
     default:
       return "";
@@ -189,8 +208,10 @@ function computeSlices(requirements, loaded) {
       doneCount,
       total: members.length,
     };
-    built.next = nextAction(built);
     return built;
+  });
+  slices.forEach((slice, index) => {
+    slice.next = nextAction(slice, index > 0 ? slices[index - 1] : null);
   });
 
   const unplanned = requirements
@@ -234,4 +255,5 @@ module.exports = {
   readSlices,
   stateOf,
   nextAction,
+  unfinishedIds,
 };

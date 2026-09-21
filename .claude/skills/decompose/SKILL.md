@@ -170,3 +170,8 @@ Building starts when the requirements for the next slice are `agreed`.
 `/resolve-ambiguities` writes the first task sequence when it agrees them —
 you should not need a separate command just to see `/dashboard` Task Sequence
 fill in.
+
+## Then
+
+Send the open questions. Next: answers in `ANSWERS.md`, then `/resolve-ambiguities`.
+Lost? `/help`

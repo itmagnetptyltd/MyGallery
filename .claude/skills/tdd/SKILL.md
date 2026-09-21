@@ -239,3 +239,8 @@ State plainly:
 - **Do not start the next slice while this one is In progress.** Green tests
   without `/close-slice` leave the dashboard lying. Record verified, then
   finish the remaining ids in *this* slice.
+
+## Then
+
+If the slice is not Done: `/tdd` the remaining ids in **this** slice, then `/close-slice`.
+Do not `/feature-plan` the next slice. Lost? `/help`

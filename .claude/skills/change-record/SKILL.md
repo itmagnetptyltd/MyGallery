@@ -84,3 +84,9 @@ Leave `decision` and `commercial` blank if the commercial call has not been made
 - **Record declined and deferred changes too.** A change the client asked for and
   withdrew is exactly what gets misremembered.
 - Work on a branch. `.brain/` reaches `main` through a reviewed pull request.
+
+## Then
+
+If `decision` is blank, stop — that is the developer's line.
+If it is filled, fill `outcome:` from `affects:` plus the current `version` in the YAML. Do not ask them for REQ ids.
+Lost? `/help`

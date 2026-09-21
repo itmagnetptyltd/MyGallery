@@ -78,3 +78,9 @@ reasoning the diff does not show.
 - **Never widen a fix into a refactor.** A change that touches more than the
   red thing needed is out of scope here, however clearly it improves the
   code.
+
+## Then
+
+If this was polish (look, gap, colour) not a red test: `/note` the words.
+Drop screenshots with `--file`. They show on the dashboard Working tab.
+Lost? `/help`

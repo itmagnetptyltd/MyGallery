@@ -109,3 +109,9 @@ a sequence that is already written.
 - **Requirement ids never change here.** If an answer means a requirement should
   not exist, say so and stop; deleting an agreed requirement is a change record.
 - Work on a branch. `.brain/` reaches `main` through a reviewed pull request.
+
+## Then
+
+If the ids you needed are `agreed`: `/feature-plan` the first open slice (or `/slice-add` if they are unplanned).
+If any stay `draft`: those questions are still open — do not `/tdd`.
+Lost? `/help`
