@@ -304,3 +304,69 @@ _In plain words: You said you want to be able to change a photo's description la
 
 In the Larger view after I click the photo.
 The 1/150 (or 1/250) keypress counter is part of the 250-character answer already. Write it as a criterion on the description REQ. Do not open a new CHG.
+
+---
+
+# Questions raised 2026-09-21, third round (FB-0005)
+
+From "Increase Upload model size, after upload preview/show will be in a
+bigger way and border a white line and buttons and close buttons will be like
+as in other forms". The larger popup and the close button are already settled;
+these three are what the sentence does not say.
+
+---
+
+## How large should each preview of a chosen file be?
+
+_Blocks: REQ-GAL-015_
+
+_In plain words: Earlier you asked for "a small preview of every chosen file, including thirty". Now you would like the previews bigger. How big should each one be - for example, about twice today's size, or one large preview per row? And is it fine that with thirty photos chosen you will scroll further to see them all?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+No, atleast a reasonable preview and if needed in centre align , beter if width like description box and height as per image pixel
+
+
+
+## Is the white border around the whole Upload popup, or around each preview?
+
+_Blocks: REQ-GAL-013, REQ-GAL-015_
+
+_In plain words: You asked for a white line as a border. Should it go around the whole Upload window, like the window that opens when you click a photo - or around each small picture of the photos you have chosen?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+like other form in uploiad form a border
+
+
+
+## Which window's buttons should the Upload buttons look like?
+
+_Blocks: REQ-GAL-013_
+
+_In plain words: The close (X) button will match the one in the window that opens when you click a photo. For the "Choose files" and "Upload" buttons: should they look like the "Save description" button in that same window (outlined in white), or like the buttons in the "Delete this photo?" box (outlined in grey, as they are now)?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+like item preview close button will be circle , white
+
+---
+
+# Question raised 2026-09-21, fourth round (FB-0005)
+
+The third-round reply settled the preview size and the border. The reply to
+the buttons question described the close button, which was already settled,
+so that question is asked again, narrowed to what is missing.
+
+---
+
+## What should the "Choose files" and "Upload" buttons look like?
+
+_Blocks: REQ-GAL-013_
+
+_In plain words: The close (X) will be a white circle, like the one on the photo preview - that part is done. The "Choose files" and "Upload" buttons are rectangles today. Should they (a) stay as they are, (b) look like the "Save description" button in the photo preview - a rectangle outlined in white, or (c) become white circles too, like the close button?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+(b). Choose files and Upload stay rectangles, outlined in white, same as Save description on the photo preview. Only the close (X) is a white circle. Not (a), not (c).
+

@@ -6,13 +6,13 @@ The seventeen questions raised at decomposition were answered by the client on
 2026-09-18. FB-0004 raised four more on 2026-09-21; the client answered all
 four the same day, two of them in full and two in part, and the two remainders
 were narrowed and answered in a second round on 2026-09-21.
+FB-0005 raised three more on 2026-09-21; the client answered two in a third
+round and the last, narrowed, in a fourth round the same day.
 
 The answers, in the client's own words, are in [`ANSWERS.md`](ANSWERS.md) -
 that file is kept, not cleared, because it is the record of what was said and
 when. Every answer was written into the acceptance criteria of the requirements
 it affected.
-
-All nineteen requirements in `gal.yaml` are therefore at `agreed` or beyond.
 
 ---
 

@@ -38,3 +38,5 @@ analysis:
     the v1 tile, and anything larger again is still not covered.
 decision: absorbed
 commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-015: v2

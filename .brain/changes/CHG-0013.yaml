@@ -31,3 +31,6 @@ analysis:
     identifies it.
 decision: absorbed
 commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-013: v3
+  - REQ-GAL-019: v2
