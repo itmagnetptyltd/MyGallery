@@ -13,14 +13,11 @@ const fs = require("node:fs");
 const path = require("node:path");
 const yaml = require("js-yaml");
 const {
-  REF_DIR,
   commandsPath,
-  refDir,
   listNotes,
   listRefs,
-  nextSerial,
   nextNoteId,
-  safeBase,
+  copyToRef,
 } = require("./lib/working");
 
 const EXIT_OK = 0;
@@ -45,28 +42,10 @@ function parseArgs(argv) {
   return options;
 }
 
-function copyFiles(projectRoot, sources) {
-  const destDir = refDir(projectRoot);
-  fs.mkdirSync(destDir, { recursive: true });
-  const copied = [];
-  let serial = nextSerial(projectRoot);
-  for (const source of sources) {
-    const abs = path.resolve(source);
-    if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
-      throw new Error(`not a file: ${source}`);
-    }
-    const destName = `${serial}-${safeBase(abs)}`;
-    fs.copyFileSync(abs, path.join(destDir, destName));
-    copied.push(destName);
-    serial = String(Number(serial) + 1).padStart(3, "0");
-  }
-  return copied;
-}
-
 function addNote(projectRoot, text, files) {
   const trimmed = String(text || "").trim();
   if (!trimmed) throw new Error("missing --text");
-  const copied = copyFiles(projectRoot, files);
+  const copied = copyToRef(projectRoot, files);
   const notes = listNotes(projectRoot).slice().reverse();
   const row = {
     id: nextNoteId(listNotes(projectRoot)),
@@ -123,7 +102,5 @@ if (require.main === module) {
 module.exports = {
   parseArgs,
   addNote,
-  copyFiles,
   main,
-  REF_DIR,
 };

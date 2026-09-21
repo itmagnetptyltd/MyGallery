@@ -1,7 +1,7 @@
 ---
 name: feedback-capture
 description: Capture client feedback verbatim and propose a triage classification. Use at the end of every client-facing meeting, demo or UAT session.
-allowed-tools: Read, Grep, Glob, Write
+allowed-tools: Read, Grep, Glob, Write, Bash
 ---
 
 # feedback-capture
@@ -9,7 +9,8 @@ allowed-tools: Read, Grep, Glob, Write
 What the client said about work already delivered, recorded before anyone
 interprets it.
 
-**Paste their words, and say who said it, where and when.**
+**Paste their words, and say who said it, where and when.** Attach the PDF or
+screenshot in the same message if they sent one.
 
 ---
 
@@ -55,6 +56,15 @@ What was done, or why nothing was done.
 **Write the quote before writing the interpretation, and keep them apart.**
 Paraphrase silently discards intent, and the raw wording is what you will need
 when the interpretation is disputed.
+
+If they attached a PDF or screenshot, keep the file:
+
+```
+node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH
+```
+
+Once per file. Put the printed `.brain/docs/ref/NNN-name.ext` path on the FB
+record. If `keep-ref.js` is missing, re-run `install.js`.
 
 ## 3. Propose a triage
 

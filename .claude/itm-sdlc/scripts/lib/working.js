@@ -114,6 +114,24 @@ function safeBase(name) {
   return base.replace(/^-+|-+$/g, "") || "file";
 }
 
+function copyToRef(projectRoot, sources) {
+  const destDir = refDir(projectRoot);
+  fs.mkdirSync(destDir, { recursive: true });
+  const copied = [];
+  let serial = nextSerial(projectRoot);
+  for (const source of sources) {
+    const abs = path.resolve(source);
+    if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
+      throw new Error(`not a file: ${source}`);
+    }
+    const destName = `${serial}-${safeBase(abs)}`;
+    fs.copyFileSync(abs, path.join(destDir, destName));
+    copied.push(destName);
+    serial = String(Number(serial) + 1).padStart(3, "0");
+  }
+  return copied;
+}
+
 module.exports = {
   REF_DIR,
   COMMANDS_FILE,
@@ -127,4 +145,5 @@ module.exports = {
   nextSerial,
   nextNoteId,
   safeBase,
+  copyToRef,
 };

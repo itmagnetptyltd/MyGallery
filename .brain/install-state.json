@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "9c276b2a764b5f400502a2a82c1089b4dcf30da6",
+  "commit": "55e5a8c91787a2fdd8e785a85a7941d7f4b14de4",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T10:12:18.779Z",
+  "installedAt": "2026-09-21T10:27:32.975Z",
   "modules": [
     "GAL"
   ],
@@ -48,7 +48,7 @@
       "policy": "managed"
     },
     ".claude/skills/decompose/SKILL.md": {
-      "sha256": "03aa1de8c258ca0a3cd71b8aa274bf0625acc761423fb61b83fd63e606fe93fa",
+      "sha256": "7c0b618f09a74ae64b701bd14be04a3b0e5702dbaf0951f174f9308024d16eed",
       "policy": "managed"
     },
     ".claude/skills/feature-plan/SKILL.md": {
@@ -56,7 +56,7 @@
       "policy": "managed"
     },
     ".claude/skills/feedback-capture/SKILL.md": {
-      "sha256": "20216d7827de8e02084450416932aabfe9bbd5e5bb06c3a282a78795022e37ac",
+      "sha256": "2695189a1f865bb6073c9a91d418d1034783395de11b458cac40a32e46b4adec",
       "policy": "managed"
     },
     ".claude/skills/find-variation/SKILL.md": {
@@ -243,6 +243,10 @@
       "sha256": "a559f4f263774a0b7b03662c27253758965fd19429ae91273c7d87e955443071",
       "policy": "managed"
     },
+    ".claude/itm-sdlc/scripts/keep-ref.js": {
+      "sha256": "5606d20811fb059e37507242c9053cb4bb5d9cebe147f560f9edaf99d879905c",
+      "policy": "managed"
+    },
     ".claude/itm-sdlc/scripts/legacy-discover.js": {
       "sha256": "b71f6a205bfd38d87ce4a438e8c7927a62c587a930ad1d92d018242ce1bf4fa7",
       "policy": "managed"
@@ -272,7 +276,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/working.js": {
-      "sha256": "5a5c8af465dfc1088bb85548c798863a90fe35ec9521890b65fe12f0099a577a",
+      "sha256": "d9549a333bdf7f9877e61e1d03cd9344361eec7eb066dcc4b7a89df9227ebfce",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/metrics.js": {
@@ -284,7 +288,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/note.js": {
-      "sha256": "496d7c93505e35a7a2d88a67b33585553e7c3fb92bb52b5e484a1a733599f3bb",
+      "sha256": "59f8fc2d620597442e1a14a06a5c4a623f62140c9047eb65f2492fbb7e41d696",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/regression-select.js": {
