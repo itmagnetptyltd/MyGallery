@@ -7,7 +7,12 @@ from mygallery.web.api import api
 from mygallery.web.pages import pages
 
 SECURITY_HEADERS = {
-    "Content-Security-Policy": "default-src 'self'",
+    # REQ-GAL-015: a preview of a chosen file is an object URL, and
+    # default-src 'self' blocks blob: — the previews rendered as broken
+    # images until this was added. Widened for images only: scripts, styles
+    # and everything else still come from 'self' alone, so the policy that
+    # slice 1 set is intact apart from this one directive.
+    "Content-Security-Policy": "default-src 'self'; img-src 'self' blob:",
     "X-Content-Type-Options": "nosniff",
 }
 

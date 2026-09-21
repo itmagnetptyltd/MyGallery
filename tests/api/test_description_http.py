@@ -17,6 +17,7 @@ def _upload(client, name="holiday.jpg", description=None):
 
 
 # @covers REQ-GAL-001@v3
+# @covers REQ-GAL-017@v1
 def test_uploading_with_a_description_carries_it_into_the_gallery(client):
     response = _upload(client, description="Beach at dawn")
 
@@ -25,6 +26,7 @@ def test_uploading_with_a_description_carries_it_into_the_gallery(client):
 
 
 # @covers REQ-GAL-001@v3
+# @covers REQ-GAL-017@v1
 def test_uploading_without_a_description_still_succeeds(client):
     response = _upload(client)
 
@@ -33,6 +35,7 @@ def test_uploading_without_a_description_still_succeeds(client):
 
 
 # @covers REQ-GAL-001@v3
+# @covers REQ-GAL-017@v1
 def test_an_upload_carrying_a_long_description_is_not_refused_for_length(client):
     response = _upload(client, description="x" * 400)
 
@@ -53,6 +56,7 @@ def test_the_gallery_listing_carries_each_photos_description(client):
 
 
 # @covers REQ-GAL-002@v2
+# @covers REQ-GAL-017@v1
 def test_a_description_can_be_changed_after_the_upload(client):
     photo_id = _upload(client, description="first").get_json()["photos"][0]["id"]
 

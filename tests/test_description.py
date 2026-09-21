@@ -26,6 +26,7 @@ def test_a_photo_uploaded_with_no_description_carries_none_and_is_still_a_photo(
 
 
 # @covers REQ-GAL-002@v2
+# @covers REQ-GAL-017@v1
 def test_changing_a_description_replaces_it_and_leaves_the_photo_itself_unchanged(store):
     photo = store.save("holiday.jpg", an_image(), "JPEG", description="first")
     bytes_before = store.read_bytes(photo.id)
@@ -55,6 +56,7 @@ def test_changing_the_description_of_a_photo_that_is_not_there_is_refused(store)
 
 
 # @covers REQ-GAL-001@v3
+# @covers REQ-GAL-017@v1
 def test_an_upload_with_no_description_still_becomes_a_photo(store):
     photo = store.save("holiday.jpg", an_image(), "JPEG", description=None)
 
@@ -62,6 +64,7 @@ def test_an_upload_with_no_description_still_becomes_a_photo(store):
 
 
 # @covers REQ-GAL-001@v3
+# @covers REQ-GAL-017@v1
 def test_a_description_of_250_characters_is_carried_whole(store):
     text = "x" * 250
 

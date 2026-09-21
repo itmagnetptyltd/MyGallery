@@ -72,6 +72,10 @@
            250 and the Upload is never refused for being longer. -->
       <label class="upload-description-label">
         <span>Description (optional)</span>
+        <!-- REQ-GAL-017 c4/c5: the client asked for "a count on ke prass".
+             It counts against the field's own maxlength, so the two cannot
+             disagree. -->
+        <span class="description-count" data-testid="description-count"></span>
         <textarea
           maxlength="250"
           rows="2"

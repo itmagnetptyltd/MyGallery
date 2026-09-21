@@ -37,6 +37,9 @@ const uploadSubmit = document.querySelector('[data-testid="upload-submit"]');
 const uploadPopupClose = document.querySelector(
   '[data-testid="upload-popup-close"]',
 );
+const descriptionCount = document.querySelector(
+  '[data-testid="description-count"]',
+);
 const largerViewDescription = document.querySelector(
   '[data-testid="larger-view-description"]',
 );
@@ -213,6 +216,16 @@ deleteConfirm.addEventListener("click", () => {
     await loadPage({ reset: true });
   })();
 });
+
+// REQ-GAL-017 c4/c5. The limit is read from the field rather than written
+// again here: maxlength is what actually stops the typing, so a second copy
+// of the number could only ever drift away from it.
+function showDescriptionCount() {
+  descriptionCount.textContent = `${uploadDescription.value.length}/${uploadDescription.maxLength}`;
+}
+
+uploadDescription.addEventListener("input", showDescriptionCount);
+showDescriptionCount();
 
 uploadOpen.addEventListener("click", () => {
   uploadPopup.showModal();

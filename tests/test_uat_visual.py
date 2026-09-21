@@ -88,6 +88,7 @@ def test_larger_view_markup_places_delete_inside_the_panel(project_root, client)
 
 
 # @covers REQ-GAL-012@v2
+# @covers REQ-GAL-018@v1
 def test_a_thumbnails_alt_text_is_its_photos_description(project_root):
     """The client chose alt over a tooltip when asked, on 2026-09-21."""
     script = _js(project_root)
@@ -137,6 +138,7 @@ def test_the_upload_popup_close_control_closes_the_popup(project_root):
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-015@v1
 def test_the_upload_popup_shows_a_preview_of_each_chosen_file(project_root):
     script = _js(project_root)
 
@@ -178,3 +180,26 @@ def test_closing_the_upload_popup_leaves_it_reusable(project_root):
 
     assert "uploadPopup.close()" in script
     assert "uploadPopup.remove()" not in script
+
+
+# --- REQ-GAL-017@v1 — the description character count. Slice 9. -------------
+
+
+# @covers REQ-GAL-017@v1
+def test_the_upload_popup_shows_a_character_count_for_the_description(client):
+    page = client.get("/").get_data(as_text=True)
+
+    assert 'data-testid="description-count"' in page
+
+
+# @covers REQ-GAL-017@v1
+def test_the_character_count_reads_its_limit_from_the_field(project_root):
+    """One source for 250, and it is the markup that enforces it.
+
+    A count that says /250 while maxlength stops the field somewhere else is
+    worse than no count, so the script must not carry its own copy.
+    """
+    script = _js(project_root)
+
+    assert "maxLength" in script
+    assert "/250" not in script

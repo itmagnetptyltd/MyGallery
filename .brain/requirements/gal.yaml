@@ -763,7 +763,11 @@
   title: The Upload popup shows the chosen files before they become Photos
   module: GAL
   priority: should
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_description_browser.py
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_uat_visual.py
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 1a); absorbed as CHG-0005. The
@@ -825,7 +829,13 @@
   title: A Photo may carry an optional description given at its Upload
   module: GAL
   priority: should
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/api/test_description_http.py
+    - tests/e2e/test_description_browser.py
+    - tests/test_description.py
+    - tests/test_durability.py
+    - tests/test_uat_visual.py
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 2); absorbed as CHG-0007. The
@@ -874,7 +884,11 @@
   title: A Photo's description is the alt text of its Thumbnail
   module: GAL
   priority: should
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_description_browser.py
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_uat_visual.py
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 3); absorbed as CHG-0008. The
