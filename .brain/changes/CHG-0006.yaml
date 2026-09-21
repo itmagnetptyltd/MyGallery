@@ -1,0 +1,45 @@
+id: CHG-0006
+raised: 2026-09-21
+stream: scope_change
+source: "Chat, 2026-09-21, KCB/DEV (FB-0004, ask 1b)"
+raw: "In file upload after select file in upload or drag-drop a view and a description of max 250 char can given (not mandatory), on mousemove tooltip/alt will show this on gallery home items."
+affects: [REQ-GAL-001, REQ-GAL-013]
+analysis:
+  dependants:
+    - REQ-GAL-002
+    - REQ-GAL-003
+    - REQ-GAL-004
+    - REQ-GAL-005
+    - REQ-GAL-006
+    - REQ-GAL-007
+    - REQ-GAL-008
+    - REQ-GAL-009
+    - REQ-GAL-010
+    - REQ-GAL-012
+    - REQ-GAL-013
+    - REQ-GAL-014
+  tests_invalidated: 22
+  estimate: >-
+    A drop target inside the existing Upload popup, feeding the same code
+    path the picker feeds. Cheaper than ask 1a because the Upload itself,
+    its batch handling and its failure reporting are unchanged.
+  notes: >-
+    This record is ask 1b only: drag-and-drop as a way of choosing files.
+    Judged separately from ask 1a because the record is not merely silent
+    here — it names a different selection mechanism. variation-agent:
+    not-covered, and explicitly NOT contradicts. REQ-GAL-001@v2 c10 and
+    REQ-GAL-013@v1 c1 require the files to be "chosen from a popup", and
+    REQ-GAL-001@v2 c7 requires thirty files "selected together"; the
+    client's own answer in ANSWERS.md is "I want to select a whole batch at
+    once, for example 20 or 30 photos from a folder". Batch selection is
+    required and the agreed surface is a popup picker. No criterion requires
+    a drop target, and none prohibits one — a drop zone could sit inside the
+    popup, which is why this is not contradicts. 18 tests are pinned to
+    REQ-GAL-001@v2 and 4 to REQ-GAL-013@v1. Versions are not moved until
+    decision is filled.
+  open_question: >-
+    Whether drag-and-drop replaces the picker or sits alongside it. Removing
+    the picker would put REQ-GAL-001@v2 c10 and REQ-GAL-013@v1 c1 at risk.
+decision:
+commercial:
+outcome:

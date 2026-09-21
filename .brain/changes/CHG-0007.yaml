@@ -1,0 +1,56 @@
+id: CHG-0007
+raised: 2026-09-21
+stream: scope_change
+source: "Chat, 2026-09-21, KCB/DEV (FB-0004, ask 2)"
+raw: "In file upload after select file in upload or drag-drop a view and a description of max 250 char can given (not mandatory), on mousemove tooltip/alt will show this on gallery home items."
+affects: [REQ-GAL-001, REQ-GAL-002, REQ-GAL-008]
+analysis:
+  dependants:
+    - REQ-GAL-002
+    - REQ-GAL-003
+    - REQ-GAL-004
+    - REQ-GAL-005
+    - REQ-GAL-006
+    - REQ-GAL-007
+    - REQ-GAL-008
+    - REQ-GAL-009
+    - REQ-GAL-010
+    - REQ-GAL-012
+    - REQ-GAL-013
+    - REQ-GAL-014
+  tests_invalidated: 31
+  estimate: >-
+    This is the expensive one of the five. A description is a new Photo
+    attribute, so it reaches storage, not only the screen. ADR-0004 puts
+    Photo metadata in a SQLite index (index.db) whose schema is created by
+    CREATE TABLE IF NOT EXISTS with no version column and no migration step.
+    An existing Gallery — the client has one — therefore needs a migration
+    that does not exist yet, and building that mechanism is part of the cost,
+    not an afterthought.
+  notes: >-
+    This record is ask 2 only: an optional description, at most 250
+    characters, given with the Upload. variation-agent: not-covered. The only
+    Photo-attribute criterion in the record is REQ-GAL-002@v1 c1, "The
+    application has issued an identifier for that Photo", which requires an
+    application-issued identifier and nothing else. The glossary defines a
+    Photo as "one image the user has uploaded", identified by an
+    application-issued identifier, and defines no caption, description or
+    metadata field; by the glossary's own rule an undefined term used in a
+    requirement is an ambiguity, so "description" would need a glossary entry
+    before it can be written into a criterion. The 250-character cap appears
+    nowhere in the record — the only agreed limit is the 25 MB file size at
+    REQ-GAL-001@v2 c5-c6. "not mandatory" is explicit and means an Upload
+    with no description must still succeed. 18 tests are pinned to
+    REQ-GAL-001@v2, 7 to REQ-GAL-002@v1 and 6 to REQ-GAL-008@v1. Versions
+    are not moved until decision is filled.
+  open_question: >-
+    Three things the ask does not settle, and none of them is ours to settle.
+    (a) Whether a description can be changed after Upload — the ask places it
+    at Upload only. (b) What the fourteen Photos already in the client's
+    Gallery carry. (c) Whether the 250-character limit is enforced by
+    refusing the Upload or by preventing over-typing; REQ-GAL-009@v1 c5
+    requires a reason to be shown alongside a failed file, which would apply
+    if it is a refusal.
+decision:
+commercial:
+outcome:

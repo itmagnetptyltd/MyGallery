@@ -1,0 +1,38 @@
+id: CHG-0009
+raised: 2026-09-21
+stream: scope_change
+source: "Chat, 2026-09-21, KCB/DEV (FB-0004, ask 4)"
+raw: "On file upload popuo a close (X) on top right is needed so even without uploading I can close the popup"
+affects: [REQ-GAL-013]
+analysis:
+  dependants: []
+  tests_invalidated: 4
+  estimate: >-
+    The smallest of the five, and the only one with no dependency on the
+    other four. A close control in the Upload popup, mirroring the one
+    REQ-GAL-014@v1 already requires inside the Larger view panel.
+  notes: >-
+    This record is ask 4 only: a close (X) at top right of the Upload popup.
+    variation-agent: not-covered. Everything agreed about the Upload popup
+    concerns opening it — "The files are chosen from a popup"
+    (REQ-GAL-001@v2 c10, REQ-GAL-013@v1 c1) and "A control that opens the
+    Upload popup is shown" (REQ-GAL-007@v2 c6, REQ-GAL-013@v1 c2). No
+    criterion requires it to be closable, by any means. The record shows the
+    project knows how to say this when it means it: REQ-GAL-004@v2 c3-c4 and
+    c6, and REQ-GAL-014@v1 c1, require Escape and a close control inside the
+    panel — but those are scoped by their `given` to the Larger view, a
+    distinct surface. The ANSWERS.md line "I'll close it with an X or the
+    Escape key" sits under the question about the Larger view and cannot be
+    carried across to the Upload popup. 4 tests are pinned to
+    REQ-GAL-013@v1. Versions are not moved until decision is filled.
+  note_for_the_commercial_reader: >-
+    This is the closest of the five to arguable, and the reader should have
+    the fact in front of them. On the agreed text it is not covered. On the
+    working software it is not a trap either: the popup is a native dialog
+    opened with showModal(), so Escape already dismisses it without
+    uploading. What is missing is a visible control, not the ability to
+    close. Someone may still frame a popup with no visible dismissal as a
+    defect; that framing is a person's call, not this record's.
+decision:
+commercial:
+outcome:
