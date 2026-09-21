@@ -52,6 +52,28 @@
           data-testid="upload-input"
         />
       </label>
+
+      <!-- REQ-GAL-001@v3 c15/c16: what was chosen is shown before the Upload
+           is made, one preview per file including a batch of thirty. -->
+      <ul class="upload-previews" data-testid="upload-previews" hidden></ul>
+
+      <!-- REQ-GAL-001@v3 c12/c13. maxlength is the criterion: the field holds
+           250 and the Upload is never refused for being longer. -->
+      <label class="upload-description-label">
+        <span>Description (optional)</span>
+        <textarea
+          maxlength="250"
+          rows="2"
+          data-testid="upload-description"
+          placeholder="What is this photo?"
+        ></textarea>
+      </label>
+
+      <div class="upload-actions">
+        <button type="button" class="upload" data-testid="upload-submit">
+          Upload
+        </button>
+      </div>
     </dialog>
 
     <dialog class="larger-view" data-testid="larger-view" aria-label="Photo">
@@ -66,7 +88,20 @@
         </button>
       </header>
       <img class="larger-view-photo" data-testid="larger-view-photo" alt="" />
+
+      <!-- REQ-GAL-002@v2 c9: the client answered "In the Larger view after I
+           click the photo" when asked where a description is changed. -->
+      <label class="larger-view-description-label">
+        <span>Description</span>
+        <textarea
+          maxlength="250"
+          rows="2"
+          data-testid="larger-view-description"
+        ></textarea>
+      </label>
+
       <div class="larger-view-actions">
+        <button type="button" data-testid="description-save">Save description</button>
         <button type="button" class="danger" data-testid="delete-photo">Delete</button>
       </div>
     </dialog>

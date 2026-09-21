@@ -2,7 +2,7 @@
 
 import pytest
 from playwright.sync_api import expect
-from tests.conftest import an_image
+from tests.conftest import an_image, upload_files
 
 
 @pytest.fixture
@@ -16,7 +16,7 @@ def _upload(page, tmp_path, count: int) -> list[str]:
         photo = tmp_path / f"p{n}.jpg"
         photo.write_bytes(an_image("JPEG"))
         names.append(str(photo))
-    page.get_by_test_id("upload-input").set_input_files(names)
+    upload_files(page, names)
     return names
 
 

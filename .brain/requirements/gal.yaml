@@ -21,7 +21,7 @@
   title: Uploading a Photo adds it to the Gallery
   module: GAL
   priority: must
-  status: agreed
+  status: in_progress
   version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -106,7 +106,7 @@
   title: Every Photo carries an identifier the application issues on Upload
   module: GAL
   priority: must
-  status: agreed
+  status: in_progress
   version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -164,7 +164,7 @@
   title: The Gallery shows a Thumbnail for every Photo, newest Photo first
   module: GAL
   priority: must
-  status: agreed
+  status: in_progress
   version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";

@@ -6,7 +6,7 @@ constraints/csp-blocks-playwright-wait-for-function.md.
 """
 
 from playwright.sync_api import expect
-from tests.conftest import an_image
+from tests.conftest import an_image, upload_files
 
 from mygallery import config
 
@@ -38,7 +38,7 @@ def test_a_batch_with_three_failures_keeps_the_photos_that_worked(
 ):
     page.goto(_gallery_url(running_server))
 
-    page.get_by_test_id("upload-input").set_input_files(_mixed_thirty(tmp_path))
+    upload_files(page, _mixed_thirty(tmp_path))
 
     expect(page.get_by_test_id("photo-count")).to_have_text("27")
 
@@ -47,7 +47,7 @@ def test_a_batch_with_three_failures_keeps_the_photos_that_worked(
 def test_each_failed_file_is_named_on_the_page(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
 
-    page.get_by_test_id("upload-input").set_input_files(_mixed_thirty(tmp_path))
+    upload_files(page, _mixed_thirty(tmp_path))
 
     failures = page.get_by_test_id("upload-failure")
     expect(failures).to_have_count(3)
@@ -60,7 +60,7 @@ def test_each_failed_file_is_named_on_the_page(page, running_server, tmp_path):
 def test_each_failure_shows_its_reason_beside_its_name(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
 
-    page.get_by_test_id("upload-input").set_input_files(_mixed_thirty(tmp_path))
+    upload_files(page, _mixed_thirty(tmp_path))
 
     for name in ("bad0.txt", "bad1.txt", "bad2.txt"):
         row = page.get_by_test_id("upload-failure").filter(has_text=name)
@@ -76,7 +76,7 @@ def test_an_oversized_file_names_the_25_mb_limit_on_the_page(
     huge.write_bytes(jpeg + b"\0" * (config.MAX_PHOTO_BYTES + 1 - len(jpeg)))
     page.goto(_gallery_url(running_server))
 
-    page.get_by_test_id("upload-input").set_input_files(str(huge))
+    upload_files(page, str(huge))
 
     expect(page.get_by_test_id("upload-failure")).to_contain_text("25 MB")
     expect(page.get_by_test_id("upload-failure")).to_contain_text("too large")
