@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "ddc7a69798dc4d4ae0ce5cbb8f1be8288700032c",
+  "commit": "8699733ba7053d52c2b7d51bfce40263fecb3bf5",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T08:38:59.309Z",
+  "installedAt": "2026-09-21T08:46:28.686Z",
   "modules": [
     "GAL"
   ],
@@ -44,7 +44,7 @@
       "policy": "managed"
     },
     ".claude/skills/dashboard/SKILL.md": {
-      "sha256": "0a04719e6c61f5b62a7dafb47bd31e5d832dd0bcfb96399666d9c672cc91bec2",
+      "sha256": "568dc874733e09032951092c57a65b0f3d8bc8d01d857a9200a4a209b9dc5e89",
       "policy": "managed"
     },
     ".claude/skills/decompose/SKILL.md": {
@@ -64,11 +64,11 @@
       "policy": "managed"
     },
     ".claude/skills/fix/SKILL.md": {
-      "sha256": "8a71e13ba29574ef26880045f214a4e560394cc8e0da5480418f7cceeff6aea9",
+      "sha256": "41312ea22ec55a3dcc47615fd10173df0b19c93f15eb640da5e8c8d079b349b7",
       "policy": "managed"
     },
     ".claude/skills/help/SKILL.md": {
-      "sha256": "98cffc0c5194c38440b2da75fb408b74ba2cf54050bccae1568002b577871682",
+      "sha256": "d878cd5526a8e5e81a11645d36814f85a66a1085f5b60b6e0d9fe99282e92363",
       "policy": "managed"
     },
     ".claude/skills/impact-analysis/SKILL.md": {
@@ -88,7 +88,7 @@
       "policy": "managed"
     },
     ".claude/skills/note/SKILL.md": {
-      "sha256": "d301adc41185263be777d440df39ecc6332b8ddbc1a1d4e5f4bb4ee7f1d4691b",
+      "sha256": "d2073b2ad7854d6bf1dbfd1234b62245ea6d2d3d2d45edf760403e588f5b2a4a",
       "policy": "managed"
     },
     ".claude/skills/pr-prepare/SKILL.md": {
@@ -220,7 +220,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "f8e4f8dd7c18fe657dba209faaaa8bc3c2ab1ac82b3d372c13db2c8e99fd7b5f",
+      "sha256": "61e6730df42f9d3da7bb38269266124732523e314ec5a0b43acda70d481f7451",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {
@@ -284,7 +284,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/note.js": {
-      "sha256": "b85e0d4d92dd71c5fbd9f0d8b7a0863b1df6a4bb75a398a0877c02f627c477a0",
+      "sha256": "496d7c93505e35a7a2d88a67b33585553e7c3fb92bb52b5e484a1a733599f3bb",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/regression-select.js": {

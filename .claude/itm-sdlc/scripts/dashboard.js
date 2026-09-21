@@ -20,6 +20,7 @@ const {
 const { computeReport } = require("./client-report");
 const { readSlices } = require("./lib/slices");
 const { listNotes, listRefs, parsePromptLog } = require("./lib/working");
+const { report } = require("./next");
 
 const EXIT_OK = 0;
 const EXIT_TOOL_ERROR = 2;
@@ -97,6 +98,7 @@ function collect(projectRoot) {
     notes: listNotes(projectRoot),
     refs: listRefs(projectRoot),
     prompts: parsePromptLog(projectRoot),
+    help: report(projectRoot),
     history,
   };
 }
@@ -286,6 +288,16 @@ function renderHtml(data) {
     })
     .join("");
 
+  const help = data.help || {};
+  const nextCard = `<article class="next-card">
+      <h2>Where you are</h2>
+      <p class="next-where">${escapeHtml(help.where || "No requirements yet.")}</p>
+      <h2>Next</h2>
+      <p class="next-cmd"><code>${escapeHtml(help.next || "/help")}</code></p>
+      ${help.avoid ? `<p class="next-avoid">${escapeHtml(help.avoid)}</p>` : ""}
+      <p class="empty-note">Same as <code>/help</code>.</p>
+    </article>`;
+
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -439,6 +451,7 @@ function renderHtml(data) {
     .stats { grid-template-columns: repeat(4, 1fr); }
     .split { grid-template-columns: 1fr; }
     .cols3 { grid-template-columns: 1fr; }
+    .others-grid { grid-template-columns: 1fr; }
     .tabs { flex-wrap: wrap; }
   }
   @media (max-width: 640px) {
@@ -651,6 +664,40 @@ function renderHtml(data) {
     border: 1.5px solid var(--muted);
   }
   table.refs .file-cell a { color: inherit; }
+  .others-grid {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .next-card {
+    grid-column: 1 / -1;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .next-card h2 { text-align: left; margin-bottom: 6px; }
+  .next-card h2 + h2 { margin-top: 12px; }
+  .next-where, .next-cmd, .next-avoid { margin: 0; }
+  .next-cmd {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  .next-cmd code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #f0ece6;
+  }
+  .next-avoid { margin-top: 8px; color: var(--warn); font-size: 12px; }
+  .tab-panel[data-panel="others"] .table-wrap {
+    min-height: 0;
+    max-height: 220px;
+  }
+  .tab-panel[data-panel="others"] .box .records {
+    max-height: 180px;
+    overflow: auto;
+  }
 </style>
 </head>
 <body>
@@ -673,7 +720,7 @@ function renderHtml(data) {
     <button type="button" role="tab" class="tab on" data-tab="reqs" aria-selected="true">Requirements <b>${data.counts.requirements}</b></button>
     <button type="button" role="tab" class="tab" data-tab="slices" aria-selected="false">Task Sequence <b>${slices.slices.length}</b></button>
     <button type="button" role="tab" class="tab" data-tab="records" aria-selected="false">Records <b>${data.counts.feedback + data.counts.decisions + data.counts.changes}</b></button>
-    <button type="button" role="tab" class="tab" data-tab="working" aria-selected="false">Working <b>${(data.counts.notes || 0) + (data.counts.refs || 0)}</b></button>
+    <button type="button" role="tab" class="tab" data-tab="others" aria-selected="false">Others</button>
   </div>
 
   <div class="board">
@@ -738,17 +785,24 @@ function renderHtml(data) {
         </div>
       </section>
 
-      <section class="tab-panel" data-panel="working" role="tabpanel" hidden>
-        <h2>Working notes <span class="count">${data.counts.notes || 0}</span></h2>
-        <p class="empty-note">Polish and screenshots. Not a requirement. Saved with <code>/note</code>.</p>
-        <ul class="records">${noteItems || '<li class="empty">None yet.</li>'}</ul>
-        <h2 class="spaced">Reference files <span class="count">${data.counts.refs || 0}</span></h2>
-        <p class="empty-note">Kept in <code>.brain/docs/ref/</code>.</p>
-        <div class="table-wrap">
-          <table class="refs">
-            <thead><tr><th>Serial</th><th>Filename</th><th>Type</th></tr></thead>
-            <tbody>${refRows || '<tr><td colspan="3">None yet.</td></tr>'}</tbody>
-          </table>
+      <section class="tab-panel" data-panel="others" role="tabpanel" hidden>
+        <div class="others-grid">
+          ${nextCard}
+          <section class="box">
+            <h2>Notes <span class="count">${data.counts.notes || 0}</span></h2>
+            <p class="empty-note">Polish. Saved with <code>/note</code>. Not a REQ.</p>
+            <ul class="records">${noteItems || '<li class="empty">None yet.</li>'}</ul>
+          </section>
+          <section class="box">
+            <h2>Files <span class="count">${data.counts.refs || 0}</span></h2>
+            <p class="empty-note"><code>.brain/docs/ref/</code></p>
+            <div class="table-wrap">
+              <table class="refs">
+                <thead><tr><th>Serial</th><th>Filename</th><th>Type</th></tr></thead>
+                <tbody>${refRows || '<tr><td colspan="3">None yet.</td></tr>'}</tbody>
+              </table>
+            </div>
+          </section>
         </div>
         <h2 class="spaced">Logged prompts <span class="count">${data.counts.prompts}</span></h2>
         <p class="empty-note">Chat that changed files. From the prompt hook, not the brain.</p>

@@ -82,5 +82,5 @@ reasoning the diff does not show.
 ## Then
 
 If this was polish (look, gap, colour) not a red test: `/note` the words.
-Drop screenshots with `--file`. They show on the dashboard Working tab.
+Drop screenshots with `--file`. They show on the dashboard Others tab.
 Lost? `/help`

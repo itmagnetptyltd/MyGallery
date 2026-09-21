@@ -93,7 +93,7 @@ function formatReport(result) {
     `  ${result.note.text}`,
     `  files: ${files}`,
     "",
-    "Shown on the dashboard Working tab. Not a REQ. Not a CHG.",
+    "Shown on the dashboard Others tab. Not a REQ. Not a CHG.",
     "",
   ].join("\n");
 }

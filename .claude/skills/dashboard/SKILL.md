@@ -8,7 +8,7 @@ allowed-tools: Read, Grep, Glob, Bash
 
 Builds an HTML overview from the project files and opens it in the browser.
 **No database.** Read-only. Four tabs: Requirements, Task Sequence, Records,
-Working (`/note` + files in `.brain/docs/ref/`).
+Others (`/help` Where/Next, `/note`, files in `.brain/docs/ref/`).
 
 ## Before running a vendored script
 

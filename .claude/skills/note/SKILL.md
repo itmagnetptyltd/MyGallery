@@ -48,7 +48,7 @@ Add `--file path/to/shot.png` once per file.
 node .claude/itm-sdlc/scripts/dashboard.js --project . --open
 ```
 
-The **Working** tab lists the note and a table of files in `.brain/docs/ref/`
+The **Others** tab lists the note and a table of files in `.brain/docs/ref/`
 (serial, filename, type, icon).
 
 ## 3. Do not

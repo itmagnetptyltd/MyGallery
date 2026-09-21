@@ -12,31 +12,30 @@ Tells the developer **where they are** and **the one thing to type**. Nothing el
 
 ---
 
-## Before running a vendored script
-
-```bash
-[ -f .claude/itm-sdlc/scripts/next.js ] || echo "vendored toolkit predates next.js - re-run install.js"
-```
-
-If it is missing, say that and stop. If `.claude/itm-sdlc/node_modules/` is missing:
-
-```bash
-cd .claude/itm-sdlc && npm ci --omit=dev --no-audit --no-fund
-```
-
-Then return to the project root.
-
----
-
 ## 1. Read the project
 
-```bash
+From the **project root** (the folder that contains `.brain/`), run:
+
+```
 node .claude/itm-sdlc/scripts/next.js --project .
 ```
+
+If Node says the file is missing: this project's vendored toolkit predates `next.js` — re-run `install.js`, then this command.
+
+If `.claude/itm-sdlc/node_modules/` is missing:
+
+```
+cd .claude/itm-sdlc
+npm ci --omit=dev --no-audit --no-fund
+```
+
+Then return to the project root and run `next.js` again.
 
 **Show that output as written.** Do not paraphrase it into a lecture.
 
 Then add one copy-paste line: the `Next` command from that output, in a fenced block.
+
+The dashboard **Others** tab shows the same Where / Next.
 
 ## 2. If they asked for the map
 
@@ -47,7 +46,7 @@ First build:  brief → /decompose → ANSWERS → /resolve-ambiguities → /fea
 Feedback:     their words → /feedback-capture → /find-variation → you fill decision+commercial → agent fills outcome → /tdd
 Changes:      CHG decision filled → agent outcome + REQs → /resolve-ambiguities → /slice-add → /feature-plan → /tdd
 New feature:  /find-variation (not /decompose) → same as Changes
-Polish:       /note the words (and --file for a screenshot). Dashboard Working tab. Not a REQ.
+Polish:       /note the words (and --file for a screenshot). Dashboard Others tab. Not a REQ.
 ```
 
 You never type REQ ids. `affects:` already has them.
