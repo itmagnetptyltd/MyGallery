@@ -458,7 +458,9 @@
   title: A Photo stays in the Gallery until it is deleted, including across restarts
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/test_durability.py
   version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clauses "see them in a gallery" and "be
