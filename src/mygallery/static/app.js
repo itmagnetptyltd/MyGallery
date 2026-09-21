@@ -40,6 +40,9 @@ const uploadPopupClose = document.querySelector(
 const descriptionCount = document.querySelector(
   '[data-testid="description-count"]',
 );
+const largerViewDescriptionCount = document.querySelector(
+  '[data-testid="larger-view-description-count"]',
+);
 const largerViewDescription = document.querySelector(
   '[data-testid="larger-view-description"]',
 );
@@ -70,6 +73,9 @@ function tileFor(photo) {
   tile.src = `/api/photos/${photo.id}/thumbnail`;
   // REQ-GAL-003@v3 c9/c10: the client chose alt over a tooltip.
   tile.alt = photo.description || photo.filename;
+  // FB-0004 also asked for it "on mousemove". No browser shows alt on hover,
+  // so title carries the same text. alt is untouched and still the criterion.
+  tile.title = photo.description || photo.filename;
   tile.dataset.description = photo.description || "";
   tile.dataset.testid = "thumbnail";
   tile.dataset.filename = photo.filename;
@@ -188,6 +194,7 @@ gallery.addEventListener("click", (event) => {
   largerViewPhoto.alt = tile.dataset.filename;
   largerViewPhoto.dataset.filename = tile.dataset.filename;
   largerViewDescription.value = tile.dataset.description || "";
+  showLargerViewDescriptionCount();
   openPhotoId = tile.dataset.photoId;
   largerView.showModal();
 });
@@ -220,12 +227,24 @@ deleteConfirm.addEventListener("click", () => {
 // REQ-GAL-017 c4/c5. The limit is read from the field rather than written
 // again here: maxlength is what actually stops the typing, so a second copy
 // of the number could only ever drift away from it.
-function showDescriptionCount() {
-  descriptionCount.textContent = `${uploadDescription.value.length}/${uploadDescription.maxLength}`;
+function countInto(field, output) {
+  const show = () => {
+    output.textContent = `${field.value.length}/${field.maxLength}`;
+  };
+  field.addEventListener("input", show);
+  return show;
 }
 
-uploadDescription.addEventListener("input", showDescriptionCount);
+const showDescriptionCount = countInto(uploadDescription, descriptionCount);
 showDescriptionCount();
+
+// The Larger view edits against the same 250-character limit, so it shows the
+// same count. Refreshed when a Photo is opened, not only when typing starts.
+const showLargerViewDescriptionCount = countInto(
+  largerViewDescription,
+  largerViewDescriptionCount,
+);
+showLargerViewDescriptionCount();
 
 uploadOpen.addEventListener("click", () => {
   uploadPopup.showModal();

@@ -108,6 +108,10 @@
            click the photo" when asked where a description is changed. -->
       <label class="larger-view-description-label">
         <span>Description</span>
+        <span
+          class="description-count"
+          data-testid="larger-view-description-count"
+        ></span>
         <textarea
           maxlength="250"
           rows="2"
@@ -116,7 +120,9 @@
       </label>
 
       <div class="larger-view-actions">
-        <button type="button" data-testid="description-save">Save description</button>
+        <button type="button" class="save" data-testid="description-save">
+          Save description
+        </button>
         <button type="button" class="danger" data-testid="delete-photo">Delete</button>
       </div>
     </dialog>
