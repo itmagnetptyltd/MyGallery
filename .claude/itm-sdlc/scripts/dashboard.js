@@ -447,7 +447,11 @@ function renderHtml(data) {
     main { width: 94vw; }
   }
   .status-chart {
-    max-height: 125px;
+    height: 200px;
+    overflow: auto;
+  }
+  .change-history {
+    height: 200px;
     overflow: auto;
   }
   .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 8px 0; line-height: 1.6; }
@@ -499,8 +503,9 @@ function renderHtml(data) {
     min-height: min(42vh, 28rem);
   }
   .tab-panel[data-panel="reqs"] .table-wrap {
-    max-height: 125px;
+    max-height: none;
     min-height: 0;
+    overflow: visible;
   }
   .paged { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
   .pager {
@@ -675,13 +680,17 @@ function renderHtml(data) {
     <div class="board-main">
       <section class="tab-panel grow" data-panel="reqs" role="tabpanel">
         <div class="split">
-          <section class="status-chart">
+          <section>
             <h2>Status</h2>
+            <div class="status-chart">
             ${bars}
+            </div>
           </section>
           <section>
             <h2>Change history</h2>
+            <div class="change-history">
             <ul>${hist}</ul>
+            </div>
           </section>
         </div>
         <h2 class="spaced">Requirements</h2>

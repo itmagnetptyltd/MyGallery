@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "569f90da6fc8617cab1aee847855b06c3bde0287",
+  "commit": "47afb1e30756f3170fe7eefb41a3cf5298334c4b",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T07:23:00.485Z",
+  "installedAt": "2026-09-21T08:19:43.891Z",
   "modules": [
     "GAL"
   ],
@@ -175,18 +175,6 @@
       "sha256": "05b8670a2750f74a9415fccaca13aa6167893ad805445db94dc142b915ab405a",
       "policy": "managed"
     },
-    ".brain/docs/README.md": {
-      "sha256": "eb2c103792d6ec39439974e6157d2be47efb0b1947bb930659d5c3c9ff533bcb",
-      "policy": "seeded"
-    },
-    ".brain/docs/commands.yaml": {
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-      "policy": "seeded"
-    },
-    ".brain/docs/ref/README.md": {
-      "sha256": "fb3577a7d8a56b1f23a8b2f0dc00ab04a873acc8c1acb31b80e84fe928509573",
-      "policy": "seeded"
-    },
     ".claude/itm-sdlc/scripts/add-slice.js": {
       "sha256": "3d69f66eb78afdbdfe406665a340bd72ebf6b6c582a7cd1b721f9abd4e272eed",
       "policy": "managed"
@@ -232,7 +220,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "ce8a0c2a082715a6f275f0903fc702ba9c9b8eae235d6727a7e18675b674f3ee",
+      "sha256": "7592c0decffba939f26b84d62a3051e72e9207cceef5ae158940a6a3df3aa755",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {
@@ -365,6 +353,18 @@
     },
     ".brain/decisions/README.md": {
       "sha256": "32ffdbf01cd439f1ae0506116f0259db5b73f09a9b849563c9f2d81eb3e32f43",
+      "policy": "seeded"
+    },
+    ".brain/docs/README.md": {
+      "sha256": "eb2c103792d6ec39439974e6157d2be47efb0b1947bb930659d5c3c9ff533bcb",
+      "policy": "seeded"
+    },
+    ".brain/docs/commands.yaml": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "policy": "seeded"
+    },
+    ".brain/docs/ref/README.md": {
+      "sha256": "fb3577a7d8a56b1f23a8b2f0dc00ab04a873acc8c1acb31b80e84fe928509573",
       "policy": "seeded"
     },
     ".brain/feedback/README.md": {
