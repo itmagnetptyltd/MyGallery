@@ -1,0 +1,32 @@
+id: CHG-0012
+raised: 2026-09-21
+stream: scope_change
+source: "Document (PDF 'Increase Upload model size.pdf'), 2026-09-21, KCB/DEV (FB-0005, ask 3)"
+raw: "Increase Upload model size, after upload preview/show will be in a bigger way and border a white line and buttons and close buttons will be like as in other forms"
+affects: [REQ-GAL-013]
+analysis:
+  dependants:
+    - REQ-GAL-015
+    - REQ-GAL-016
+    - REQ-GAL-019
+  tests_invalidated: 13
+  estimate: >-
+    The smallest of the four once the reading is settled. The Larger view
+    panel already carries a white border, so there is a style in the
+    application to follow.
+  notes: >-
+    This record is ask 3 only: "border a white line", read as a white border
+    around the Upload popup. variation-agent: not-covered. Nothing requires a
+    border of any colour on the popup (REQ-GAL-013@v2, REQ-GAL-019@v1,
+    REQ-GAL-001@v3) or on its previews (REQ-GAL-015@v1 c1-c3). The only
+    framing criterion in the record, REQ-GAL-003@v3 c8 / REQ-GAL-012@v2 c2
+    "a visible surface around the image", is scoped to Gallery Thumbnails
+    and asks for a surface, not a white border. Adding one breaks nothing
+    under either reading. 13 tests are pinned to REQ-GAL-013@v2. If the
+    decision takes the per-preview reading, REQ-GAL-015 is affected instead.
+    Versions are not moved until decision is filled.
+  open_question: >-
+    A white border around what - the whole Upload popup, or each preview
+    inside it? The sentence does not say.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"

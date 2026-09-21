@@ -1,0 +1,32 @@
+id: CHG-0010
+raised: 2026-09-21
+stream: scope_change
+source: "Document (PDF 'Increase Upload model size.pdf'), 2026-09-21, KCB/DEV (FB-0005, ask 1)"
+raw: "Increase Upload model size, after upload preview/show will be in a bigger way and border a white line and buttons and close buttons will be like as in other forms"
+affects: [REQ-GAL-013]
+analysis:
+  dependants:
+    - REQ-GAL-015
+    - REQ-GAL-016
+    - REQ-GAL-019
+  tests_invalidated: 13
+  estimate: >-
+    Small in build, but not estimable as stated: no size is named. "Increase"
+    has no target, so there is no criterion a test could hold it to until the
+    client says how large, or larger than what.
+  notes: >-
+    This record is ask 1 only: the Upload popup ("model", read as modal) is
+    made larger. variation-agent: not-covered. The agreed criteria require the
+    popup to exist and say what it holds and does - REQ-GAL-013@v2 c1 "The
+    files are chosen from a popup" (same text REQ-GAL-001@v3 c10),
+    REQ-GAL-019@v1 c1-c3, REQ-GAL-016@v1, REQ-GAL-017@v1 c3-c5 - and none
+    states or bounds its width, height or size. No earlier version of
+    REQ-GAL-013 set a size either. The glossary has no entry for the popup.
+    Nothing in ANSWERS.md points the other way. 13 tests are pinned to
+    REQ-GAL-013@v2; they go stale only if it is versioned. Versions are not
+    moved until decision is filled.
+  open_question: >-
+    How large? No width, height, or relation to the screen is given. Without
+    one, "larger" is satisfied by a single pixel and cannot be tested.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
