@@ -447,11 +447,11 @@ function renderHtml(data) {
     main { width: 94vw; }
   }
   .status-chart {
-    height: 200px;
+    height: 175px;
     overflow: auto;
   }
   .change-history {
-    height: 200px;
+    height: 175px;
     overflow: auto;
   }
   .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 8px 0; line-height: 1.6; }
