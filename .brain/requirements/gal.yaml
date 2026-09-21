@@ -601,7 +601,7 @@
   title: The application starts on the client's PC by following its written start steps
   module: GAL
   priority: must
-  status: verified
+  status: signed_off
   verified_by:
     - tests/e2e/test_boot.py
     - tests/test_app.py
