@@ -8,7 +8,7 @@ reaching the Gallery needs no sign-in.
 
 import pytest
 from playwright.sync_api import expect
-from tests.conftest import an_image
+from tests.conftest import an_image, upload_files
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def test_uploading_a_photo_through_the_browser_adds_it_to_the_gallery(
     photo.write_bytes(an_image("JPEG"))
     page.goto(gallery_url)
 
-    page.get_by_test_id("upload-input").set_input_files(str(photo))
+    upload_files(page, str(photo))
 
     expect(page.get_by_test_id("photo-count")).to_have_text("1")
 
@@ -45,6 +45,6 @@ def test_uploading_a_batch_through_the_browser_adds_every_photo(page, gallery_ur
         photos.append(str(photo))
     page.goto(gallery_url)
 
-    page.get_by_test_id("upload-input").set_input_files(photos)
+    upload_files(page, photos)
 
     expect(page.get_by_test_id("photo-count")).to_have_text("3")

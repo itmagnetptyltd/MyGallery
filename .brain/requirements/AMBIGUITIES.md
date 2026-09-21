@@ -1,15 +1,18 @@
 # Open questions for the client
 
-**None. All seventeen questions raised at decomposition were answered by the
-client on 2026-09-18.**
+**None. Everything raised on this project has been answered.**
 
-The answers, in the client's own words, are in
-[`ANSWERS.md`](ANSWERS.md) — that file is kept, not cleared, because it is the
-record of what was said and when. Every answer was written into the acceptance
-criteria of the requirements it affected, and each affected requirement's
-`source` now carries `clarified by client answers 2026-09-18 (ANSWERS.md)`.
+The seventeen questions raised at decomposition were answered by the client on
+2026-09-18. FB-0004 raised four more on 2026-09-21; the client answered all
+four the same day, two of them in full and two in part, and the two remainders
+were narrowed and answered in a second round on 2026-09-21.
 
-All eleven requirements in `gal.yaml` are therefore at `agreed`.
+The answers, in the client's own words, are in [`ANSWERS.md`](ANSWERS.md) -
+that file is kept, not cleared, because it is the record of what was said and
+when. Every answer was written into the acceptance criteria of the requirements
+it affected.
+
+All nineteen requirements in `gal.yaml` are therefore at `agreed` or beyond.
 
 ---
 

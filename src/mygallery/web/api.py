@@ -23,6 +23,9 @@ def upload_photos():
     """
     store = PhotoStore.open()
     stored, refused = [], []
+    # REQ-GAL-001@v3: one description for the Upload. The client asked for a
+    # description "given" with the Upload, not one per file.
+    description = request.form.get("description")
 
     for upload in request.files.getlist("photos"):
         content = upload.read()
@@ -40,6 +43,7 @@ def upload_photos():
                 filename=upload.filename or "",
                 content=content,
                 image_format=result.image_format or "JPEG",
+                description=description,
             )
         except (OSError, sqlite3.Error):
             # REQ-GAL-009: this file failed; the rest of the batch still runs.
@@ -145,6 +149,26 @@ def delete_photo(photo_id: str):
     return "", 204
 
 
+@api.patch("/photos/<photo_id>/description")
+def set_photo_description(photo_id: str):
+    """Give or change a Photo's description. REQ-GAL-002@v2.
+
+    The client answered "In the Larger view after I click the photo" when
+    asked where this happens; this is the route that surface calls.
+    """
+    body = request.get_json(silent=True) or {}
+    description = body.get("description")
+    if description is not None and not isinstance(description, str):
+        return jsonify({"error": "A description must be text."}), 400
+
+    store = PhotoStore.open()
+    try:
+        store.set_description(photo_id, description)
+    except KeyError:
+        return jsonify({"error": "No such Photo."}), 404
+    return jsonify({"description": store.get(photo_id).description})
+
+
 @api.get("/photos/<photo_id>/thumbnail")
 def photo_thumbnail(photo_id: str):
     store = PhotoStore.open()
@@ -162,4 +186,5 @@ def _as_json(photo) -> dict:
         "format": photo.format,
         "byteSize": photo.byte_size,
         "uploadedAt": photo.uploaded_at,
+        "description": photo.description,
     }

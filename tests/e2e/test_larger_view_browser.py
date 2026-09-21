@@ -2,7 +2,7 @@
 
 import pytest
 from playwright.sync_api import expect
-from tests.conftest import a_coloured_image, an_image
+from tests.conftest import a_coloured_image, an_image, upload_files
 
 
 @pytest.fixture
@@ -16,7 +16,7 @@ def _upload(page, tmp_path, count: int) -> None:
         photo = tmp_path / f"p{n}.jpg"
         photo.write_bytes(an_image("JPEG", size=(900, 700)))
         names.append(str(photo))
-    page.get_by_test_id("upload-input").set_input_files(names)
+    upload_files(page, names)
     expect(page.get_by_test_id("thumbnail")).to_have_count(count)
 
 
@@ -44,7 +44,7 @@ def test_the_larger_view_shows_the_photo_that_was_activated(page, gallery_url, t
     blue = tmp_path / "blue.png"
     blue.write_bytes(a_coloured_image((20, 20, 220), size=(900, 700)))
     page.goto(gallery_url)
-    page.get_by_test_id("upload-input").set_input_files([str(red), str(blue)])
+    upload_files(page, [str(red), str(blue)])
     expect(page.get_by_test_id("thumbnail")).to_have_count(2)
 
     # Newest first, so blue.png is the first tile. Activate the second — red.

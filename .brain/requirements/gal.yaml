@@ -3,9 +3,16 @@
 # Decomposed from .brain/requirements/BRIEF.md (client brief, 2026-09-18) and
 # resolved against .brain/requirements/ANSWERS.md (client answers, 2026-09-18).
 #
-# All seventeen open questions were answered. A requirement that changes
-# meaning gets a new `version` and a `history` entry — it is never rewritten.
-# REQ-GAL-001, 003, 007 and 004 moved v1 → v2 on 2026-09-18 (CHG-0001–0004).
+# A requirement that changes meaning gets a new `version` and a `history`
+# entry — it is never rewritten.
+#
+# The seventeen questions raised at decomposition were answered on 2026-09-18.
+# REQ-GAL-001, 003, 004 and 007 moved v1 → v2 that day (CHG-0001–0004).
+#
+# FB-0004 (2026-09-21) was absorbed as CHG-0005–CHG-0009 and moved REQ-GAL-001
+# and 003 to v3, and REQ-GAL-002, 008, 012 and 013 to v2, adding REQ-GAL-015 to
+# REQ-GAL-019. It raised four new questions, so the requirements those touch are
+# back at `draft` until the client answers — see AMBIGUITIES.md.
 #
 # Vocabulary is fixed by .brain/glossary.md: Photo, Gallery, Thumbnail,
 # Larger view, Upload, Download.
@@ -14,19 +21,16 @@
   title: Uploading a Photo adds it to the Gallery
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/api/test_photos_http.py
-    - tests/e2e/test_uat_visual_browser.py
-    - tests/e2e/test_upload.py
-    - tests/test_store.py
-    - tests/test_uat_visual.py
-    - tests/test_validation.py
-  version: 2
+  status: in_progress
+  version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
     clarified by client answers 2026-09-18 (ANSWERS.md); Upload-from-a-popup
-    added by CHG-0003 (FB-0002, absorbed 2026-09-18)
+    added by CHG-0003 (FB-0002, absorbed 2026-09-18);
+    optional description, drag-and-drop selection and a view of the chosen
+    files added by CHG-0005, CHG-0006 and CHG-0007 (FB-0004, absorbed
+    2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     Upload is the only way a Photo enters the application. Without it the
     Gallery has nothing to show and every other requirement is unreachable.
@@ -61,6 +65,24 @@
     - given: The Gallery is shown
       when: The user starts an Upload
       then: The files are chosen from a popup
+    - given: The Upload popup is open and files have been chosen
+      when: The Upload is made with no description given
+      then: The chosen files become Photos in the Gallery
+    - given: The Upload popup is open and files have been chosen
+      when: A description of 250 characters or fewer is given with the Upload
+      then: The Photos added by that Upload carry that description
+    - given: The description field in the Upload popup
+      when: The user types or pastes more than 250 characters into it
+      then: The field holds 250 characters and the Upload is not refused for length
+    - given: The Upload popup is open
+      when: The user drops files onto it
+      then: Those files are chosen for the Upload, as if picked from the popup
+    - given: A file has been chosen for an Upload
+      when: The Upload has not yet been made
+      then: The popup shows a preview image of that file, not only its filename
+    - given: Thirty files have been chosen for one Upload
+      when: The Upload has not yet been made
+      then: A preview image is shown for every one of the thirty
   ambiguities: []
   belts: [A, B, C]
   history:
@@ -71,19 +93,27 @@
         v1 required that an Upload adds Photos to the Gallery. It did not
         say where the file picker lives. Superseded by CHG-0003: the files
         are chosen from a popup.
+    - version: 2
+      agreed: 2026-09-18
+      superseded_by: 3
+      summary: >-
+        v2 required an Upload to add Photos to the Gallery, with the files
+        chosen from a popup. It said nothing about a description, about dropping
+        files, or about what is shown after files are chosen. Superseded by
+        CHG-0005, CHG-0006 and CHG-0007.
 
 - id: REQ-GAL-002
   title: Every Photo carries an identifier the application issues on Upload
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/test_identity.py
-    - tests/test_store.py
-  version: 1
+  status: in_progress
+  version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
-    identifier rule from .brain/glossary.md, entry "Photo — Identified by"
+    identifier rule from .brain/glossary.md, entry "Photo — Identified by";
+    an optional description carried by a Photo added by CHG-0007 (FB-0004,
+    absorbed 2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     Deleting, downloading and showing a Larger view each name one Photo. A
     caller-supplied filename is neither unique nor trusted, so naming a Photo
@@ -102,29 +132,48 @@
     - given: A Photo uploaded under a filename containing path separators or ".."
       when: The location the application stored it at is inspected
       then: The stored Photo is inside the application's Photo directory
+    - given: A Photo was uploaded with a description
+      when: That Photo is retrieved from the Gallery
+      then: The description given at its Upload is carried with it
+    - given: A Photo was uploaded with no description
+      when: That Photo is retrieved from the Gallery
+      then: It carries no description, and is still a Photo in the Gallery
+    - given: A Photo in the Gallery carries a description
+      when: The user changes that description
+      then: That Photo carries the new description and the Photo itself is unchanged
+    - given: A Photo in the Gallery carries no description
+      when: The user gives it one
+      then: That Photo carries the description that was given
+    - given: The Larger view of a Photo is shown
+      when: The user changes that Photo's description there
+      then: That Photo carries the new description
   ambiguities: []
   depends_on:
     - REQ-GAL-001
   belts: [A]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required every Photo to carry an application-issued identifier, and
+        named no other attribute. Superseded by CHG-0007: a Photo may also carry
+        the optional description given at its Upload.
 
 - id: REQ-GAL-003
   title: The Gallery shows a Thumbnail for every Photo, newest Photo first
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/api/test_gallery_http.py
-    - tests/e2e/test_gallery_browser.py
-    - tests/e2e/test_uat_visual_browser.py
-    - tests/test_gallery.py
-    - tests/test_thumbnails.py
-    - tests/test_uat_visual.py
-  version: 2
+  status: in_progress
+  version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
     Thumbnail defined in .brain/glossary.md; clarified by client answers
     2026-09-18 (ANSWERS.md); larger designed Thumbnail cards added by
-    CHG-0001 and CHG-0002 (FB-0001, absorbed 2026-09-18)
+    CHG-0001 and CHG-0002 (FB-0001, absorbed 2026-09-18);
+    a Photo's description shown on its card on hover added by CHG-0008
+    (FB-0004, absorbed 2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     Seeing the Photos together is the client's stated reason for the
     application. A Photo that is stored but never shown is invisible to the
@@ -158,6 +207,12 @@
       then: >-
         Each Thumbnail is shown as a card with a visible surface around the
         image, not as a bare image
+    - given: A Photo with a description is in the Gallery
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's description
+    - given: A Photo with no description is in the Gallery
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's filename
   ambiguities: []
   depends_on:
     - REQ-GAL-001
@@ -170,6 +225,14 @@
         v1 required a Thumbnail per Photo, newest first, smaller in bytes
         than the Photo. It did not size or style the on-screen card.
         Superseded by CHG-0001 (larger cards) and CHG-0002 (card design).
+    - version: 2
+      agreed: 2026-09-18
+      superseded_by: 3
+      summary: >-
+        v2 required a Thumbnail per Photo, newest first, in a card with a
+        visible surface. The only interaction it named was activation.
+        Superseded by CHG-0008: resting the pointer on a card shows that Photo's
+        description.
 
 - id: REQ-GAL-004
   title: Activating a Thumbnail shows the Larger view over the Gallery
@@ -370,14 +433,15 @@
   title: A Photo stays in the Gallery until it is deleted, including across restarts
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/test_durability.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clauses "see them in a gallery" and "be
     able to delete and download a photo" read together — deletion is the only
-    removal the brief names; clarified by client answers 2026-09-18 (ANSWERS.md)
+    removal the brief names; clarified by client answers 2026-09-18 (ANSWERS.md);
+    the description's durability added by CHG-0007 (FB-0004, absorbed
+    2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     A Photo that disappears without the user deleting it is data loss, and the
     user has no way to tell it happened. The client keeps Photos here across
@@ -398,11 +462,28 @@
     - given: A Photo has been deleted after the user confirmed
       when: The application is stopped and started again
       then: That Photo is not in the Gallery
+    - given: A Photo was uploaded with a description and not deleted
+      when: The application is stopped and started again
+      then: That Photo still carries the description given at its Upload
+    - given: A Photo's description was changed after its Upload
+      when: The application is stopped and started again
+      then: That Photo carries the changed description
+    - given: A Photo that was uploaded before descriptions existed
+      when: The Gallery is shown
+      then: That Photo carries no description and is still shown as a Photo
   ambiguities: []
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-005
   belts: [A]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required a Photo to survive restarts until deleted. It named no
+        attribute that must survive with it. Superseded by CHG-0007: the
+        description survives too.
 
 - id: REQ-GAL-009
   title: A file that fails to upload leaves nothing behind and is reported
@@ -530,14 +611,14 @@
   title: Home Gallery Thumbnail cards are larger and designed as cards
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/e2e/test_uat_visual_browser.py
-    - tests/test_uat_visual.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     FB-0001, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0001 and CHG-0002.
-    The same criteria are on REQ-GAL-003@v2.
+    The same criteria are on REQ-GAL-003@v2.;
+    a Photo's description shown on its card on hover added by CHG-0008
+    (FB-0004, absorbed 2026-09-21). The same criteria are on REQ-GAL-003@v3;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     The delivered v1 tiles were too small and looked unfinished. The client
     asked for larger cards whose design has changed, while still serving
@@ -553,23 +634,33 @@
       then: >-
         Each Thumbnail is shown as a card with a visible surface around the
         image, not as a bare image
+    - given: A Photo with a description is in the Gallery
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's description
   ambiguities: []
   depends_on:
     - REQ-GAL-003
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required the home Gallery cards to be larger than the v1 tile and
+        designed as cards. It named no hover behaviour. Superseded by CHG-0008.
 
 - id: REQ-GAL-013
   title: Upload is started from a popup
   module: GAL
   priority: must
-  status: verified
-  verified_by:
-    - tests/e2e/test_uat_visual_browser.py
-    - tests/test_uat_visual.py
-  version: 1
+  status: agreed
+  version: 2
   source: >-
     FB-0002, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0003. The same
-    criteria are on REQ-GAL-001@v2 and REQ-GAL-007@v2.
+    criteria are on REQ-GAL-001@v2 and REQ-GAL-007@v2.;
+    a close control, a drop target and a view of the chosen files added by
+    CHG-0005, CHG-0006 and CHG-0009 (FB-0004, absorbed 2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     The header file picker was not the surface they wanted. Upload still
     has to be reachable on an empty Gallery, or REQ-GAL-007 fails.
@@ -580,11 +671,32 @@
     - given: No Photo has been uploaded
       when: The Gallery is shown
       then: A control that opens the Upload popup is shown
+    - given: The Upload popup is open
+      when: The close control is shown
+      then: The close control is inside the Upload popup, at its top right
+    - given: The Upload popup is open and no file has been uploaded
+      when: The user activates the close control
+      then: The popup is no longer shown and no Photo has been added to the Gallery
+    - given: The Upload popup is open and a file has been chosen
+      when: The Upload has not yet been made
+      then: The popup shows a preview image of that file, not only its filename
+    - given: Thirty files have been chosen for one Upload
+      when: The Upload has not yet been made
+      then: A preview image is shown for every one of the thirty
   ambiguities: []
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-007
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required Upload to be started from a popup and an opener to be shown
+        on an empty Gallery. Both criteria concerned opening it. It said nothing
+        about closing it, about dropping files onto it, or about showing what
+        was chosen. Superseded by CHG-0005, CHG-0006 and CHG-0009.
 
 - id: REQ-GAL-014
   title: Larger view close and Delete sit inside the panel
@@ -612,4 +724,170 @@
   ambiguities: []
   depends_on:
     - REQ-GAL-004
+  belts: [A, B]
+
+- id: REQ-GAL-015
+  title: The Upload popup shows the chosen files before they become Photos
+  module: GAL
+  priority: should
+  status: agreed
+  version: 1
+  source: >-
+    FB-0004, Chat 2026-09-21, KCB/DEV (ask 1a); absorbed as CHG-0005. The
+    same criterion is on REQ-GAL-013@v2;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
+  rationale: >-
+    The client asked to see what they had picked before it became a Photo.
+    Today the Upload starts the moment files are chosen, so a wrong selection
+    is only discovered once it is in the Gallery and has to be deleted.
+  acceptance:
+    - given: The Upload popup is open and a file has been chosen
+      when: The Upload has not yet been made
+      then: The popup shows a preview image of that file, not only its filename
+    - given: A file has been chosen for an Upload
+      when: The preview of it is shown
+      then: The preview renders that file and not another file that was chosen
+    - given: Thirty files have been chosen for one Upload
+      when: The Upload has not yet been made
+      then: A preview image is shown for every one of the thirty
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-013
+  belts: [A, B]
+
+- id: REQ-GAL-016
+  title: Files can be chosen by dropping them on the Upload popup
+  module: GAL
+  priority: should
+  status: agreed
+  version: 1
+  source: >-
+    FB-0004, Chat 2026-09-21, KCB/DEV (ask 1b); absorbed as CHG-0006. The
+    same criterion is on REQ-GAL-001@v3.
+  rationale: >-
+    The client named dropping as an alternative to the picker, not a
+    replacement for it. Dragging a selection out of Explorer is fewer steps
+    than opening a picker and navigating back to the same folder.
+  acceptance:
+    - given: The Upload popup is open
+      when: The user drops files onto it
+      then: Those files are chosen for the Upload, as if picked from the popup
+    - given: The Upload popup is open
+      when: Files have been dropped onto it and uploaded
+      then: They are in the Gallery as Photos
+    - given: The Upload popup is open
+      when: The user chooses files from the picker instead
+      then: The picker still chooses files for the Upload
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+    - REQ-GAL-013
+  belts: [A, B]
+
+- id: REQ-GAL-017
+  title: A Photo may carry an optional description given at its Upload
+  module: GAL
+  priority: should
+  status: agreed
+  version: 1
+  source: >-
+    FB-0004, Chat 2026-09-21, KCB/DEV (ask 2); absorbed as CHG-0007. The
+    same criteria are on REQ-GAL-001@v3, REQ-GAL-002@v2 and REQ-GAL-008@v2;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
+  rationale: >-
+    A Gallery of a few thousand Photos is searched by eye. The client asked to
+    be able to say what a Photo is, in their own words, at the moment they add
+    it. "not mandatory" is theirs: an Upload without one must still succeed.
+    The keypress counter is theirs too - "a count on ke prass 1/150 like this
+    will indicate" - and counts against 250 because 250 is the agreed limit;
+    their "150" was a slip in the illustration, not a second limit.
+  acceptance:
+    - given: The Upload popup is open and files have been chosen
+      when: The Upload is made with no description given
+      then: The chosen files become Photos in the Gallery
+    - given: The Upload popup is open and files have been chosen
+      when: A description of 250 characters or fewer is given with the Upload
+      then: The Photos added by that Upload carry that description
+    - given: The description field in the Upload popup
+      when: The user types or pastes more than 250 characters into it
+      then: The field holds 250 characters and the Upload is not refused for length
+    - given: The description field in the Upload popup is empty
+      when: The user types one character into it
+      then: A count of characters used against the limit is shown, reading 1/250
+    - given: The description field in the Upload popup holds forty characters
+      when: The user types one more
+      then: The count shown reads 41/250
+    - given: A Photo was uploaded with a description and not deleted
+      when: The application is stopped and started again
+      then: That Photo still carries the description given at its Upload
+    - given: A Photo in the Gallery carries a description
+      when: The user changes that description
+      then: That Photo carries the new description and the Photo itself is unchanged
+    - given: The Larger view of a Photo is shown
+      when: The user changes that Photo's description there
+      then: That Photo carries the new description
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-001
+    - REQ-GAL-002
+    - REQ-GAL-008
+  belts: [A, B, C]
+
+- id: REQ-GAL-018
+  title: A Photo's description is the alt text of its Thumbnail
+  module: GAL
+  priority: should
+  status: agreed
+  version: 1
+  source: >-
+    FB-0004, Chat 2026-09-21, KCB/DEV (ask 3); absorbed as CHG-0008. The
+    same criteria are on REQ-GAL-003@v3 and REQ-GAL-012@v2;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
+  rationale: >-
+    A description nobody can read is worth nothing. Asked whether this should
+    be a pointer tooltip or the image's alt text, the client answered "photo's
+    alt" on 2026-09-21. This requirement shows data that REQ-GAL-017 creates
+    and is worthless without it.
+  acceptance:
+    - given: A Photo with a description is in the Gallery
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's description
+    - given: A Photo with no description is in the Gallery
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's filename
+    - given: A Photo whose description has been changed
+      when: Its Thumbnail is shown afterwards
+      then: That Thumbnail's alt text is the changed description
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-003
+    - REQ-GAL-017
+  belts: [A, B]
+
+- id: REQ-GAL-019
+  title: The Upload popup can be closed without uploading anything
+  module: GAL
+  priority: should
+  status: agreed
+  version: 1
+  source: >-
+    FB-0004, Chat 2026-09-21, KCB/DEV (ask 4); absorbed as CHG-0009. The
+    same criteria are on REQ-GAL-013@v2.
+  rationale: >-
+    The client opened the Upload popup and found no way out of it that they
+    could see. Escape already closes it, but an invisible control is not a
+    control — they asked for a cross, in the place a cross is expected.
+  acceptance:
+    - given: The Upload popup is open
+      when: The close control is shown
+      then: The close control is inside the Upload popup, at its top right
+    - given: The Upload popup is open and no file has been uploaded
+      when: The user activates the close control
+      then: The popup is no longer shown and no Photo has been added to the Gallery
+    - given: The Upload popup has been closed without uploading
+      when: The user starts an Upload again
+      then: The popup is shown again
+  ambiguities: []
+  depends_on:
+    - REQ-GAL-013
   belts: [A, B]

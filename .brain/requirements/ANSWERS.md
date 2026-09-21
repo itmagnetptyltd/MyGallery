@@ -226,3 +226,81 @@ _In plain words: The very first time you open MyGallery, before you have uploade
 
 A friendly message like "No photos yet. Click Upload to add your first photos", with the Upload button easy to see. If something is actually broken, I'd want an error message instead of an empty screen.
 
+---
+
+# Questions raised 2026-09-21 (FB-0004)
+
+The four below are **open**. Paste the client's reply under each, in their
+words, then run `/resolve-ambiguities`.
+
+---
+
+## What is shown of the chosen files before the Upload is made?
+
+_Blocks: REQ-GAL-001, REQ-GAL-013, REQ-GAL-015_
+
+_In plain words: After you pick photos - or drop them in - but before they are added, what would you expect to see of them? Just the file names, one picture, or all of them? And what should that look like when you have picked thirty at once?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+preview of that uploadede image.
+
+## Is the 250-character description limit a refusal, or a typing limit?
+
+_Blocks: REQ-GAL-001, REQ-GAL-017_
+
+_In plain words: If you paste a description longer than 250 characters, should MyGallery refuse the upload and tell you why - or simply stop you typing past 250?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+it will not allow to type/pest more then 250, and a count on ke prass 1/150 like this will indicate
+
+## Can a description be changed after Upload, and what do existing Photos carry?
+
+_Blocks: REQ-GAL-002, REQ-GAL-008, REQ-GAL-017_
+
+_In plain words: Once a photo is in the Gallery, do you expect to be able to add or change its description later? And the photos already in your Gallery - should they stay without one?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+Yes
+
+## Tooltip or alt text?
+
+_Blocks: REQ-GAL-003, REQ-GAL-012, REQ-GAL-018_
+
+_In plain words: When you rest the mouse on a photo, should the description appear in the little box that pops up next to the pointer? Or should it be the photo's alt text - the words a screen reader reads out in place of the image?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+photo's alt
+
+---
+
+# Questions raised 2026-09-21, second round
+
+What the four answers above did not settle. Both were narrowed to exactly what
+is missing rather than asked again in full.
+
+---
+
+## When several files are chosen at once, is every one previewed?
+
+_Blocks: REQ-GAL-001, REQ-GAL-013, REQ-GAL-015_
+
+_In plain words: You said you want a preview of the image before it is added. When you pick thirty photos at once, would you expect to see a small preview of all thirty, or just one?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+Yes. A small preview of every chosen file, including thirty.
+
+## Where is a description changed after Upload?
+
+_Blocks: REQ-GAL-002, REQ-GAL-008, REQ-GAL-017_
+
+_In plain words: You said you want to be able to change a photo's description later. Where would you go to do that - open the photo large and edit it there, or somewhere on the Gallery page itself?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+In the Larger view after I click the photo.
+The 1/150 (or 1/250) keypress counter is part of the 250-character answer already. Write it as a criterion on the description REQ. Do not open a new CHG.

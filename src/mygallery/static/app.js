@@ -27,6 +27,24 @@ const deleteConfirmation = document.querySelector(
 );
 const deleteConfirm = document.querySelector('[data-testid="delete-confirm"]');
 const deleteDecline = document.querySelector('[data-testid="delete-decline"]');
+const uploadPreviews = document.querySelector(
+  '[data-testid="upload-previews"]',
+);
+const uploadDescription = document.querySelector(
+  '[data-testid="upload-description"]',
+);
+const uploadSubmit = document.querySelector('[data-testid="upload-submit"]');
+const largerViewDescription = document.querySelector(
+  '[data-testid="larger-view-description"]',
+);
+const descriptionSave = document.querySelector(
+  '[data-testid="description-save"]',
+);
+
+// What the popup is holding, chosen but not yet uploaded. REQ-GAL-001@v3
+// separates choosing from uploading, so the files have to live somewhere
+// between the two.
+let chosen = [];
 
 // The Photo the Larger view is currently showing — what Delete acts on.
 let openPhotoId = null;
@@ -44,12 +62,40 @@ function tileFor(photo) {
   const tile = document.createElement("img");
   tile.className = "tile";
   tile.src = `/api/photos/${photo.id}/thumbnail`;
-  tile.alt = photo.filename;
+  // REQ-GAL-003@v3 c9/c10: the client chose alt over a tooltip.
+  tile.alt = photo.description || photo.filename;
+  tile.dataset.description = photo.description || "";
   tile.dataset.testid = "thumbnail";
   tile.dataset.filename = photo.filename;
   tile.dataset.photoId = photo.id;
   card.append(tile);
   return card;
+}
+
+function showChosen(files) {
+  // REQ-GAL-001@v3 c15/c16. createObjectURL rather than a FileReader: a batch
+  // of thirty full-size phone photos read as data URLs is tens of megabytes of
+  // string in memory for no gain.
+  for (const url of chosen.map((file) => file.previewUrl)) {
+    URL.revokeObjectURL(url);
+  }
+  chosen = Array.from(files).map((file) => {
+    file.previewUrl = URL.createObjectURL(file);
+    return file;
+  });
+
+  uploadPreviews.replaceChildren();
+  for (const file of chosen) {
+    const item = document.createElement("li");
+    item.dataset.testid = "upload-preview";
+    const image = document.createElement("img");
+    image.className = "upload-preview-image";
+    image.src = file.previewUrl;
+    image.alt = file.name;
+    item.append(image);
+    uploadPreviews.append(item);
+  }
+  uploadPreviews.hidden = chosen.length === 0;
 }
 
 function showState() {
@@ -108,10 +154,13 @@ function showFailures(refused) {
   uploadFailures.hidden = false;
 }
 
-async function upload(files) {
+async function upload(files, description) {
   const form = new FormData();
   for (const file of files) {
     form.append("photos", file);
+  }
+  if (description) {
+    form.append("description", description);
   }
   const response = await fetch("/api/photos", { method: "POST", body: form });
   const body = await response.json();
@@ -132,6 +181,7 @@ gallery.addEventListener("click", (event) => {
   largerViewPhoto.src = `/api/photos/${tile.dataset.photoId}`;
   largerViewPhoto.alt = tile.dataset.filename;
   largerViewPhoto.dataset.filename = tile.dataset.filename;
+  largerViewDescription.value = tile.dataset.description || "";
   openPhotoId = tile.dataset.photoId;
   largerView.showModal();
 });
@@ -165,12 +215,51 @@ uploadOpen.addEventListener("click", () => {
   uploadPopup.showModal();
 });
 
+// REQ-GAL-001@v3: choosing shows previews and stops. The Upload is a
+// separate act, because c15 requires the chosen files to be visible before it.
 input.addEventListener("change", (event) => {
-  if (event.target.files.length > 0) {
-    uploadPopup.close();
-    void upload(event.target.files);
-    event.target.value = "";
+  showChosen(event.target.files);
+});
+
+// REQ-GAL-001@v3 c14: dropping on the popup chooses files, as the picker does.
+uploadPopup.addEventListener("dragover", (event) => {
+  event.preventDefault();
+});
+
+uploadPopup.addEventListener("drop", (event) => {
+  event.preventDefault();
+  if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+    showChosen(event.dataTransfer.files);
   }
+});
+
+uploadSubmit.addEventListener("click", () => {
+  if (chosen.length === 0) {
+    return;
+  }
+  const files = chosen;
+  const description = uploadDescription.value;
+  uploadPopup.close();
+  uploadPreviews.replaceChildren();
+  uploadPreviews.hidden = true;
+  chosen = [];
+  uploadDescription.value = "";
+  input.value = "";
+  void upload(files, description);
+});
+
+// REQ-GAL-002@v2 c9: the description is changed here, in the Larger view.
+descriptionSave.addEventListener("click", () => {
+  void (async () => {
+    await fetch(`/api/photos/${openPhotoId}/description`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ description: largerViewDescription.value }),
+    });
+    largerView.close();
+    nextCursor = null;
+    await loadPage({ reset: true });
+  })();
 });
 
 new IntersectionObserver((entries) => {

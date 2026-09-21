@@ -1,0 +1,42 @@
+id: CHG-0008
+raised: 2026-09-21
+stream: scope_change
+source: "Chat, 2026-09-21, KCB/DEV (FB-0004, ask 3)"
+raw: "In file upload after select file in upload or drag-drop a view and a description of max 250 char can given (not mandatory), on mousemove tooltip/alt will show this on gallery home items."
+affects: [REQ-GAL-003, REQ-GAL-012]
+analysis:
+  dependants:
+    - REQ-GAL-004
+    - REQ-GAL-005
+    - REQ-GAL-007
+    - REQ-GAL-008
+    - REQ-GAL-012
+    - REQ-GAL-013
+    - REQ-GAL-014
+  tests_invalidated: 29
+  estimate: >-
+    Small on its own, and worthless on its own — it displays data that does
+    not exist unless CHG-0007 is taken. Sequence it after CHG-0007 or drop
+    it; taking this one alone delivers nothing the client can see.
+  notes: >-
+    This record is ask 3 only: on Gallery home items, mousemove shows the
+    description as tooltip or alt. variation-agent: not-covered.
+    REQ-GAL-003@v2 c8 is the whole of what is agreed about a Thumbnail
+    card's presentation — "Each Thumbnail is shown as a card with a visible
+    surface around the image, not as a bare image" — and the agreed criteria
+    govern card width and surface only. The only agreed interaction with a
+    Thumbnail is activation, REQ-GAL-004@v2 c1. Nothing requires a hover
+    state, a tooltip, or alt text. The slice 7 plan of 2026-09-18 recorded
+    that captions and hover chrome would not be invented unless named; this
+    ask names them. 25 tests are pinned to REQ-GAL-003@v2 and 4 to
+    REQ-GAL-012@v1. Versions are not moved until decision is filled.
+  open_question: >-
+    The client names "tooltip/alt" and does not choose. They are not the same
+    thing: a title tooltip does not reach a screen reader, alt text replaces
+    the image for one, and alt already carries the Photo's filename today.
+    Which one is meant changes what is built and what is tested.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-003: v3
+  - REQ-GAL-012: v2

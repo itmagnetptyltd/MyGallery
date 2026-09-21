@@ -7,7 +7,7 @@ See constraints/csp-blocks-playwright-wait-for-function.md.
 import re
 
 from playwright.sync_api import expect
-from tests.conftest import an_image
+from tests.conftest import an_image, upload_files
 
 
 def _gallery_url(running_server) -> str:
@@ -19,7 +19,7 @@ def _upload_one(page, tmp_path) -> None:
     photo.write_bytes(an_image("JPEG", size=(900, 700)))
     page.get_by_test_id("upload-open").click()
     expect(page.get_by_test_id("upload-popup")).to_be_visible()
-    page.get_by_test_id("upload-input").set_input_files(str(photo))
+    upload_files(page, str(photo))
     expect(page.get_by_test_id("thumbnail")).to_have_count(1)
 
 

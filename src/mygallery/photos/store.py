@@ -17,13 +17,18 @@ from mygallery import config
 from mygallery.photos import thumbnails
 from mygallery.photos.identity import new_photo_id
 
+# Written out in full in every statement rather than shared through an
+# interpolated constant. The column list is a fixed literal either way, but the
+# rule this file already keeps is that no SQL here is assembled by f-string —
+# so the next person to edit it never has to work out whether one was safe.
+
 _PAGE_SQL = (
-    "SELECT id, filename, format, byte_size, uploaded_at, sequence"
+    "SELECT id, filename, format, byte_size, uploaded_at, description, sequence"
     " FROM photos ORDER BY sequence DESC LIMIT ?"
 )
 
 _PAGE_AFTER_SQL = (
-    "SELECT id, filename, format, byte_size, uploaded_at, sequence"
+    "SELECT id, filename, format, byte_size, uploaded_at, description, sequence"
     " FROM photos WHERE sequence < ? ORDER BY sequence DESC LIMIT ?"
 )
 
@@ -34,9 +39,25 @@ CREATE TABLE IF NOT EXISTS photos (
     format      TEXT NOT NULL,
     byte_size   INTEGER NOT NULL,
     uploaded_at TEXT NOT NULL,
-    sequence    INTEGER NOT NULL
+    sequence    INTEGER NOT NULL,
+    description TEXT
 );
 """
+
+
+# REQ-GAL-001@v3 criterion 13: the Upload is never refused for length, so the
+# ceiling is applied rather than rejected. The browser stops at 250 with
+# maxlength; this is the same limit on the server, because a caller that is not
+# the browser must not be able to put unbounded text into the index.
+MAX_DESCRIPTION_CHARACTERS = 250
+
+
+def clamp_description(description: str | None) -> str | None:
+    """The description as it will be stored: absent, or at most 250 characters."""
+    if description is None:
+        return None
+    text = description.strip()
+    return text[:MAX_DESCRIPTION_CHARACTERS] if text else None
 
 
 class GalleryUnreadable(RuntimeError):
@@ -61,6 +82,8 @@ class Photo:
     format: str
     byte_size: int
     uploaded_at: str
+    # REQ-GAL-002@v2: optional, because the client's words were "not mandatory".
+    description: str | None = None
 
 
 class PhotoStore:
@@ -92,7 +115,13 @@ class PhotoStore:
 
     # --- writing ------------------------------------------------------------
 
-    def save(self, filename: str, content: bytes, image_format: str = "JPEG") -> Photo:
+    def save(
+        self,
+        filename: str,
+        content: bytes,
+        image_format: str = "JPEG",
+        description: str | None = None,
+    ) -> Photo:
         """Write one Photo and record it.
 
         The caller's `filename` is stored as data only. The file on disk is
@@ -135,11 +164,13 @@ class PhotoStore:
                 format=image_format,
                 byte_size=len(content),
                 uploaded_at=datetime.now(UTC).isoformat(),
+                description=clamp_description(description),
             )
             with self._connect() as connection:
                 connection.execute(
-                    "INSERT INTO photos (id, filename, format, byte_size, uploaded_at, sequence)"
-                    " VALUES (?, ?, ?, ?, ?,"
+                    "INSERT INTO photos"
+                    " (id, filename, format, byte_size, uploaded_at, description, sequence)"
+                    " VALUES (?, ?, ?, ?, ?, ?,"
                     " (SELECT COALESCE(MAX(sequence), 0) + 1 FROM photos))",
                     (
                         photo.id,
@@ -147,6 +178,7 @@ class PhotoStore:
                         photo.format,
                         photo.byte_size,
                         photo.uploaded_at,
+                        photo.description,
                     ),
                 )
         except Exception:
@@ -155,6 +187,23 @@ class PhotoStore:
             raise
 
         return photo
+
+    def set_description(self, photo_id: str, description: str | None) -> None:
+        """Give or change a Photo's description. REQ-GAL-002@v2.
+
+        The Photo's own bytes are never touched: the client asked to change
+        what a Photo is *called*, not the Photo.
+        """
+        if self.get(photo_id) is None:
+            raise KeyError(photo_id)
+        try:
+            with self._connect() as connection:
+                connection.execute(
+                    "UPDATE photos SET description = ? WHERE id = ?",
+                    (clamp_description(description), photo_id),
+                )
+        except sqlite3.Error as error:
+            raise GalleryUnreadable(str(error)) from error
 
     def delete(self, photo_id: str) -> None:
         """Remove a Photo entirely.
@@ -184,14 +233,15 @@ class PhotoStore:
     def all(self) -> list[Photo]:
         """Every Photo, most recently uploaded first."""
         rows = self._query(
-            "SELECT id, filename, format, byte_size, uploaded_at"
+            "SELECT id, filename, format, byte_size, uploaded_at, description"
             " FROM photos ORDER BY sequence DESC"
         )
         return [Photo(*row) for row in rows]
 
     def get(self, photo_id: str) -> Photo | None:
         rows = self._query(
-            "SELECT id, filename, format, byte_size, uploaded_at FROM photos WHERE id = ?",
+            "SELECT id, filename, format, byte_size, uploaded_at, description"
+            " FROM photos WHERE id = ?",
             (photo_id,),
         )
         return Photo(*rows[0]) if rows else None
@@ -216,8 +266,8 @@ class PhotoStore:
 
         has_more = len(rows) > size
         rows = rows[:size]
-        next_cursor = rows[-1][5] if (has_more and rows) else None
-        return Page(photos=[Photo(*row[:5]) for row in rows], next_cursor=next_cursor)
+        next_cursor = rows[-1][6] if (has_more and rows) else None
+        return Page(photos=[Photo(*row[:6]) for row in rows], next_cursor=next_cursor)
 
     def thumbnail_bytes(self, photo_id: str) -> bytes:
         if self.get(photo_id) is None:
@@ -243,9 +293,22 @@ class PhotoStore:
         try:
             with self._connect() as connection:
                 connection.executescript(_SCHEMA)
+                self._add_missing_columns(connection)
         except sqlite3.Error as error:
             raise GalleryUnreadable(str(error)) from error
         self._sweep_unfinished_writes()
+
+    @staticmethod
+    def _add_missing_columns(connection: sqlite3.Connection) -> None:
+        """Bring an index written before this version up to the schema.
+
+        CREATE TABLE IF NOT EXISTS does nothing to a table that already
+        exists, so a Gallery created before REQ-GAL-002@v2 has no description
+        column and every read of it would fail. The client has such a Gallery.
+        """
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(photos)")}
+        if "description" not in columns:
+            connection.execute("ALTER TABLE photos ADD COLUMN description TEXT")
 
     def _sweep_unfinished_writes(self) -> None:
         """REQ-GAL-009: leftovers from a save that never finished.

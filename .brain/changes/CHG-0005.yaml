@@ -1,0 +1,48 @@
+id: CHG-0005
+raised: 2026-09-21
+stream: scope_change
+source: "Chat, 2026-09-21, KCB/DEV (FB-0004, ask 1a)"
+raw: "In file upload after select file in upload or drag-drop a view and a description of max 250 char can given (not mandatory), on mousemove tooltip/alt will show this on gallery home items."
+affects: [REQ-GAL-001, REQ-GAL-013]
+analysis:
+  dependants:
+    - REQ-GAL-002
+    - REQ-GAL-003
+    - REQ-GAL-004
+    - REQ-GAL-005
+    - REQ-GAL-006
+    - REQ-GAL-007
+    - REQ-GAL-008
+    - REQ-GAL-009
+    - REQ-GAL-010
+    - REQ-GAL-012
+    - REQ-GAL-013
+    - REQ-GAL-014
+  tests_invalidated: 22
+  estimate: >-
+    Cannot estimate from the graph. "a view" names no observable — whether it
+    is a filename list, one image, or a thumbnail strip is unstated, and the
+    three differ in cost.
+  notes: >-
+    This record is ask 1a only: after files are chosen, show a view of the
+    selected file before it becomes a Photo. variation-agent: not-covered.
+    The governing criterion is REQ-GAL-001@v2 c10, duplicated as
+    REQ-GAL-013@v1 c1, "The files are chosen from a popup" — that places
+    where the picker lives and says nothing about what is displayed after
+    files are chosen. The REQ-GAL-001 v1 to v2 history confirms the narrow
+    intent: it "did not say where the file picker lives". The only agreed
+    criteria describing selected-but-not-yet-uploaded files are
+    REQ-GAL-001@v2 c7-c8 and REQ-GAL-009@v1 c3-c5, and all four describe
+    outcomes after Upload, not a pre-upload display. 18 tests are pinned to
+    REQ-GAL-001@v2 and 4 to REQ-GAL-013@v1; they go stale only if those
+    requirements are versioned. Whether this lands as a version move on
+    REQ-GAL-001 and REQ-GAL-013 or as a new requirement is for the decision.
+    Versions are not moved until decision is filled.
+  open_question: >-
+    "a view" is not an observable. The client has not said what is shown for
+    a batch of thirty, which REQ-GAL-001@v2 c7 requires to be supported.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-001: v3
+  - REQ-GAL-013: v2
