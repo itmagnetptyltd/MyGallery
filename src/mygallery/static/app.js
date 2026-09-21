@@ -34,6 +34,9 @@ const uploadDescription = document.querySelector(
   '[data-testid="upload-description"]',
 );
 const uploadSubmit = document.querySelector('[data-testid="upload-submit"]');
+const uploadPopupClose = document.querySelector(
+  '[data-testid="upload-popup-close"]',
+);
 const largerViewDescription = document.querySelector(
   '[data-testid="larger-view-description"]',
 );
@@ -213,6 +216,12 @@ deleteConfirm.addEventListener("click", () => {
 
 uploadOpen.addEventListener("click", () => {
   uploadPopup.showModal();
+});
+
+// REQ-GAL-013@v2 c4: closing adds no Photo. Nothing here uploads — it only
+// puts back what was chosen, so reopening starts clean.
+uploadPopupClose.addEventListener("click", () => {
+  uploadPopup.close();
 });
 
 // REQ-GAL-001@v3: choosing shows previews and stops. The Upload is a

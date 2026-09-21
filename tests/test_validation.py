@@ -11,7 +11,7 @@ from tests.conftest import an_image
 from mygallery.photos.validation import RefusalReason, validate_upload
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 @pytest.mark.parametrize("fmt", ["JPEG", "PNG", "GIF", "WEBP"])
 def test_each_accepted_image_format_is_accepted(fmt):
     result = validate_upload(filename=f"holiday.{fmt.lower()}", content=an_image(fmt))
@@ -49,7 +49,7 @@ def test_the_reason_for_an_unsupported_type_says_so():
     assert result.reason is RefusalReason.UNSUPPORTED_TYPE
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_a_file_at_the_size_limit_is_accepted():
     from mygallery import config
 
@@ -61,7 +61,7 @@ def test_a_file_at_the_size_limit_is_accepted():
     assert result.accepted
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_a_file_over_the_size_limit_is_refused():
     from mygallery import config
 
@@ -73,7 +73,7 @@ def test_a_file_over_the_size_limit_is_refused():
     assert not result.accepted
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_the_reason_for_an_oversized_file_names_the_size():
     from mygallery import config
 

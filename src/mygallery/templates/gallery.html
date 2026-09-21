@@ -42,6 +42,17 @@
          backdrop without any of it being written here, and because it does not
          navigate, the Gallery keeps its scroll position underneath. -->
     <dialog class="upload-popup" data-testid="upload-popup" aria-label="Upload">
+      <!-- REQ-GAL-013@v2 c3/c4: the client asked for a cross at the top right
+           so the popup can be dismissed without uploading anything. Escape
+           already did that, but an invisible control is not a control. -->
+      <button
+        type="button"
+        class="upload-popup-close"
+        data-testid="upload-popup-close"
+        aria-label="Close"
+      >
+        &times;
+      </button>
       <p>Choose photos to add to the Gallery.</p>
       <label class="upload-pick">
         <span>Choose files</span>
