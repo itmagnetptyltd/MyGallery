@@ -11,8 +11,11 @@
 #
 # FB-0004 (2026-09-21) was absorbed as CHG-0005–CHG-0009 and moved REQ-GAL-001
 # and 003 to v3, and REQ-GAL-002, 008, 012 and 013 to v2, adding REQ-GAL-015 to
-# REQ-GAL-019. It raised four new questions, so the requirements those touch are
-# back at `draft` until the client answers — see AMBIGUITIES.md.
+# REQ-GAL-019. Its four questions were answered on 2026-09-21.
+#
+# FB-0005 (2026-09-21) was absorbed as CHG-0010–CHG-0013 and moved REQ-GAL-013
+# to v3, and REQ-GAL-015 and 019 to v2. It raised three new questions, all
+# answered on 2026-09-21 (the last in a fourth round).
 #
 # Vocabulary is fixed by .brain/glossary.md: Photo, Gallery, Thumbnail,
 # Larger view, Upload, Download.
@@ -686,14 +689,24 @@
   status: verified
   verified_by:
     - tests/e2e/test_uat_visual_browser.py
+    - tests/e2e/test_upload_popup_look_browser.py
     - tests/test_uat_visual.py
-  version: 2
+    - tests/test_upload_popup_look.py
+  version: 3
   source: >-
     FB-0002, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0003. The same
     criteria are on REQ-GAL-001@v2 and REQ-GAL-007@v2.;
     a close control, a drop target and a view of the chosen files added by
     CHG-0005, CHG-0006 and CHG-0009 (FB-0004, absorbed 2026-09-21);
-    clarified by client answers 2026-09-21 (ANSWERS.md)
+    clarified by client answers 2026-09-21 (ANSWERS.md);
+    a larger popup, a white border and controls styled like the Larger
+    view added by CHG-0010, CHG-0012 and CHG-0013 (FB-0005, absorbed
+    2026-09-21). "Increase" is held to the delivered 680-pixel width the way
+    REQ-GAL-012@v2 c1 holds "larger" to the delivered tile. The close-control
+    criterion is the same on REQ-GAL-019@v2;
+    border clarified by client answers 2026-09-21, third round (ANSWERS.md);
+    Choose files and Upload buttons clarified by client answers 2026-09-21,
+    fourth round (ANSWERS.md)
   rationale: >-
     The header file picker was not the surface they wanted. Upload still
     has to be reachable on an empty Gallery, or REQ-GAL-007 fails.
@@ -716,6 +729,18 @@
     - given: Thirty files have been chosen for one Upload
       when: The Upload has not yet been made
       then: A preview image is shown for every one of the thirty
+    - given: The Upload popup is open on a screen at least 1280 pixels wide
+      when: Its width is measured
+      then: It is wider than the 680-pixel popup delivered at REQ-GAL-013@v2
+    - given: The Upload popup and the Larger view have each been opened
+      when: Their close controls are compared
+      then: The Upload popup's close control has the same size, border and colours as the Larger view's
+    - given: The Upload popup and the Larger view have each been opened
+      when: Their outer borders are compared
+      then: The Upload popup has a border around the whole popup of the same width, style and colour as the Larger view panel's
+    - given: The Upload popup and the Larger view have each been opened
+      when: The Choose files and Upload buttons are compared with the Larger view's Save description button
+      then: Each has the same shape, border and colours as Save description - a rectangle outlined in white, not a circle
   ambiguities: []
   depends_on:
     - REQ-GAL-001
@@ -730,6 +755,14 @@
         on an empty Gallery. Both criteria concerned opening it. It said nothing
         about closing it, about dropping files onto it, or about showing what
         was chosen. Superseded by CHG-0005, CHG-0006 and CHG-0009.
+    - version: 2
+      agreed: 2026-09-21
+      superseded_by: 3
+      summary: >-
+        v2 required the popup, its opener, a top-right close control, and a
+        preview of every chosen file. It set no size for the popup, no border,
+        and no look for its controls. Superseded by CHG-0010, CHG-0012 and
+        CHG-0013.
 
 - id: REQ-GAL-014
   title: Larger view close and Delete sit inside the panel
@@ -767,12 +800,18 @@
   verified_by:
     - tests/e2e/test_description_browser.py
     - tests/e2e/test_uat_visual_browser.py
+    - tests/e2e/test_upload_preview_size_browser.py
     - tests/test_uat_visual.py
-  version: 1
+    - tests/test_upload_preview_size.py
+  version: 2
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 1a); absorbed as CHG-0005. The
     same criterion is on REQ-GAL-013@v2;
-    clarified by client answers 2026-09-21 (ANSWERS.md)
+    clarified by client answers 2026-09-21 (ANSWERS.md);
+    larger previews asked for by CHG-0011 (FB-0005, absorbed 2026-09-21);
+    preview size clarified by client answers 2026-09-21, third round
+    (ANSWERS.md): "width like description box and height as per image
+    pixel", which supersedes their earlier "small preview"
   rationale: >-
     The client asked to see what they had picked before it became a Photo.
     Today the Upload starts the moment files are chosen, so a wrong selection
@@ -787,10 +826,27 @@
     - given: Thirty files have been chosen for one Upload
       when: The Upload has not yet been made
       then: A preview image is shown for every one of the thirty
+    - given: A file at least as wide as the description field has been chosen
+      when: Its preview is shown
+      then: The preview is as wide as the description field in the Upload popup
+    - given: A file has been chosen for an Upload
+      when: Its preview is shown
+      then: The preview keeps the file's width-to-height proportions and is not cropped
+    - given: A file narrower than the description field has been chosen
+      when: Its preview is shown
+      then: The preview is centred horizontally in the Upload popup
   ambiguities: []
   depends_on:
     - REQ-GAL-013
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-21
+      superseded_by: 2
+      summary: >-
+        v1 required a preview image of every chosen file, the right file in
+        each, up to thirty. It set no size for a preview. Superseded by
+        CHG-0011.
 
 - id: REQ-GAL-016
   title: Files can be chosen by dropping them on the Upload popup
@@ -922,11 +978,15 @@
   status: verified
   verified_by:
     - tests/e2e/test_uat_visual_browser.py
+    - tests/e2e/test_upload_popup_look_browser.py
     - tests/test_uat_visual.py
-  version: 1
+    - tests/test_upload_popup_look.py
+  version: 2
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 4); absorbed as CHG-0009. The
-    same criteria are on REQ-GAL-013@v2.
+    same criteria are on REQ-GAL-013@v2.;
+    the close control styled like the Larger view's added by CHG-0013
+    (FB-0005, absorbed 2026-09-21). The same criterion is on REQ-GAL-013@v3
   rationale: >-
     The client opened the Upload popup and found no way out of it that they
     could see. Escape already closes it, but an invisible control is not a
@@ -941,7 +1001,18 @@
     - given: The Upload popup has been closed without uploading
       when: The user starts an Upload again
       then: The popup is shown again
+    - given: The Upload popup and the Larger view have each been opened
+      when: Their close controls are compared
+      then: The Upload popup's close control has the same size, border and colours as the Larger view's
   ambiguities: []
   depends_on:
     - REQ-GAL-013
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-21
+      superseded_by: 2
+      summary: >-
+        v1 required a close control at the popup's top right that closes it
+        with nothing uploaded, and that the popup reopens afterwards. It set no
+        look for the control. Superseded by CHG-0013.

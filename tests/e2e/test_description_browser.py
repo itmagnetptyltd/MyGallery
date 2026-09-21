@@ -53,7 +53,7 @@ def _drop_onto(page, testid: str, name: str, content: bytes) -> None:
 
 
 # @covers REQ-GAL-001@v3
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-015@v2
 def test_choosing_a_file_shows_a_preview_image_before_the_upload_is_made(
     page, gallery_url, tmp_path
 ):
@@ -67,7 +67,7 @@ def test_choosing_a_file_shows_a_preview_image_before_the_upload_is_made(
 
 
 # @covers REQ-GAL-001@v3
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-015@v2
 def test_choosing_thirty_files_shows_a_preview_for_every_one(page, gallery_url, tmp_path):
     photos = [_a_photo(tmp_path, f"p{n}.jpg") for n in range(30)]
     page.goto(gallery_url)
@@ -191,7 +191,7 @@ def test_typing_a_forty_first_character_shows_forty_one_of_two_hundred_and_fifty
     expect(page.get_by_test_id("description-count")).to_have_text("41/250")
 
 
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-015@v2
 def test_each_preview_renders_its_own_file(page, gallery_url, tmp_path):
     """REQ-GAL-015 c2.
 

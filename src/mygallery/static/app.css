@@ -61,8 +61,7 @@ main {
   margin-right: auto;
 }
 
-.upload,
-.upload-pick span {
+.upload {
   display: inline-block;
   padding: 7px 14px;
   border: 1px solid var(--line);
@@ -87,40 +86,50 @@ main {
   outline-offset: 2px;
 }
 
+/* REQ-GAL-013@v3 c7: wider than the 680 pixels delivered at v2, and still
+   capped below the viewport on a small screen. c9: the Larger view panel's
+   border. */
 .upload-popup {
   position: relative;
-  /* Wide enough to show a row of previews at a size worth looking at, and
-     still capped below the viewport on a small screen. */
-  width: min(680px, 92vw);
-  max-width: 680px;
+  width: min(900px, 92vw);
+  max-width: 900px;
   padding: 24px;
-  border: none;
+  border: 1px solid #fff;
   border-radius: 10px;
   background: var(--bar);
   color: var(--fg);
 }
 
-/* REQ-GAL-013@v2 c3: inside the popup, at its top right. */
+/* REQ-GAL-013@v2 c3: inside the popup, at its top right. Its look is the
+   Larger view's close control, in the shared rule below. */
 .upload-popup-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 32px;
-  height: 32px;
+}
+
+/* REQ-GAL-013@v3 c8: one rule for both close controls, so the Upload popup's
+   cannot drift from the Larger view's again. */
+.upload-popup-close,
+.larger-view-close {
+  width: 36px;
+  height: 36px;
   border: 1px solid #fff;
   border-radius: 50%;
   background: #fff;
   color: #16181d;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
   cursor: pointer;
 }
 
-.upload-popup-close:hover {
+.upload-popup-close:hover,
+.larger-view-close:hover {
   background: #e8e9ec;
 }
 
-.upload-popup-close:focus-visible {
+.upload-popup-close:focus-visible,
+.larger-view-close:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
@@ -208,27 +217,6 @@ main {
   border-radius: 10px;
 }
 
-.larger-view-close {
-  width: 36px;
-  height: 36px;
-  border: 1px solid #fff;
-  border-radius: 50%;
-  background: #fff;
-  color: #16181d;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.larger-view-close:hover {
-  background: #e8e9ec;
-}
-
-.larger-view-close:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-}
-
 .larger-view-actions {
   display: flex;
   justify-content: center;
@@ -237,8 +225,11 @@ main {
 }
 
 /* The Delete button's shape, bordered white rather than red — it sits beside
-   Delete and should read as the same kind of control, not the same action. */
-button.save {
+   Delete and should read as the same kind of control, not the same action.
+   REQ-GAL-013@v3 c10: Save description, Choose files and Upload all wear it,
+   so it is named for its look rather than for saving. */
+.outline-button {
+  display: inline-block;
   padding: 7px 16px;
   border: 1px solid #fff;
   border-radius: 7px;
@@ -249,12 +240,12 @@ button.save {
   cursor: pointer;
 }
 
-button.save:hover {
+.outline-button:hover {
   background: #fff;
   color: #16181d;
 }
 
-button.save:focus-visible {
+.outline-button:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
@@ -317,29 +308,31 @@ button.danger:focus-visible {
 
 
 /* --- the Upload popup's previews and description -------------------------
-   REQ-GAL-001@v3 c16 requires a preview for each of thirty chosen files, so
-   the list is a scrolling grid of small tiles rather than thirty full-width
-   images that would push the Upload button off the screen. */
+   REQ-GAL-015@v2: one preview to a row, as wide as the description field, in
+   the image's own proportions, and centred when the image is narrower. */
 
 .upload-previews {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
   /* REQ-GAL-001 c7 allows thirty in one Upload, so the list scrolls rather
-     than growing the dialog past the screen. */
+     than pushing the Upload button off the screen. Its scrollbar is hidden
+     because it would take width from the previews, and c4 holds them to the
+     description field's width. It still scrolls by wheel, touch and keys. */
   max-height: 320px;
   margin: 16px 0 0;
   padding: 0;
   overflow-y: auto;
+  scrollbar-width: none;
   list-style: none;
 }
 
 .upload-preview-image {
   display: block;
-  width: 100%;
-  height: 120px;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
   border-radius: 6px;
-  object-fit: cover;
 }
 
 .upload-description-label,
