@@ -698,6 +698,10 @@ function renderHtml(data) {
     max-height: 180px;
     overflow: auto;
   }
+  .tab-panel[data-panel="others"] [data-kind="prompts"] .records {
+    max-height: none;
+    overflow: visible;
+  }
 </style>
 </head>
 <body>
@@ -806,7 +810,10 @@ function renderHtml(data) {
         </div>
         <h2 class="spaced">Logged prompts <span class="count">${data.counts.prompts}</span></h2>
         <p class="empty-note">Chat that changed files. From the prompt hook, not the brain.</p>
-        <ul class="records">${promptItems || '<li class="empty">None yet.</li>'}</ul>
+        <div class="paged" data-page-size="10" data-kind="prompts">
+          <ul class="records">${promptItems || '<li class="empty">None yet.</li>'}</ul>
+          ${pager("Logged prompts")}
+        </div>
       </section>
     </div>
   </div>
@@ -877,7 +884,7 @@ function renderHtml(data) {
   if (q) q.addEventListener("input", apply);
   apply();
 
-  document.querySelectorAll(".paged:not([data-kind])").forEach((box) => {
+  document.querySelectorAll('.paged:not([data-kind="reqs"])').forEach((box) => {
     bindPager(box, Array.from(box.querySelectorAll("li")));
   });
 

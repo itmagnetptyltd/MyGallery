@@ -21,7 +21,7 @@ const { readSlices } = require("./lib/slices");
 const EXIT_OK = 0;
 const EXIT_TOOL_ERROR = 2;
 
-function undecidedChanges(projectRoot) {
+function readChangeDocs(projectRoot) {
   const dir = path.join(projectRoot, ".brain", "changes");
   if (!fs.existsSync(dir)) return [];
   return fs
@@ -34,12 +34,29 @@ function undecidedChanges(projectRoot) {
           schema: yaml.CORE_SCHEMA,
         });
         if (!doc || typeof doc !== "object") return [];
-        if (String(doc.decision || "").trim()) return [];
-        return [String(doc.id || name.replace(/\.[^.]+$/, "")).toUpperCase()];
+        return [
+          {
+            id: String(doc.id || name.replace(/\.[^.]+$/, "")).toUpperCase(),
+            decision: String(doc.decision || "").trim(),
+            outcome: String(doc.outcome || "").trim(),
+          },
+        ];
       } catch {
         return [];
       }
     });
+}
+
+function undecidedChanges(projectRoot) {
+  return readChangeDocs(projectRoot)
+    .filter((row) => !row.decision)
+    .map((row) => row.id);
+}
+
+function pendingOutcome(projectRoot) {
+  return readChangeDocs(projectRoot)
+    .filter((row) => row.decision && !row.outcome)
+    .map((row) => row.id);
 }
 
 function draftIds(requirements) {
@@ -61,6 +78,7 @@ function report(projectRoot) {
   const requirements = flatten(documents).map(({ requirement }) => requirement);
   const slices = readSlices(projectRoot, requirements);
   const chgs = undecidedChanges(projectRoot);
+  const outcomes = pendingOutcome(projectRoot);
   const drafts = draftIds(requirements);
   const questions = openQuestionIds(requirements);
   const open = firstOpenSlice(slices.slices);
@@ -78,6 +96,11 @@ function report(projectRoot) {
     next =
       "Fill decision: and commercial: on those CHG files. Do not type REQ ids. Then tell the agent they are filled.";
     avoid = "Do not /tdd new variation work until decision is filled.";
+  } else if (outcomes.length) {
+    where = `CHG decided, outcome still empty: ${outcomes.join(", ")}.`;
+    next =
+      "Tell the agent those CHGs are filled. Do not type REQ ids. Agent fills outcome: from affects: plus the current version.";
+    avoid = "Do not /verifyReq. Do not /tdd until outcome is filled.";
   } else if (questions.length || drafts.length) {
     const ids = [...new Set([...questions, ...drafts])];
     where = `Open questions. Still draft: ${ids.join(", ")}.`;
@@ -140,4 +163,11 @@ if (require.main === module) {
   process.exitCode = main(process.argv.slice(2));
 }
 
-module.exports = { report, formatReport, parseArgs, main, undecidedChanges };
+module.exports = {
+  report,
+  formatReport,
+  parseArgs,
+  main,
+  undecidedChanges,
+  pendingOutcome,
+};

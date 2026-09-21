@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "8699733ba7053d52c2b7d51bfce40263fecb3bf5",
+  "commit": "9c276b2a764b5f400502a2a82c1089b4dcf30da6",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T08:46:28.686Z",
+  "installedAt": "2026-09-21T10:12:18.779Z",
   "modules": [
     "GAL"
   ],
@@ -220,7 +220,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "61e6730df42f9d3da7bb38269266124732523e314ec5a0b43acda70d481f7451",
+      "sha256": "044e80d1e372fa2c4c95f34edcff4f380c7811f4380bc91cebaab8227f5fcfe8",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {
@@ -280,7 +280,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/next.js": {
-      "sha256": "ede367735e0ef63bdd9c80a44c7caea49f9c960311f68c025e99821c7e18276b",
+      "sha256": "e2ee205bffacbda37a987945711e8a48878bf8e9ffb5b756a8b9d9c298d7c106",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/note.js": {
@@ -328,7 +328,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/schema/requirement.schema.json": {
-      "sha256": "33f88c470e035ccf393eb11fe0b55bd531efd3a9f498cb3e7187b7ab477d13f9",
+      "sha256": "971e1dc4591d577a4be552768e5cce96e9ffe52786c74dcfbb5d37b33879ea10",
       "policy": "managed"
     },
     ".cursor/hooks.json": {
