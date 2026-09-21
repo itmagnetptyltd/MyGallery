@@ -226,3 +226,50 @@ _In plain words: The very first time you open MyGallery, before you have uploade
 
 A friendly message like "No photos yet. Click Upload to add your first photos", with the Upload button easy to see. If something is actually broken, I'd want an error message instead of an empty screen.
 
+---
+
+# Questions raised 2026-09-21 (FB-0004)
+
+The four below are **open**. Paste the client's reply under each, in their
+words, then run `/resolve-ambiguities`.
+
+---
+
+## What is shown of the chosen files before the Upload is made?
+
+_Blocks: REQ-GAL-001, REQ-GAL-013, REQ-GAL-015_
+
+_In plain words: After you pick photos - or drop them in - but before they are added, what would you expect to see of them? Just the file names, one picture, or all of them? And what should that look like when you have picked thirty at once?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+---
+
+## Is the 250-character description limit a refusal, or a typing limit?
+
+_Blocks: REQ-GAL-001, REQ-GAL-017_
+
+_In plain words: If you paste a description longer than 250 characters, should MyGallery refuse the upload and tell you why - or simply stop you typing past 250?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+---
+
+## Can a description be changed after Upload, and what do existing Photos carry?
+
+_Blocks: REQ-GAL-002, REQ-GAL-008, REQ-GAL-017_
+
+_In plain words: Once a photo is in the Gallery, do you expect to be able to add or change its description later? And the photos already in your Gallery - should they stay without one?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+---
+
+## Tooltip or alt text?
+
+_Blocks: REQ-GAL-003, REQ-GAL-012, REQ-GAL-018_
+
+_In plain words: When you rest the mouse on a photo, should the description appear in the little box that pops up next to the pointer? Or should it be the photo's alt text - the words a screen reader reads out in place of the image?_
+
+<!-- Paste the client's answer below, in their words. -->
+

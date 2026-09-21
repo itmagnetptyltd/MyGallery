@@ -51,6 +51,9 @@ analysis:
     refusing the Upload or by preventing over-typing; REQ-GAL-009@v1 c5
     requires a reason to be shown alongside a failed file, which would apply
     if it is a refusal.
-decision:
-commercial:
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
 outcome:
+  - REQ-GAL-001: v3
+  - REQ-GAL-002: v2
+  - REQ-GAL-008: v2

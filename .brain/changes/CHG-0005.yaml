@@ -41,6 +41,8 @@ analysis:
   open_question: >-
     "a view" is not an observable. The client has not said what is shown for
     a batch of thirty, which REQ-GAL-001@v2 c7 requires to be supported.
-decision:
-commercial:
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
 outcome:
+  - REQ-GAL-001: v3
+  - REQ-GAL-013: v2

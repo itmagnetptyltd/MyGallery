@@ -33,6 +33,7 @@ analysis:
     uploading. What is missing is a visible control, not the ability to
     close. Someone may still frame a popup with no visible dismissal as a
     defect; that framing is a person's call, not this record's.
-decision:
-commercial:
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
 outcome:
+  - REQ-GAL-013: v2

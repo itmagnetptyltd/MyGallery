@@ -40,6 +40,8 @@ analysis:
   open_question: >-
     Whether drag-and-drop replaces the picker or sits alongside it. Removing
     the picker would put REQ-GAL-001@v2 c10 and REQ-GAL-013@v1 c1 at risk.
-decision:
-commercial:
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
 outcome:
+  - REQ-GAL-001: v3
+  - REQ-GAL-013: v2

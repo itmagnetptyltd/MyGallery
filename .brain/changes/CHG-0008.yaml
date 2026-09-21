@@ -35,6 +35,8 @@ analysis:
     thing: a title tooltip does not reach a screen reader, alt text replaces
     the image for one, and alt already carries the Photo's filename today.
     Which one is meant changes what is built and what is tested.
-decision:
-commercial:
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
 outcome:
+  - REQ-GAL-003: v3
+  - REQ-GAL-012: v2
