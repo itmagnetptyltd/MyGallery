@@ -50,7 +50,7 @@ def _grid_minmax_px(page) -> int:
     return int(match.group(1))
 
 
-# @covers REQ-GAL-012@v1
+# @covers REQ-GAL-012@v2
 # @covers REQ-GAL-003@v3
 def test_a_thumbnail_card_is_wider_than_160_pixels(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
@@ -62,7 +62,7 @@ def test_a_thumbnail_card_is_wider_than_160_pixels(page, running_server, tmp_pat
     assert box["width"] > 160
 
 
-# @covers REQ-GAL-012@v1
+# @covers REQ-GAL-012@v2
 # @covers REQ-GAL-003@v3
 def test_a_thumbnail_is_shown_as_a_card_not_a_bare_image(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
@@ -75,7 +75,7 @@ def test_a_thumbnail_is_shown_as_a_card_not_a_bare_image(page, running_server, t
     assert padding != "0px"
 
 
-# @covers REQ-GAL-013@v1
+# @covers REQ-GAL-013@v2
 # @covers REQ-GAL-001@v3
 def test_starting_an_upload_opens_a_popup(page, running_server):
     page.goto(_gallery_url(running_server))
@@ -87,7 +87,7 @@ def test_starting_an_upload_opens_a_popup(page, running_server):
     expect(page.get_by_test_id("upload-input")).to_be_attached()
 
 
-# @covers REQ-GAL-013@v1
+# @covers REQ-GAL-013@v2
 # @covers REQ-GAL-007@v2
 def test_an_empty_gallery_shows_a_control_that_opens_the_upload_popup(
     page, running_server
@@ -129,3 +129,76 @@ def test_the_delete_control_is_inside_the_larger_view_panel(page, running_server
 
     assert panel is not None and delete is not None
     assert _box_inside(delete, panel)
+
+
+# --- REQ-GAL-012@v2 / REQ-GAL-013@v2 ----------------------------------------
+
+
+# @covers REQ-GAL-013@v2
+def test_the_upload_popup_close_control_is_inside_the_popup_at_its_top_right(
+    page, running_server
+):
+    page.goto(_gallery_url(running_server))
+    page.get_by_test_id("upload-open").click()
+    expect(page.get_by_test_id("upload-popup")).to_be_visible()
+
+    popup = page.get_by_test_id("upload-popup").bounding_box()
+    close = page.get_by_test_id("upload-popup-close").bounding_box()
+
+    assert popup is not None and close is not None
+    assert _box_inside(close, popup)
+    # Top right: in the upper and the right-hand quarter of the panel.
+    assert close["y"] < popup["y"] + popup["height"] / 4
+    assert close["x"] > popup["x"] + popup["width"] * 3 / 4
+
+
+# @covers REQ-GAL-013@v2
+def test_closing_the_upload_popup_adds_no_photo(page, running_server):
+    page.goto(_gallery_url(running_server))
+    page.get_by_test_id("upload-open").click()
+
+    page.get_by_test_id("upload-popup-close").click()
+
+    expect(page.get_by_test_id("upload-popup")).to_be_hidden()
+    expect(page.get_by_test_id("photo-count")).to_have_text("0")
+
+
+# @covers REQ-GAL-013@v2
+def test_the_upload_popup_can_be_reopened_after_it_was_closed(page, running_server):
+    page.goto(_gallery_url(running_server))
+    page.get_by_test_id("upload-open").click()
+    page.get_by_test_id("upload-popup-close").click()
+
+    page.get_by_test_id("upload-open").click()
+
+    expect(page.get_by_test_id("upload-popup")).to_be_visible()
+
+
+# @covers REQ-GAL-013@v2
+def test_the_upload_popup_previews_every_chosen_file(page, running_server, tmp_path):
+    photos = []
+    for n in range(3):
+        photo = tmp_path / f"p{n}.jpg"
+        photo.write_bytes(an_image("JPEG"))
+        photos.append(str(photo))
+    page.goto(_gallery_url(running_server))
+    page.get_by_test_id("upload-open").click()
+
+    page.get_by_test_id("upload-input").set_input_files(photos)
+
+    expect(page.get_by_test_id("upload-preview")).to_have_count(3)
+    expect(page.get_by_test_id("photo-count")).to_have_text("0")
+
+
+# @covers REQ-GAL-012@v2
+def test_a_thumbnail_shows_its_photos_description_as_alt_text(page, running_server, tmp_path):
+    photo = tmp_path / "holiday.jpg"
+    photo.write_bytes(an_image("JPEG"))
+    page.goto(_gallery_url(running_server))
+    page.get_by_test_id("upload-open").click()
+    page.get_by_test_id("upload-input").set_input_files(str(photo))
+    page.get_by_test_id("upload-description").fill("Beach at dawn")
+
+    page.get_by_test_id("upload-submit").click()
+
+    expect(page.get_by_test_id("thumbnail")).to_have_attribute("alt", "Beach at dawn")

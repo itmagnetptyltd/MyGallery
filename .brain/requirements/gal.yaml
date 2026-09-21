@@ -638,7 +638,10 @@
   title: Home Gallery Thumbnail cards are larger and designed as cards
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_uat_visual.py
   version: 2
   source: >-
     FB-0001, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0001 and CHG-0002.
@@ -680,7 +683,10 @@
   title: Upload is started from a popup
   module: GAL
   priority: must
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_uat_visual.py
   version: 2
   source: >-
     FB-0002, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0003. The same

@@ -83,12 +83,38 @@ main {
 }
 
 .upload-popup {
+  position: relative;
   max-width: 420px;
   padding: 24px;
   border: none;
   border-radius: 10px;
   background: var(--bar);
   color: var(--fg);
+}
+
+/* REQ-GAL-013@v2 c3: inside the popup, at its top right. */
+.upload-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bar);
+  color: var(--fg);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.upload-popup-close:hover {
+  background: var(--bg);
+}
+
+.upload-popup-close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 .upload-popup::backdrop {
