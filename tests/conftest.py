@@ -222,7 +222,12 @@ def upload_files(page, paths) -> None:
     because criterion 15 requires the popup to show a preview of what was
     chosen *before* the Upload is made. Every belt B test goes through here so
     that the flow is written down once.
+
+    Opens the popup only when it is not already open: some callers open it
+    themselves first in order to assert something about it, and clicking the
+    opener again while the dialog is modal hits the backdrop instead.
     """
-    page.get_by_test_id("upload-open").click()
+    if not page.get_by_test_id("upload-popup").is_visible():
+        page.get_by_test_id("upload-open").click()
     page.get_by_test_id("upload-input").set_input_files(paths)
     page.get_by_test_id("upload-submit").click()

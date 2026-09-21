@@ -165,7 +165,10 @@ main {
 .larger-view-photo {
   display: block;
   max-width: min(88vw, 1360px);
-  max-height: calc(92vh - 120px);
+  /* The subtraction is the room the panel's own chrome needs: the close bar,
+     the description field and the actions row. REQ-GAL-014 requires Delete to
+     sit inside the panel, and it only does while this allowance is honest. */
+  max-height: calc(92vh - 260px);
   width: auto;
   height: auto;
   border-radius: 10px;
@@ -252,4 +255,56 @@ button.danger:focus-visible {
   color: var(--fg);
   font: inherit;
   cursor: pointer;
+}
+
+
+/* --- the Upload popup's previews and description -------------------------
+   REQ-GAL-001@v3 c16 requires a preview for each of thirty chosen files, so
+   the list is a scrolling grid of small tiles rather than thirty full-width
+   images that would push the Upload button off the screen. */
+
+.upload-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+  max-height: 220px;
+  margin: 16px 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.upload-preview-image {
+  display: block;
+  width: 100%;
+  height: 64px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.upload-description-label,
+.larger-view-description-label {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+.upload-description-label textarea,
+.larger-view-description-label textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--bg);
+  color: inherit;
+  font: inherit;
+  resize: vertical;
+}
+
+.upload-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
 }
