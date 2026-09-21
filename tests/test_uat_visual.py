@@ -22,13 +22,13 @@ def _grid_min_px(css: str) -> int:
 
 
 # @covers REQ-GAL-012@v1
-# @covers REQ-GAL-003@v2
+# @covers REQ-GAL-003@v3
 def test_gallery_css_sets_card_min_width_above_160px(project_root):
     assert _grid_min_px(_css(project_root)) > 160
 
 
 # @covers REQ-GAL-012@v1
-# @covers REQ-GAL-003@v2
+# @covers REQ-GAL-003@v3
 def test_gallery_html_has_a_card_surface_around_each_thumbnail(project_root):
     script = _js(project_root)
 
@@ -37,7 +37,7 @@ def test_gallery_html_has_a_card_surface_around_each_thumbnail(project_root):
 
 
 # @covers REQ-GAL-013@v1
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_gallery_html_includes_an_upload_popup(client):
     page = client.get("/").get_data(as_text=True)
 

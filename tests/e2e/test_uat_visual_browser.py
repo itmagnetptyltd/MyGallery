@@ -51,7 +51,7 @@ def _grid_minmax_px(page) -> int:
 
 
 # @covers REQ-GAL-012@v1
-# @covers REQ-GAL-003@v2
+# @covers REQ-GAL-003@v3
 def test_a_thumbnail_card_is_wider_than_160_pixels(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
     _upload_one(page, tmp_path)
@@ -63,7 +63,7 @@ def test_a_thumbnail_card_is_wider_than_160_pixels(page, running_server, tmp_pat
 
 
 # @covers REQ-GAL-012@v1
-# @covers REQ-GAL-003@v2
+# @covers REQ-GAL-003@v3
 def test_a_thumbnail_is_shown_as_a_card_not_a_bare_image(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
     _upload_one(page, tmp_path)
@@ -76,7 +76,7 @@ def test_a_thumbnail_is_shown_as_a_card_not_a_bare_image(page, running_server, t
 
 
 # @covers REQ-GAL-013@v1
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_starting_an_upload_opens_a_popup(page, running_server):
     page.goto(_gallery_url(running_server))
 

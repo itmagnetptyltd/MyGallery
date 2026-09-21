@@ -16,14 +16,14 @@ def gallery_url(running_server) -> str:
     return f"http://{running_server.host}:{running_server.port}"
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_the_gallery_is_shown_without_a_sign_in_step(page, gallery_url):
     page.goto(gallery_url)
 
     expect(page.get_by_test_id("gallery")).to_be_visible()
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_uploading_a_photo_through_the_browser_adds_it_to_the_gallery(
     page, gallery_url, tmp_path
 ):
@@ -36,7 +36,7 @@ def test_uploading_a_photo_through_the_browser_adds_it_to_the_gallery(
     expect(page.get_by_test_id("photo-count")).to_have_text("1")
 
 
-# @covers REQ-GAL-001@v2
+# @covers REQ-GAL-001@v3
 def test_uploading_a_batch_through_the_browser_adds_every_photo(page, gallery_url, tmp_path):
     photos = []
     for n in range(3):

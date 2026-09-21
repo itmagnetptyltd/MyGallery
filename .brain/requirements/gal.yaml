@@ -21,7 +21,17 @@
   title: Uploading a Photo adds it to the Gallery
   module: GAL
   priority: must
-  status: in_progress
+  status: verified
+  verified_by:
+    - tests/api/test_description_http.py
+    - tests/api/test_photos_http.py
+    - tests/e2e/test_description_browser.py
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/e2e/test_upload.py
+    - tests/test_description.py
+    - tests/test_store.py
+    - tests/test_uat_visual.py
+    - tests/test_validation.py
   version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -106,7 +116,13 @@
   title: Every Photo carries an identifier the application issues on Upload
   module: GAL
   priority: must
-  status: in_progress
+  status: verified
+  verified_by:
+    - tests/api/test_description_http.py
+    - tests/e2e/test_description_browser.py
+    - tests/test_description.py
+    - tests/test_identity.py
+    - tests/test_store.py
   version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -164,7 +180,16 @@
   title: The Gallery shows a Thumbnail for every Photo, newest Photo first
   module: GAL
   priority: must
-  status: in_progress
+  status: verified
+  verified_by:
+    - tests/api/test_description_http.py
+    - tests/api/test_gallery_http.py
+    - tests/e2e/test_description_browser.py
+    - tests/e2e/test_gallery_browser.py
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_gallery.py
+    - tests/test_thumbnails.py
+    - tests/test_uat_visual.py
   version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
