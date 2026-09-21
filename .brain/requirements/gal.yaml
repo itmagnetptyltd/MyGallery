@@ -29,7 +29,8 @@
     added by CHG-0003 (FB-0002, absorbed 2026-09-18);
     optional description, drag-and-drop selection and a view of the chosen
     files added by CHG-0005, CHG-0006 and CHG-0007 (FB-0004, absorbed
-    2026-09-21)
+    2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     Upload is the only way a Photo enters the application. Without it the
     Gallery has nothing to show and every other requirement is unreachable.
@@ -70,21 +71,20 @@
     - given: The Upload popup is open and files have been chosen
       when: A description of 250 characters or fewer is given with the Upload
       then: The Photos added by that Upload carry that description
-    - given: The Upload popup is open and files have been chosen
-      when: A description longer than 250 characters is given with the Upload
-      then: No Photo carries a description longer than 250 characters
+    - given: The description field in the Upload popup
+      when: The user types or pastes more than 250 characters into it
+      then: The field holds 250 characters and the Upload is not refused for length
     - given: The Upload popup is open
       when: The user drops files onto it
       then: Those files are chosen for the Upload, as if picked from the popup
+    - given: A file has been chosen for an Upload
+      when: The Upload has not yet been made
+      then: The popup shows a preview image of that file, not only its filename
   ambiguities:
     - >-
-        After files are chosen for an Upload, what is shown of them before the
-        Upload is made - the filenames, one image, or every chosen image - and
-        what is shown when thirty files are chosen at once?
-    - >-
-        Is the 250-character description limit enforced by refusing the Upload
-        and reporting a reason, as REQ-GAL-009 requires of a refusal, or by
-        preventing more than 250 characters from being entered?
+        When several files are chosen for one Upload, is a preview shown for
+        every one of them, or only for one? REQ-GAL-001 requires an Upload of
+        thirty files to work.
   belts: [A, B, C]
   history:
     - version: 1
@@ -113,7 +113,8 @@
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
     identifier rule from .brain/glossary.md, entry "Photo — Identified by";
     an optional description carried by a Photo added by CHG-0007 (FB-0004,
-    absorbed 2026-09-21)
+    absorbed 2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     Deleting, downloading and showing a Larger view each name one Photo. A
     caller-supplied filename is neither unique nor trusted, so naming a Photo
@@ -138,10 +139,16 @@
     - given: A Photo was uploaded with no description
       when: That Photo is retrieved from the Gallery
       then: It carries no description, and is still a Photo in the Gallery
+    - given: A Photo in the Gallery carries a description
+      when: The user changes that description
+      then: That Photo carries the new description and the Photo itself is unchanged
+    - given: A Photo in the Gallery carries no description
+      when: The user gives it one
+      then: That Photo carries the description that was given
   ambiguities:
     - >-
-        Can a Photo's description be changed after its Upload, and what
-        description do the Photos already in the Gallery carry?
+        Where does the user change a Photo's description after its Upload - in
+        the Larger view, on the Gallery card, or somewhere else?
   depends_on:
     - REQ-GAL-001
   belts: [A]
@@ -158,7 +165,7 @@
   title: The Gallery shows a Thumbnail for every Photo, newest Photo first
   module: GAL
   priority: must
-  status: draft
+  status: agreed
   version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
@@ -166,7 +173,8 @@
     2026-09-18 (ANSWERS.md); larger designed Thumbnail cards added by
     CHG-0001 and CHG-0002 (FB-0001, absorbed 2026-09-18);
     a Photo's description shown on its card on hover added by CHG-0008
-    (FB-0004, absorbed 2026-09-21)
+    (FB-0004, absorbed 2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     Seeing the Photos together is the client's stated reason for the
     application. A Photo that is stored but never shown is invisible to the
@@ -201,16 +209,12 @@
         Each Thumbnail is shown as a card with a visible surface around the
         image, not as a bare image
     - given: A Photo with a description is in the Gallery
-      when: The pointer rests on that Photo's card
-      then: That Photo's description is shown
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's description
     - given: A Photo with no description is in the Gallery
-      when: The pointer rests on that Photo's card
-      then: No empty description is shown and the card is otherwise unchanged
-  ambiguities:
-    - >-
-        Should a Photo's description be shown as a pointer tooltip or as the
-        image's alt text? They are not the same to a screen reader, and alt
-        currently carries the Photo's filename.
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's filename
+  ambiguities: []
   depends_on:
     - REQ-GAL-001
   belts: [A, B, C]
@@ -437,7 +441,8 @@
     able to delete and download a photo" read together — deletion is the only
     removal the brief names; clarified by client answers 2026-09-18 (ANSWERS.md);
     the description's durability added by CHG-0007 (FB-0004, absorbed
-    2026-09-21)
+    2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     A Photo that disappears without the user deleting it is data loss, and the
     user has no way to tell it happened. The client keeps Photos here across
@@ -461,10 +466,16 @@
     - given: A Photo was uploaded with a description and not deleted
       when: The application is stopped and started again
       then: That Photo still carries the description given at its Upload
+    - given: A Photo's description was changed after its Upload
+      when: The application is stopped and started again
+      then: That Photo carries the changed description
+    - given: A Photo that was uploaded before descriptions existed
+      when: The Gallery is shown
+      then: That Photo carries no description and is still shown as a Photo
   ambiguities:
     - >-
-        Can a Photo's description be changed after its Upload, and what
-        description do the Photos already in the Gallery carry?
+        Where does the user change a Photo's description after its Upload - in
+        the Larger view, on the Gallery card, or somewhere else?
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-005
@@ -604,13 +615,14 @@
   title: Home Gallery Thumbnail cards are larger and designed as cards
   module: GAL
   priority: must
-  status: draft
+  status: agreed
   version: 2
   source: >-
     FB-0001, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0001 and CHG-0002.
     The same criteria are on REQ-GAL-003@v2.;
     a Photo's description shown on its card on hover added by CHG-0008
-    (FB-0004, absorbed 2026-09-21). The same criteria are on REQ-GAL-003@v3.
+    (FB-0004, absorbed 2026-09-21). The same criteria are on REQ-GAL-003@v3;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     The delivered v1 tiles were too small and looked unfinished. The client
     asked for larger cards whose design has changed, while still serving
@@ -627,13 +639,9 @@
         Each Thumbnail is shown as a card with a visible surface around the
         image, not as a bare image
     - given: A Photo with a description is in the Gallery
-      when: The pointer rests on that Photo's card
-      then: That Photo's description is shown
-  ambiguities:
-    - >-
-        Should a Photo's description be shown as a pointer tooltip or as the
-        image's alt text? They are not the same to a screen reader, and alt
-        currently carries the Photo's filename.
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's description
+  ambiguities: []
   depends_on:
     - REQ-GAL-003
   belts: [A, B]
@@ -655,7 +663,8 @@
     FB-0002, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0003. The same
     criteria are on REQ-GAL-001@v2 and REQ-GAL-007@v2.;
     a close control, a drop target and a view of the chosen files added by
-    CHG-0005, CHG-0006 and CHG-0009 (FB-0004, absorbed 2026-09-21)
+    CHG-0005, CHG-0006 and CHG-0009 (FB-0004, absorbed 2026-09-21);
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     The header file picker was not the surface they wanted. Upload still
     has to be reachable on an empty Gallery, or REQ-GAL-007 fails.
@@ -672,14 +681,14 @@
     - given: The Upload popup is open and no file has been uploaded
       when: The user activates the close control
       then: The popup is no longer shown and no Photo has been added to the Gallery
-    - given: The Upload popup is open and files have been chosen
+    - given: The Upload popup is open and a file has been chosen
       when: The Upload has not yet been made
-      then: The popup shows the files that were chosen
+      then: The popup shows a preview image of that file, not only its filename
   ambiguities:
     - >-
-        After files are chosen for an Upload, what is shown of them before the
-        Upload is made - the filenames, one image, or every chosen image - and
-        what is shown when thirty files are chosen at once?
+        When several files are chosen for one Upload, is a preview shown for
+        every one of them, or only for one? REQ-GAL-001 requires an Upload of
+        thirty files to work.
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-007
@@ -730,20 +739,24 @@
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 1a); absorbed as CHG-0005. The
-    same criterion is on REQ-GAL-013@v2.
+    same criterion is on REQ-GAL-013@v2;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     The client asked to see what they had picked before it became a Photo.
     Today the Upload starts the moment files are chosen, so a wrong selection
     is only discovered once it is in the Gallery and has to be deleted.
   acceptance:
-    - given: The Upload popup is open and files have been chosen
+    - given: The Upload popup is open and a file has been chosen
       when: The Upload has not yet been made
-      then: The popup shows the files that were chosen
+      then: The popup shows a preview image of that file, not only its filename
+    - given: A file has been chosen for an Upload
+      when: The preview of it is shown
+      then: The preview renders that file and not another file that was chosen
   ambiguities:
     - >-
-        After files are chosen for an Upload, what is shown of them before the
-        Upload is made - the filenames, one image, or every chosen image - and
-        what is shown when thirty files are chosen at once?
+        When several files are chosen for one Upload, is a preview shown for
+        every one of them, or only for one? REQ-GAL-001 requires an Upload of
+        thirty files to work.
   depends_on:
     - REQ-GAL-013
   belts: [A, B]
@@ -785,7 +798,8 @@
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 2); absorbed as CHG-0007. The
-    same criteria are on REQ-GAL-001@v3, REQ-GAL-002@v2 and REQ-GAL-008@v2.
+    same criteria are on REQ-GAL-001@v3, REQ-GAL-002@v2 and REQ-GAL-008@v2;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
     A Gallery of a few thousand Photos is searched by eye. The client asked to
     be able to say what a Photo is, in their own words, at the moment they add
@@ -797,20 +811,19 @@
     - given: The Upload popup is open and files have been chosen
       when: A description of 250 characters or fewer is given with the Upload
       then: The Photos added by that Upload carry that description
-    - given: The Upload popup is open and files have been chosen
-      when: A description longer than 250 characters is given with the Upload
-      then: No Photo carries a description longer than 250 characters
+    - given: The description field in the Upload popup
+      when: The user types or pastes more than 250 characters into it
+      then: The field holds 250 characters and the Upload is not refused for length
     - given: A Photo was uploaded with a description and not deleted
       when: The application is stopped and started again
       then: That Photo still carries the description given at its Upload
+    - given: A Photo in the Gallery carries a description
+      when: The user changes that description
+      then: That Photo carries the new description and the Photo itself is unchanged
   ambiguities:
     - >-
-        Is the 250-character description limit enforced by refusing the Upload
-        and reporting a reason, as REQ-GAL-009 requires of a refusal, or by
-        preventing more than 250 characters from being entered?
-    - >-
-        Can a Photo's description be changed after its Upload, and what
-        description do the Photos already in the Gallery carry?
+        Where does the user change a Photo's description after its Upload - in
+        the Larger view, on the Gallery card, or somewhere else?
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-002
@@ -818,30 +831,31 @@
   belts: [A, B, C]
 
 - id: REQ-GAL-018
-  title: A Photo's description is shown on its Gallery card on hover
+  title: A Photo's description is the alt text of its Thumbnail
   module: GAL
   priority: should
-  status: draft
+  status: agreed
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 3); absorbed as CHG-0008. The
-    same criteria are on REQ-GAL-003@v3 and REQ-GAL-012@v2.
+    same criteria are on REQ-GAL-003@v3 and REQ-GAL-012@v2;
+    clarified by client answers 2026-09-21 (ANSWERS.md)
   rationale: >-
-    A description nobody can read is worth nothing. The Gallery card is where
-    the client looks, so that is where they asked for it to appear. This
-    requirement shows data that REQ-GAL-017 creates and is worthless without it.
+    A description nobody can read is worth nothing. Asked whether this should
+    be a pointer tooltip or the image's alt text, the client answered "photo's
+    alt" on 2026-09-21. This requirement shows data that REQ-GAL-017 creates
+    and is worthless without it.
   acceptance:
     - given: A Photo with a description is in the Gallery
-      when: The pointer rests on that Photo's card
-      then: That Photo's description is shown
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's description
     - given: A Photo with no description is in the Gallery
-      when: The pointer rests on that Photo's card
-      then: No empty description is shown and the card is otherwise unchanged
-  ambiguities:
-    - >-
-        Should a Photo's description be shown as a pointer tooltip or as the
-        image's alt text? They are not the same to a screen reader, and alt
-        currently carries the Photo's filename.
+      when: Its Thumbnail is shown
+      then: That Thumbnail's alt text is that Photo's filename
+    - given: A Photo whose description has been changed
+      when: Its Thumbnail is shown afterwards
+      then: That Thumbnail's alt text is the changed description
+  ambiguities: []
   depends_on:
     - REQ-GAL-003
     - REQ-GAL-017

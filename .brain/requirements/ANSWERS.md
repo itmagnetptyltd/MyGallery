@@ -243,7 +243,7 @@ _In plain words: After you pick photos - or drop them in - but before they are a
 
 <!-- Paste the client's answer below, in their words. -->
 
----
+preview of that uploadede image.
 
 ## Is the 250-character description limit a refusal, or a typing limit?
 
@@ -253,7 +253,7 @@ _In plain words: If you paste a description longer than 250 characters, should M
 
 <!-- Paste the client's answer below, in their words. -->
 
----
+it will not allow to type/pest more then 250, and a count on ke prass 1/150 like this will indicate
 
 ## Can a description be changed after Upload, and what do existing Photos carry?
 
@@ -263,13 +263,42 @@ _In plain words: Once a photo is in the Gallery, do you expect to be able to add
 
 <!-- Paste the client's answer below, in their words. -->
 
----
+Yes
 
 ## Tooltip or alt text?
 
 _Blocks: REQ-GAL-003, REQ-GAL-012, REQ-GAL-018_
 
 _In plain words: When you rest the mouse on a photo, should the description appear in the little box that pops up next to the pointer? Or should it be the photo's alt text - the words a screen reader reads out in place of the image?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+photo's alt
+
+---
+
+# Questions raised 2026-09-21, second round
+
+What the four answers above did not settle. Both were narrowed to exactly what
+is missing rather than asked again in full.
+
+---
+
+## When several files are chosen at once, is every one previewed?
+
+_Blocks: REQ-GAL-001, REQ-GAL-013, REQ-GAL-015_
+
+_In plain words: You said you want a preview of the image before it is added. When you pick thirty photos at once, would you expect to see a small preview of all thirty, or just one?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+---
+
+## Where is a description changed after Upload?
+
+_Blocks: REQ-GAL-002, REQ-GAL-008, REQ-GAL-017_
+
+_In plain words: You said you want to be able to change a photo's description later. Where would you go to do that - open the photo large and edit it there, or somewhere on the Gallery page itself?_
 
 <!-- Paste the client's answer below, in their words. -->
 
