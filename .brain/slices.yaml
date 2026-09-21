@@ -75,3 +75,9 @@
   branch: feat/gal-upload-popup-controls
   why: "The Upload popup closes from a cross without uploading anything, and files can be dropped onto it instead of picked"
   covers: [REQ-GAL-016, REQ-GAL-019]
+
+- id: 9
+  name: Upload previews and Photo description
+  branch: feat/gal-preview-and-description
+  why: "Every chosen file is previewed before Upload, a description with a live counter is given alongside it, that description is the Thumbnail alt text, and it can be changed in the Larger view"
+  covers: [REQ-GAL-015, REQ-GAL-017, REQ-GAL-018]

@@ -21,7 +21,7 @@
   title: Uploading a Photo adds it to the Gallery
   module: GAL
   priority: must
-  status: draft
+  status: agreed
   version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -80,11 +80,10 @@
     - given: A file has been chosen for an Upload
       when: The Upload has not yet been made
       then: The popup shows a preview image of that file, not only its filename
-  ambiguities:
-    - >-
-        When several files are chosen for one Upload, is a preview shown for
-        every one of them, or only for one? REQ-GAL-001 requires an Upload of
-        thirty files to work.
+    - given: Thirty files have been chosen for one Upload
+      when: The Upload has not yet been made
+      then: A preview image is shown for every one of the thirty
+  ambiguities: []
   belts: [A, B, C]
   history:
     - version: 1
@@ -107,7 +106,7 @@
   title: Every Photo carries an identifier the application issues on Upload
   module: GAL
   priority: must
-  status: draft
+  status: agreed
   version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "I want to upload photos";
@@ -145,10 +144,10 @@
     - given: A Photo in the Gallery carries no description
       when: The user gives it one
       then: That Photo carries the description that was given
-  ambiguities:
-    - >-
-        Where does the user change a Photo's description after its Upload - in
-        the Larger view, on the Gallery card, or somewhere else?
+    - given: The Larger view of a Photo is shown
+      when: The user changes that Photo's description there
+      then: That Photo carries the new description
+  ambiguities: []
   depends_on:
     - REQ-GAL-001
   belts: [A]
@@ -434,7 +433,7 @@
   title: A Photo stays in the Gallery until it is deleted, including across restarts
   module: GAL
   priority: must
-  status: draft
+  status: agreed
   version: 2
   source: >-
     Client brief 2026-09-18, BRIEF.md; clauses "see them in a gallery" and "be
@@ -472,10 +471,7 @@
     - given: A Photo that was uploaded before descriptions existed
       when: The Gallery is shown
       then: That Photo carries no description and is still shown as a Photo
-  ambiguities:
-    - >-
-        Where does the user change a Photo's description after its Upload - in
-        the Larger view, on the Gallery card, or somewhere else?
+  ambiguities: []
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-005
@@ -657,7 +653,7 @@
   title: Upload is started from a popup
   module: GAL
   priority: must
-  status: draft
+  status: agreed
   version: 2
   source: >-
     FB-0002, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0003. The same
@@ -684,11 +680,10 @@
     - given: The Upload popup is open and a file has been chosen
       when: The Upload has not yet been made
       then: The popup shows a preview image of that file, not only its filename
-  ambiguities:
-    - >-
-        When several files are chosen for one Upload, is a preview shown for
-        every one of them, or only for one? REQ-GAL-001 requires an Upload of
-        thirty files to work.
+    - given: Thirty files have been chosen for one Upload
+      when: The Upload has not yet been made
+      then: A preview image is shown for every one of the thirty
+  ambiguities: []
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-007
@@ -735,7 +730,7 @@
   title: The Upload popup shows the chosen files before they become Photos
   module: GAL
   priority: should
-  status: draft
+  status: agreed
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 1a); absorbed as CHG-0005. The
@@ -752,11 +747,10 @@
     - given: A file has been chosen for an Upload
       when: The preview of it is shown
       then: The preview renders that file and not another file that was chosen
-  ambiguities:
-    - >-
-        When several files are chosen for one Upload, is a preview shown for
-        every one of them, or only for one? REQ-GAL-001 requires an Upload of
-        thirty files to work.
+    - given: Thirty files have been chosen for one Upload
+      when: The Upload has not yet been made
+      then: A preview image is shown for every one of the thirty
+  ambiguities: []
   depends_on:
     - REQ-GAL-013
   belts: [A, B]
@@ -794,7 +788,7 @@
   title: A Photo may carry an optional description given at its Upload
   module: GAL
   priority: should
-  status: draft
+  status: agreed
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 2); absorbed as CHG-0007. The
@@ -804,6 +798,9 @@
     A Gallery of a few thousand Photos is searched by eye. The client asked to
     be able to say what a Photo is, in their own words, at the moment they add
     it. "not mandatory" is theirs: an Upload without one must still succeed.
+    The keypress counter is theirs too - "a count on ke prass 1/150 like this
+    will indicate" - and counts against 250 because 250 is the agreed limit;
+    their "150" was a slip in the illustration, not a second limit.
   acceptance:
     - given: The Upload popup is open and files have been chosen
       when: The Upload is made with no description given
@@ -814,16 +811,22 @@
     - given: The description field in the Upload popup
       when: The user types or pastes more than 250 characters into it
       then: The field holds 250 characters and the Upload is not refused for length
+    - given: The description field in the Upload popup is empty
+      when: The user types one character into it
+      then: A count of characters used against the limit is shown, reading 1/250
+    - given: The description field in the Upload popup holds forty characters
+      when: The user types one more
+      then: The count shown reads 41/250
     - given: A Photo was uploaded with a description and not deleted
       when: The application is stopped and started again
       then: That Photo still carries the description given at its Upload
     - given: A Photo in the Gallery carries a description
       when: The user changes that description
       then: That Photo carries the new description and the Photo itself is unchanged
-  ambiguities:
-    - >-
-        Where does the user change a Photo's description after its Upload - in
-        the Larger view, on the Gallery card, or somewhere else?
+    - given: The Larger view of a Photo is shown
+      when: The user changes that Photo's description there
+      then: That Photo carries the new description
+  ambiguities: []
   depends_on:
     - REQ-GAL-001
     - REQ-GAL-002

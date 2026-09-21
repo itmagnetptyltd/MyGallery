@@ -292,7 +292,7 @@ _In plain words: You said you want a preview of the image before it is added. Wh
 
 <!-- Paste the client's answer below, in their words. -->
 
----
+Yes. A small preview of every chosen file, including thirty.
 
 ## Where is a description changed after Upload?
 
@@ -302,3 +302,5 @@ _In plain words: You said you want to be able to change a photo's description la
 
 <!-- Paste the client's answer below, in their words. -->
 
+In the Larger view after I click the photo.
+The 1/150 (or 1/250) keypress counter is part of the 250-character answer already. Write it as a criterion on the description REQ. Do not open a new CHG.

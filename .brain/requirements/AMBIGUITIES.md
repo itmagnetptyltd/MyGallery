@@ -1,54 +1,18 @@
 # Open questions for the client
 
-**Two. Both are what is left of the four raised on 2026-09-21 by FB-0004,
-after the client answered on 2026-09-21.**
+**None. Everything raised on this project has been answered.**
 
-The seventeen questions raised at decomposition were all answered on
-2026-09-18. Those answers, in the client's own words, are in
-[`ANSWERS.md`](ANSWERS.md) — that file is kept, not cleared, because it is the
-record of what was said and when.
+The seventeen questions raised at decomposition were answered by the client on
+2026-09-18. FB-0004 raised four more on 2026-09-21; the client answered all
+four the same day, two of them in full and two in part, and the two remainders
+were narrowed and answered in a second round on 2026-09-21.
 
-FB-0004 raised four more. The client answered all four on 2026-09-21. Two
-closed outright — the 250-character limit is a typing limit, and the
-description is the image's alt text — and their answers are now acceptance
-criteria. The other two answered part of what was asked and left the rest open;
-those remainders are below, narrowed to exactly what is still missing.
+The answers, in the client's own words, are in [`ANSWERS.md`](ANSWERS.md) -
+that file is kept, not cleared, because it is the record of what was said and
+when. Every answer was written into the acceptance criteria of the requirements
+it affected.
 
-`agreed` and buildable: REQ-GAL-003, REQ-GAL-012, REQ-GAL-016, REQ-GAL-018,
-REQ-GAL-019. Still `draft`: REQ-GAL-001, 002, 008, 013, 015, 017.
-
-Paste the client's reply into [`ANSWERS.md`](ANSWERS.md) and run
-`/resolve-ambiguities`.
-
----
-
-## When several files are chosen at once, is every one previewed?
-
-_Blocks: REQ-GAL-001, REQ-GAL-013, REQ-GAL-015_
-
-_In plain words: You said you want a preview of the image before it is added.
-When you pick thirty photos at once, would you expect to see a small preview of
-all thirty, or just one?_
-
-The client answered "preview of that uploadede image" on 2026-09-21, which
-settles that a picture is shown rather than a filename — that is now a
-criterion. It does not settle the batch. REQ-GAL-001@v3 requires an Upload of
-thirty files to work, and thirty previews, one preview, or a scrolling strip
-are three different pieces of work.
-
-## Where is a description changed after Upload?
-
-_Blocks: REQ-GAL-002, REQ-GAL-008, REQ-GAL-017_
-
-_In plain words: You said you want to be able to change a photo's description
-later. Where would you go to do that — open the photo large and edit it there,
-or somewhere on the Gallery page itself?_
-
-The client answered "Yes" on 2026-09-21, which settles that a description can
-be added or changed after Upload, and that Photos already in the Gallery carry
-none until one is given — both are now criteria. It does not say where the
-editing happens, and every surface in this application is named by a
-requirement rather than left to chance.
+All nineteen requirements in `gal.yaml` are therefore at `agreed` or beyond.
 
 ---
 
