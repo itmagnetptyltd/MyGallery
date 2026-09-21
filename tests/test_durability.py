@@ -71,6 +71,7 @@ def test_a_deleted_photo_is_still_gone_when_the_store_is_reopened(store):
 
 
 # @covers REQ-GAL-008@v2
+# @covers REQ-GAL-017@v1
 def test_a_description_given_at_upload_survives_a_restart(store):
     photo = store.save("holiday.jpg", an_image(), "JPEG", description="Beach at dawn")
 

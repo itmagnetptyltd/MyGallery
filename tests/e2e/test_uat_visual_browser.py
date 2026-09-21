@@ -178,6 +178,7 @@ def test_the_upload_popup_can_be_reopened_after_it_was_closed(page, running_serv
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-015@v1
 def test_the_upload_popup_previews_every_chosen_file(page, running_server, tmp_path):
     photos = []
     for n in range(3):
@@ -194,6 +195,7 @@ def test_the_upload_popup_previews_every_chosen_file(page, running_server, tmp_p
 
 
 # @covers REQ-GAL-012@v2
+# @covers REQ-GAL-018@v1
 def test_a_thumbnail_shows_its_photos_description_as_alt_text(page, running_server, tmp_path):
     photo = tmp_path / "holiday.jpg"
     photo.write_bytes(an_image("JPEG"))
