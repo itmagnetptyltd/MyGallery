@@ -17,7 +17,7 @@ const {
   listNotes,
   listRefs,
   nextNoteId,
-  copyToRef,
+  keepFiles,
 } = require("./lib/working");
 
 const EXIT_OK = 0;
@@ -45,7 +45,7 @@ function parseArgs(argv) {
 function addNote(projectRoot, text, files) {
   const trimmed = String(text || "").trim();
   if (!trimmed) throw new Error("missing --text");
-  const copied = copyToRef(projectRoot, files);
+  const copied = keepFiles(projectRoot, files);
   const notes = listNotes(projectRoot).slice().reverse();
   const row = {
     id: nextNoteId(listNotes(projectRoot)),

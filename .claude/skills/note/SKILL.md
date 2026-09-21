@@ -7,7 +7,7 @@ allowed-tools: Read, Grep, Glob, Write, Bash
 # note
 
 Saves **the words they typed** and any files they attached. Not a REQ. Not a CHG.
-Shows on the dashboard **Working** tab.
+Shows on the dashboard **Others** tab.
 
 **Invoke as** `/note` plus the words. Attach files in the chat if there are any.
 
@@ -32,26 +32,28 @@ Then return to the project root.
 ## 1. Write the note
 
 Copy any attached files into the project first if they are only in the chat.
-Then:
+Use the path Cursor shows for the attachment. Then:
 
-```bash
-node .claude/itm-sdlc/scripts/note.js --project . --text "THEIR WORDS HERE"
+```
+node .claude/itm-sdlc/scripts/note.js --project . --text "THEIR WORDS HERE" --file PATH
 ```
 
-Add `--file path/to/shot.png` once per file.
+`--file` once per file. If you have no path, copy the file into
+`.brain/docs/inbox/` and run the same command without `--file` — inbox is
+drained into `.brain/docs/ref/`.
 
-**Show the script output as written.**
+**Do not skip the copy.** Quoting the image is not saving it. The script must
+print `.brain/docs/ref/NNN-name.ext`. Then:
 
-## 2. Refresh the dashboard if they want it on screen
-
-```bash
+```
 node .claude/itm-sdlc/scripts/dashboard.js --project . --open
 ```
 
 The **Others** tab lists the note and a table of files in `.brain/docs/ref/`
-(serial, filename, type, icon).
+(serial, filename, type, icon). Image thumbs load from `.claude/reports/ref/`
+so they work when the dashboard is opened as a file.
 
-## 3. Do not
+## 2. Do not
 
 - Do not open `/feedback-capture` from here unless they said it is client UAT
   that must be classified.

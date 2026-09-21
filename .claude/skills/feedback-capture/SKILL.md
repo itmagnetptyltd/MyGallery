@@ -63,8 +63,9 @@ If they attached a PDF or screenshot, keep the file:
 node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH
 ```
 
-Once per file. Put the printed `.brain/docs/ref/NNN-name.ext` path on the FB
-record. If `keep-ref.js` is missing, re-run `install.js`.
+PATH is the attachment from the user message. No path: drop it in
+`.brain/docs/inbox/` and run keep-ref without `--file`. Put the printed
+`.brain/docs/ref/NNN-name.ext` on the FB record. Then `/dashboard`.
 
 ## 3. Propose a triage
 

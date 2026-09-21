@@ -34,17 +34,17 @@ pagination ever mentioned?", this file is the answer.
 If a brief already exists, append the new one under a dated heading rather than
 replacing it.
 
-**Keep the source file.** If they attached a PDF, image, or other file, copy it
-into the project and store it:
+**Keep the source file.** Chat attachments are copied into `.brain/docs/ref/`
+when the prompt hook gets a path. Still run this so a missed hook is not silent:
 
 ```
 node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH
 ```
 
-Once per file. The script prints `.brain/docs/ref/NNN-name.ext`. Put those paths
-in `BRIEF.md` under the quote (so the dashboard Others tab Files table shows
-them). If `keep-ref.js` is missing, this project's vendored toolkit predates it —
-re-run `install.js`, then this command.
+PATH is the attachment path from the user message. If you have no path, put the
+file in `.brain/docs/inbox/` and run keep-ref without `--file`. The script
+prints `.brain/docs/ref/NNN-name.ext`. Put those paths in `BRIEF.md`. Then
+`/dashboard` so the Others tab Files table shows them.
 
 Do not skip the copy because you already quoted the words. The file is the
 evidence; `BRIEF.md` is the transcript.

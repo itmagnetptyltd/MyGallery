@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "55e5a8c91787a2fdd8e785a85a7941d7f4b14de4",
+  "commit": "b0234d28c6aa12cf21bbb9e10fa0326abc14e99c",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T10:27:32.975Z",
+  "installedAt": "2026-09-21T11:35:52.697Z",
   "modules": [
     "GAL"
   ],
@@ -44,11 +44,11 @@
       "policy": "managed"
     },
     ".claude/skills/dashboard/SKILL.md": {
-      "sha256": "568dc874733e09032951092c57a65b0f3d8bc8d01d857a9200a4a209b9dc5e89",
+      "sha256": "bedbf44c3d25006e6dfd36c67d5edfac6165fcef7fbb7b950899c4b03fcc363d",
       "policy": "managed"
     },
     ".claude/skills/decompose/SKILL.md": {
-      "sha256": "7c0b618f09a74ae64b701bd14be04a3b0e5702dbaf0951f174f9308024d16eed",
+      "sha256": "f835d17ecdc7dafe6230e97c4b19761189cf024403dcaded65ce3252bc6b2593",
       "policy": "managed"
     },
     ".claude/skills/feature-plan/SKILL.md": {
@@ -56,7 +56,7 @@
       "policy": "managed"
     },
     ".claude/skills/feedback-capture/SKILL.md": {
-      "sha256": "2695189a1f865bb6073c9a91d418d1034783395de11b458cac40a32e46b4adec",
+      "sha256": "6168ee99523c693c1ef0aa466e3b52440b0e5987b7c0a8f1cf0131234d490e95",
       "policy": "managed"
     },
     ".claude/skills/find-variation/SKILL.md": {
@@ -88,7 +88,7 @@
       "policy": "managed"
     },
     ".claude/skills/note/SKILL.md": {
-      "sha256": "d2073b2ad7854d6bf1dbfd1234b62245ea6d2d3d2d45edf760403e588f5b2a4a",
+      "sha256": "28bb1ca1837a230c0aa24786bf71f6f188d2b2e9b1d789c92076ac088a3fa423",
       "policy": "managed"
     },
     ".claude/skills/pr-prepare/SKILL.md": {
@@ -220,7 +220,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "044e80d1e372fa2c4c95f34edcff4f380c7811f4380bc91cebaab8227f5fcfe8",
+      "sha256": "da2c6bce6e8459ca3d95dfae3b4bb8f8ee0068947d9e0ab8c14a91277a303c13",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {
@@ -236,7 +236,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-prompt-log.js": {
-      "sha256": "cfefd7f4019669d866b150a10a530ab8946e6c7987ddfbaa68f72b49a02f4d3b",
+      "sha256": "e990aa892b384824bdaed83520ffafae6279d18998f8a3d82e570b728441354b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-report.js": {
@@ -244,7 +244,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/keep-ref.js": {
-      "sha256": "5606d20811fb059e37507242c9053cb4bb5d9cebe147f560f9edaf99d879905c",
+      "sha256": "45d3e181c3425cb5038602a185ef7eb7cbf20046d34c8e236a53e3c1a62e13a0",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/legacy-discover.js": {
@@ -260,7 +260,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/hooks.js": {
-      "sha256": "4b1addb84f90d7670255ea2b50da9cc8e9477e7638a9285fb3864bd2eea6b281",
+      "sha256": "5f7eff1cecc11b4c6224e0e43f85f3f60416547bd30b0dd9cf43f7a88ce0599c",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/installer.js": {
@@ -276,7 +276,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/working.js": {
-      "sha256": "d9549a333bdf7f9877e61e1d03cd9344361eec7eb066dcc4b7a89df9227ebfce",
+      "sha256": "f701ecf16e2842a00fec91cb910840cb862ef75bad26042eee2774dc883bce3f",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/metrics.js": {
@@ -288,7 +288,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/note.js": {
-      "sha256": "59f8fc2d620597442e1a14a06a5c4a623f62140c9047eb65f2492fbb7e41d696",
+      "sha256": "e545d88002a3691f81fca698809515eab72898abab5971454213d8e41bbec13d",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/regression-select.js": {
@@ -365,6 +365,10 @@
     },
     ".brain/docs/commands.yaml": {
       "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "policy": "seeded"
+    },
+    ".brain/docs/inbox/README.md": {
+      "sha256": "5614c98d734cec2f5cf647a0a3ac94ea128f0b22d8bcf4577e51e06ba8150366",
       "policy": "seeded"
     },
     ".brain/docs/ref/README.md": {

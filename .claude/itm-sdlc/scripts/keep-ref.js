@@ -2,14 +2,15 @@
 "use strict";
 
 /**
- * Copy attached files into .brain/docs/ref/. No note. Used by /decompose
- * (and anything else that must keep the source file).
+ * Copy attached files into .brain/docs/ref/. No note.
  *
  * Usage:
- *   node scripts/keep-ref.js --project <path> --file <path> [--file <path>]...
+ *   node scripts/keep-ref.js --project <path> [--file <path>]...
+ *
+ * --file is optional. Files sitting in .brain/docs/inbox/ are always drained.
  */
 
-const { copyToRef } = require("./lib/working");
+const { keepFiles } = require("./lib/working");
 
 const EXIT_OK = 0;
 const EXIT_TOOL_ERROR = 2;
@@ -35,14 +36,15 @@ function main(argv) {
     const options = parseArgs(argv);
     if (options.help) {
       process.stdout.write(
-        "Usage: node scripts/keep-ref.js --project <path> --file <path> [--file <path>]...\n",
+        "Usage: node scripts/keep-ref.js --project <path> [--file <path>]...\n",
       );
       return EXIT_OK;
     }
-    if (!options.files.length) throw new Error("missing --file");
-    const copied = copyToRef(options.project, options.files);
+    const copied = keepFiles(options.project, options.files);
     process.stdout.write(
-      copied.map((name) => `.brain/docs/ref/${name}`).join("\n") + "\n",
+      copied.length
+        ? copied.map((name) => `.brain/docs/ref/${name}`).join("\n") + "\n"
+        : "none\n",
     );
     return EXIT_OK;
   } catch (err) {

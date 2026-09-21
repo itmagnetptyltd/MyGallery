@@ -62,7 +62,10 @@ Return to the project root.
 node .claude/itm-sdlc/scripts/dashboard.js --project . --open
 ```
 
-Writes `.claude/reports/dashboard.html` and `dashboard.json`, then opens the HTML.
+Writes `.claude/reports/dashboard.html` and `dashboard.json`, then opens it
+over `http://127.0.0.1` so **Add file** on the Others tab can save into
+`.brain/docs/ref/` (any file, not only images). Thumbs load from
+`.claude/reports/ref/`.
 
 Those two files are also rewritten by the dashboard hook after a real project edit, and again when the session ends. They are snapshots, not the record. Do not treat them as source of truth.
 

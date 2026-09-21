@@ -22,12 +22,14 @@ const {
   readStdinJson,
   fileFromPayload,
   promptFromPayload,
+  attachmentsFromPayload,
   isTddPrompt,
   projectPaths,
   ensureDir,
   writeJson,
   readJson,
 } = require("./lib/hooks");
+const { copyToRef } = require("./lib/working");
 
 function lastPromptFile(projectRoot) {
   return path.join(projectPaths(projectRoot).stateDir, "last-prompt.json");
@@ -35,13 +37,23 @@ function lastPromptFile(projectRoot) {
 
 function capture(raw, options = {}) {
   const projectRoot = options.projectRoot ?? process.cwd();
-  const prompt = promptFromPayload(readStdinJson(raw));
+  const payload = readStdinJson(raw);
+  const prompt = promptFromPayload(payload);
   writeJson(lastPromptFile(projectRoot), {
     prompt,
     skip: isTddPrompt(prompt),
     at: Date.now(),
   });
-  return { captured: Boolean(prompt), skip: isTddPrompt(prompt) };
+  let kept = [];
+  try {
+    const files = attachmentsFromPayload(payload).filter(
+      (file) => fs.existsSync(file) && fs.statSync(file).isFile(),
+    );
+    if (files.length) kept = copyToRef(projectRoot, files);
+  } catch {
+    kept = [];
+  }
+  return { captured: Boolean(prompt), skip: isTddPrompt(prompt), kept };
 }
 
 function sameFile(projectRoot, a, b) {

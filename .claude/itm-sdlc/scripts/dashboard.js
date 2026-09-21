@@ -5,10 +5,11 @@
  * Visual project dashboard. Reads files only — no database.
  *
  * Usage:
- *   node scripts/dashboard.js [--project <path>] [--out <file>] [--open]
+ *   node scripts/dashboard.js [--project <path>] [--out <file>] [--open] [--serve]
  */
 
-const { execFile } = require("node:child_process");
+const { execFile, spawn } = require("node:child_process");
+const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -19,7 +20,15 @@ const {
 } = require("./lib/requirements");
 const { computeReport } = require("./client-report");
 const { readSlices } = require("./lib/slices");
-const { listNotes, listRefs, parsePromptLog } = require("./lib/working");
+const {
+  listNotes,
+  listRefs,
+  parsePromptLog,
+  drainInbox,
+  stageRefs,
+  inboxDir,
+  safeBase,
+} = require("./lib/working");
 const { report } = require("./next");
 
 const EXIT_OK = 0;
@@ -279,7 +288,7 @@ function renderHtml(data) {
 
   const refRows = (data.refs || [])
     .map((r) => {
-      const href = `../../${escapeHtml(r.path)}`;
+      const href = `ref/${escapeHtml(r.filename)}`;
       const icon =
         r.kind === "image"
           ? `<img class="thumb" data-kind="image" src="${href}" alt="">`
@@ -664,6 +673,19 @@ function renderHtml(data) {
     border: 1.5px solid var(--muted);
   }
   table.refs .file-cell a { color: inherit; }
+  .add-file {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .add-file input { display: none; }
   .others-grid {
     display: grid;
     gap: 0.85rem;
@@ -799,7 +821,8 @@ function renderHtml(data) {
           </section>
           <section class="box">
             <h2>Files <span class="count">${data.counts.refs || 0}</span></h2>
-            <p class="empty-note"><code>.brain/docs/ref/</code></p>
+            <p class="empty-note">Use <strong>Add file</strong>, or drop anything in <code>.brain/docs/inbox/</code> then <code>/dashboard</code>.</p>
+            <label class="add-file">Add file<input type="file" id="ref-upload"></label>
             <div class="table-wrap">
               <table class="refs">
                 <thead><tr><th>Serial</th><th>Filename</th><th>Type</th></tr></thead>
@@ -903,6 +926,26 @@ function renderHtml(data) {
   tabs.forEach((t) => {
     t.addEventListener("click", () => show(t.getAttribute("data-tab")));
   });
+  const upload = document.getElementById("ref-upload");
+  upload?.addEventListener("change", async () => {
+    const file = upload.files && upload.files[0];
+    if (!file) return;
+    if (location.protocol !== "http:" && location.protocol !== "https:") {
+      alert("Run /dashboard --open so Add file can save into docs/ref.");
+      upload.value = "";
+      return;
+    }
+    const res = await fetch("/upload?name=" + encodeURIComponent(file.name), {
+      method: "POST",
+      body: await file.arrayBuffer(),
+    });
+    if (!res.ok) {
+      alert("Could not save the file.");
+      upload.value = "";
+      return;
+    }
+    location.reload();
+  });
   // Keyboard: a tablist is arrow-navigable, not tab-through-every-button.
   document.querySelector(".tabs")?.addEventListener("keydown", (event) => {
     const i = tabs.indexOf(document.activeElement);
@@ -937,6 +980,7 @@ function openFile(file) {
 }
 
 function writeDashboard(projectRoot, outFile) {
+  drainInbox(projectRoot);
   const data = collect(projectRoot);
   const dest =
     outFile || path.join(projectRoot, ".claude", "reports", "dashboard.html");
@@ -944,7 +988,143 @@ function writeDashboard(projectRoot, outFile) {
   fs.writeFileSync(dest, renderHtml(data));
   const jsonDest = dest.replace(/\.html$/i, ".json");
   fs.writeFileSync(jsonDest, `${JSON.stringify(data, null, 2)}\n`);
+  stageRefs(projectRoot, path.join(path.dirname(dest), "ref"));
   return { dest, jsonDest, data };
+}
+
+const MAX_UPLOAD = 20 * 1024 * 1024;
+
+function dashPort(projectRoot) {
+  let n = 0;
+  for (const ch of path.resolve(projectRoot)) {
+    n = (n * 33 + ch.charCodeAt(0)) >>> 0;
+  }
+  return 18000 + (n % 1000);
+}
+
+function dashboardUrl(projectRoot) {
+  return `http://127.0.0.1:${dashPort(projectRoot)}/dashboard.html`;
+}
+
+function contentType(file) {
+  return (
+    {
+      ".html": "text/html; charset=utf-8",
+      ".json": "application/json",
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".gif": "image/gif",
+      ".webp": "image/webp",
+      ".svg": "image/svg+xml",
+      ".pdf": "application/pdf",
+    }[path.extname(file).toLowerCase()] || "application/octet-stream"
+  );
+}
+
+function saveUpload(projectRoot, filename, body, outFile) {
+  const base = safeBase(filename);
+  if (!path.extname(base)) throw new Error("not a file name");
+  if (!body || body.length > MAX_UPLOAD) throw new Error("file too large");
+  const inbox = inboxDir(projectRoot);
+  fs.mkdirSync(inbox, { recursive: true });
+  fs.writeFileSync(path.join(inbox, base), body);
+  return writeDashboard(projectRoot, outFile);
+}
+
+function listenDashboard(projectRoot, dest, port) {
+  const root = path.resolve(path.dirname(dest));
+  const bound = port == null ? dashPort(projectRoot) : port;
+  const server = http.createServer((req, res) => {
+    const url = new URL(req.url || "/", `http://127.0.0.1:${bound}`);
+    if (req.method === "GET" && url.pathname === "/health") {
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("ok");
+      return;
+    }
+    if (req.method === "POST" && url.pathname === "/upload") {
+      const chunks = [];
+      let size = 0;
+      let tooLarge = false;
+      req.on("data", (chunk) => {
+        size += chunk.length;
+        if (size > MAX_UPLOAD) {
+          if (!tooLarge) {
+            tooLarge = true;
+            res.writeHead(413);
+            res.end("too large");
+          }
+          req.destroy();
+          return;
+        }
+        chunks.push(chunk);
+      });
+      req.on("end", () => {
+        if (tooLarge || res.writableEnded) return;
+        try {
+          saveUpload(
+            projectRoot,
+            url.searchParams.get("name") || "upload.bin",
+            Buffer.concat(chunks),
+            dest,
+          );
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ ok: true, refs: listRefs(projectRoot) }));
+        } catch (err) {
+          res.writeHead(400, { "Content-Type": "text/plain" });
+          res.end(err.message);
+        }
+      });
+      return;
+    }
+    let rel = decodeURIComponent(url.pathname);
+    if (rel === "/") rel = "/dashboard.html";
+    const file = path.normalize(path.join(root, rel));
+    const fromRoot = path.relative(root, file);
+    if (!fromRoot || fromRoot.startsWith("..") || path.isAbsolute(fromRoot)) {
+      res.writeHead(403);
+      res.end();
+      return;
+    }
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
+      res.writeHead(404);
+      res.end();
+      return;
+    }
+    res.writeHead(200, { "Content-Type": contentType(file) });
+    fs.createReadStream(file).pipe(res);
+  });
+  server.listen(bound, "127.0.0.1");
+  return server;
+}
+
+function spawnServe(projectRoot) {
+  const child = spawn(
+    process.execPath,
+    [
+      path.resolve(__filename),
+      "--project",
+      path.resolve(projectRoot),
+      "--serve",
+    ],
+    { detached: true, stdio: "ignore", windowsHide: true },
+  );
+  child.unref();
+}
+
+function pause(ms) {
+  const end = Date.now() + ms;
+  while (Date.now() < end) {
+    /* wait for --serve to bind */
+  }
+}
+
+function openDashboard(projectRoot) {
+  spawnServe(projectRoot);
+  pause(400);
+  const url = dashboardUrl(projectRoot);
+  openFile(url);
+  return url;
 }
 
 function parseArgs(argv) {
@@ -952,12 +1132,14 @@ function parseArgs(argv) {
     project: process.cwd(),
     out: null,
     open: false,
+    serve: false,
     help: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "-h" || arg === "--help") options.help = true;
     else if (arg === "--open") options.open = true;
+    else if (arg === "--serve") options.serve = true;
     else if (arg === "--project") {
       i += 1;
       options.project = argv[i];
@@ -974,13 +1156,22 @@ function main(argv) {
     const options = parseArgs(argv);
     if (options.help) {
       process.stdout.write(
-        "Usage: node scripts/dashboard.js [--project <path>] [--out <file>] [--open]\n",
+        "Usage: node scripts/dashboard.js [--project <path>] [--out <file>] [--open] [--serve]\n",
       );
       return EXIT_OK;
     }
     const { dest } = writeDashboard(options.project, options.out);
+    if (options.serve) {
+      const server = listenDashboard(options.project, dest);
+      server.on("error", (err) => {
+        if (err.code === "EADDRINUSE") process.exit(0);
+        throw err;
+      });
+      process.stdout.write(`${dashboardUrl(options.project)}\n`);
+      return null;
+    }
     process.stdout.write(`${dest}\n`);
-    if (options.open) openFile(dest);
+    if (options.open) openDashboard(options.project);
     return EXIT_OK;
   } catch (err) {
     process.stderr.write(`${err.message}\n`);
@@ -989,7 +1180,18 @@ function main(argv) {
 }
 
 if (require.main === module) {
-  process.exitCode = main(process.argv.slice(2));
+  const code = main(process.argv.slice(2));
+  if (code !== null && code !== undefined) process.exitCode = code;
 }
 
-module.exports = { collect, renderHtml, writeDashboard, parseArgs, main };
+module.exports = {
+  collect,
+  renderHtml,
+  writeDashboard,
+  parseArgs,
+  main,
+  saveUpload,
+  listenDashboard,
+  dashPort,
+  dashboardUrl,
+};

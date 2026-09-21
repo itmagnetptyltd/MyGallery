@@ -12,12 +12,17 @@ const path = require("node:path");
 const yaml = require("js-yaml");
 
 const REF_DIR = path.join(".brain", "docs", "ref");
+const INBOX_DIR = path.join(".brain", "docs", "inbox");
 const COMMANDS_FILE = path.join(".brain", "docs", "commands.yaml");
 
 const IMAGE_EXT = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"]);
 
 function refDir(projectRoot) {
   return path.join(projectRoot, REF_DIR);
+}
+
+function inboxDir(projectRoot) {
+  return path.join(projectRoot, INBOX_DIR);
 }
 
 function commandsPath(projectRoot) {
@@ -119,7 +124,7 @@ function copyToRef(projectRoot, sources) {
   fs.mkdirSync(destDir, { recursive: true });
   const copied = [];
   let serial = nextSerial(projectRoot);
-  for (const source of sources) {
+  for (const source of sources || []) {
     const abs = path.resolve(source);
     if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
       throw new Error(`not a file: ${source}`);
@@ -132,10 +137,63 @@ function copyToRef(projectRoot, sources) {
   return copied;
 }
 
+function listInbox(projectRoot) {
+  const dir = inboxDir(projectRoot);
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((name) => !name.startsWith("README") && !name.startsWith("."))
+    .map((name) => path.join(dir, name))
+    .filter((file) => {
+      try {
+        return fs.statSync(file).isFile();
+      } catch {
+        return false;
+      }
+    });
+}
+
+function drainInbox(projectRoot) {
+  fs.mkdirSync(inboxDir(projectRoot), { recursive: true });
+  const sources = listInbox(projectRoot);
+  if (!sources.length) return [];
+  const copied = copyToRef(projectRoot, sources);
+  for (const source of sources) {
+    try {
+      fs.unlinkSync(source);
+    } catch {
+      /* still copied */
+    }
+  }
+  return copied;
+}
+
+function keepFiles(projectRoot, sources) {
+  return [...copyToRef(projectRoot, sources || []), ...drainInbox(projectRoot)];
+}
+
+function stageRefs(projectRoot, destDir) {
+  fs.mkdirSync(destDir, { recursive: true });
+  for (const name of fs.readdirSync(destDir)) {
+    if (name.startsWith(".")) continue;
+    fs.rmSync(path.join(destDir, name), { force: true, recursive: true });
+  }
+  const copied = [];
+  for (const row of listRefs(projectRoot)) {
+    const src = path.join(projectRoot, row.path);
+    if (!fs.existsSync(src)) continue;
+    fs.copyFileSync(src, path.join(destDir, row.filename));
+    copied.push(row.filename);
+  }
+  return copied;
+}
+
 module.exports = {
   REF_DIR,
+  INBOX_DIR,
   COMMANDS_FILE,
   refDir,
+  inboxDir,
   commandsPath,
   fileType,
   iconKind,
@@ -146,4 +204,8 @@ module.exports = {
   nextNoteId,
   safeBase,
   copyToRef,
+  listInbox,
+  drainInbox,
+  keepFiles,
+  stageRefs,
 };
