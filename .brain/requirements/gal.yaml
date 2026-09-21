@@ -792,7 +792,11 @@
   title: Files can be chosen by dropping them on the Upload popup
   module: GAL
   priority: should
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_description_browser.py
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_uat_visual.py
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 1b); absorbed as CHG-0006. The
@@ -901,7 +905,10 @@
   title: The Upload popup can be closed without uploading anything
   module: GAL
   priority: should
-  status: agreed
+  status: verified
+  verified_by:
+    - tests/e2e/test_uat_visual_browser.py
+    - tests/test_uat_visual.py
   version: 1
   source: >-
     FB-0004, Chat 2026-09-21, KCB/DEV (ask 4); absorbed as CHG-0009. The

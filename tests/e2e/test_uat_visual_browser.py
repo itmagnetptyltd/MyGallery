@@ -135,6 +135,7 @@ def test_the_delete_control_is_inside_the_larger_view_panel(page, running_server
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_the_upload_popup_close_control_is_inside_the_popup_at_its_top_right(
     page, running_server
 ):
@@ -153,6 +154,7 @@ def test_the_upload_popup_close_control_is_inside_the_popup_at_its_top_right(
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_closing_the_upload_popup_adds_no_photo(page, running_server):
     page.goto(_gallery_url(running_server))
     page.get_by_test_id("upload-open").click()
@@ -164,6 +166,7 @@ def test_closing_the_upload_popup_adds_no_photo(page, running_server):
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_the_upload_popup_can_be_reopened_after_it_was_closed(page, running_server):
     page.goto(_gallery_url(running_server))
     page.get_by_test_id("upload-open").click()
@@ -202,3 +205,19 @@ def test_a_thumbnail_shows_its_photos_description_as_alt_text(page, running_serv
     page.get_by_test_id("upload-submit").click()
 
     expect(page.get_by_test_id("thumbnail")).to_have_attribute("alt", "Beach at dawn")
+
+
+# @covers REQ-GAL-016@v1
+def test_the_picker_still_chooses_files_when_dropping_is_available(
+    page, running_server, tmp_path
+):
+    """REQ-GAL-016 c3. Dropping was added alongside the picker, not over it."""
+    photo = tmp_path / "picked.jpg"
+    photo.write_bytes(an_image("JPEG"))
+    page.goto(_gallery_url(running_server))
+    page.get_by_test_id("upload-open").click()
+
+    page.get_by_test_id("upload-input").set_input_files(str(photo))
+    page.get_by_test_id("upload-submit").click()
+
+    expect(page.get_by_test_id("photo-count")).to_have_text("1")

@@ -113,6 +113,7 @@ def test_the_description_field_holds_250_characters_and_the_upload_is_not_refuse
 
 
 # @covers REQ-GAL-001@v3
+# @covers REQ-GAL-016@v1
 def test_dropping_files_on_the_popup_chooses_them_for_the_upload(page, gallery_url):
     page.goto(gallery_url)
     page.get_by_test_id("upload-open").click()

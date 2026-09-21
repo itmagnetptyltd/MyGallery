@@ -96,6 +96,7 @@ def test_a_thumbnails_alt_text_is_its_photos_description(project_root):
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_the_upload_popup_has_a_close_control(client):
     page = client.get("/").get_data(as_text=True)
 
@@ -103,6 +104,7 @@ def test_the_upload_popup_has_a_close_control(client):
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_the_upload_popup_close_control_is_inside_the_popup(client):
     page = client.get("/").get_data(as_text=True)
 
@@ -113,6 +115,7 @@ def test_the_upload_popup_close_control_is_inside_the_popup(client):
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_the_upload_popup_close_control_is_placed_at_the_top_right(project_root):
     css = _css(project_root)
 
@@ -125,6 +128,7 @@ def test_the_upload_popup_close_control_is_placed_at_the_top_right(project_root)
 
 
 # @covers REQ-GAL-013@v2
+# @covers REQ-GAL-019@v1
 def test_the_upload_popup_close_control_closes_the_popup(project_root):
     script = _js(project_root)
 
@@ -138,3 +142,39 @@ def test_the_upload_popup_shows_a_preview_of_each_chosen_file(project_root):
 
     assert 'dataset.testid = "upload-preview"' in script
     assert "createObjectURL" in script
+
+
+# --- REQ-GAL-016@v1 / REQ-GAL-019@v1 — slice 8 ------------------------------
+
+
+# @covers REQ-GAL-016@v1
+def test_the_upload_popup_accepts_dropped_files(project_root):
+    script = _js(project_root)
+
+    assert 'uploadPopup.addEventListener("drop"' in script
+    assert "dataTransfer" in script
+
+
+# @covers REQ-GAL-016@v1
+def test_dropping_on_the_upload_popup_is_not_the_only_way_to_choose(client):
+    """REQ-GAL-001@v3 still requires files to be chosen from the popup.
+
+    The client said "in upload or drag-drop": dropping is an addition, so the
+    picker has to survive it.
+    """
+    page = client.get("/").get_data(as_text=True)
+
+    assert 'data-testid="upload-input"' in page
+
+
+# @covers REQ-GAL-019@v1
+def test_closing_the_upload_popup_leaves_it_reusable(project_root):
+    """Closing has to be close(), not remove() or hidden.
+
+    REQ-GAL-019 c3 requires the popup to open again afterwards, and only a
+    dialog that is still in the document can be shown by showModal().
+    """
+    script = _js(project_root)
+
+    assert "uploadPopup.close()" in script
+    assert "uploadPopup.remove()" not in script
