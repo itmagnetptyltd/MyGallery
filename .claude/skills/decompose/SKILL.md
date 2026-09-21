@@ -34,8 +34,9 @@ pagination ever mentioned?", this file is the answer.
 If a brief already exists, append the new one under a dated heading rather than
 replacing it.
 
-**Keep the source file.** Chat attachments are copied into `.brain/docs/ref/`
-when the prompt hook gets a path. Still run this so a missed hook is not silent:
+**Keep the source file.** Chat attachments are copied into **that app's**
+`.brain/docs/ref/` when the prompt hook gets a path. Still run this so a missed
+hook is not silent. `--project` is the client app, never the itm-sdlc toolkit:
 
 ```
 node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH

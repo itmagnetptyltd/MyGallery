@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "b0234d28c6aa12cf21bbb9e10fa0326abc14e99c",
+  "commit": "ccad0ec1b1b78144220b962d7825a7e6e61ccf8b",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T11:35:52.697Z",
+  "installedAt": "2026-09-21T11:52:24.967Z",
   "modules": [
     "GAL"
   ],
@@ -44,11 +44,11 @@
       "policy": "managed"
     },
     ".claude/skills/dashboard/SKILL.md": {
-      "sha256": "bedbf44c3d25006e6dfd36c67d5edfac6165fcef7fbb7b950899c4b03fcc363d",
+      "sha256": "695359d4ee448af3978c340846f915e83bdb6263b9b5cf957b97ae8cb3d9d2fc",
       "policy": "managed"
     },
     ".claude/skills/decompose/SKILL.md": {
-      "sha256": "f835d17ecdc7dafe6230e97c4b19761189cf024403dcaded65ce3252bc6b2593",
+      "sha256": "b9dc3c7cbd1d9807085f9497b482a679a5a2e6b14d607205408503e83b2ed4c8",
       "policy": "managed"
     },
     ".claude/skills/feature-plan/SKILL.md": {
@@ -56,7 +56,7 @@
       "policy": "managed"
     },
     ".claude/skills/feedback-capture/SKILL.md": {
-      "sha256": "6168ee99523c693c1ef0aa466e3b52440b0e5987b7c0a8f1cf0131234d490e95",
+      "sha256": "9a6b60e24951b14b71621526040dac19e093e20b09a4e61ed8a744bebca4bcb5",
       "policy": "managed"
     },
     ".claude/skills/find-variation/SKILL.md": {
@@ -88,7 +88,7 @@
       "policy": "managed"
     },
     ".claude/skills/note/SKILL.md": {
-      "sha256": "28bb1ca1837a230c0aa24786bf71f6f188d2b2e9b1d789c92076ac088a3fa423",
+      "sha256": "cfb59e4bbcb2fd765d6654dfcdeeca7e5f79f086cdf7bf4429334c6cc3fbb7ce",
       "policy": "managed"
     },
     ".claude/skills/pr-prepare/SKILL.md": {
@@ -236,7 +236,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-prompt-log.js": {
-      "sha256": "e990aa892b384824bdaed83520ffafae6279d18998f8a3d82e570b728441354b",
+      "sha256": "8f3936c40117b1e18995af9fb0b3240f0f99bd01cee4ffdf4db12856e665c118",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-report.js": {
@@ -276,7 +276,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/working.js": {
-      "sha256": "f701ecf16e2842a00fec91cb910840cb862ef75bad26042eee2774dc883bce3f",
+      "sha256": "b554252bfe5e4ae3fdc96cb6381c55e62bd0cb349a9c6bb192ea5a0d2ae11105",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/metrics.js": {

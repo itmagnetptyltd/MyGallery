@@ -119,7 +119,20 @@ function safeBase(name) {
   return base.replace(/^-+|-+$/g, "") || "file";
 }
 
+function isToolkitRoot(projectRoot) {
+  const root = path.resolve(projectRoot);
+  return (
+    fs.existsSync(path.join(root, "install.js")) &&
+    fs.existsSync(path.join(root, "templates", "brain-scaffold"))
+  );
+}
+
 function copyToRef(projectRoot, sources) {
+  if (isToolkitRoot(projectRoot)) {
+    throw new Error(
+      "docs/ref is on the client project (the app with .brain/), not the itm-sdlc toolkit. Pass --project <app>.",
+    );
+  }
   const destDir = refDir(projectRoot);
   fs.mkdirSync(destDir, { recursive: true });
   const copied = [];
@@ -173,16 +186,19 @@ function keepFiles(projectRoot, sources) {
 }
 
 function stageRefs(projectRoot, destDir) {
-  fs.mkdirSync(destDir, { recursive: true });
-  for (const name of fs.readdirSync(destDir)) {
+  const dest = path.resolve(destDir);
+  const source = path.resolve(refDir(projectRoot));
+  if (dest === source) return listRefs(projectRoot).map((row) => row.filename);
+  fs.mkdirSync(dest, { recursive: true });
+  for (const name of fs.readdirSync(dest)) {
     if (name.startsWith(".")) continue;
-    fs.rmSync(path.join(destDir, name), { force: true, recursive: true });
+    fs.rmSync(path.join(dest, name), { force: true, recursive: true });
   }
   const copied = [];
   for (const row of listRefs(projectRoot)) {
     const src = path.join(projectRoot, row.path);
     if (!fs.existsSync(src)) continue;
-    fs.copyFileSync(src, path.join(destDir, row.filename));
+    fs.copyFileSync(src, path.join(dest, row.filename));
     copied.push(row.filename);
   }
   return copied;
@@ -203,6 +219,7 @@ module.exports = {
   nextSerial,
   nextNoteId,
   safeBase,
+  isToolkitRoot,
   copyToRef,
   listInbox,
   drainInbox,

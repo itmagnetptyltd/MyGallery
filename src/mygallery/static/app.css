@@ -8,6 +8,8 @@
      against the field's own background, which is what made the description
      box impossible to pick out from the panel. */
   --field-line: #b9bdc7;
+  --card-shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 2px 6px rgb(16 24 40 / 6%);
+  --card-shadow-hover: 0 6px 16px rgb(16 24 40 / 12%), 0 2px 4px rgb(16 24 40 / 8%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +19,8 @@
     --bar: #1e2128;
     --line: #2c303a;
     --field-line: #5a6172;
+    --card-shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 2px 8px rgb(0 0 0 / 25%);
+    --card-shadow-hover: 0 10px 24px rgb(0 0 0 / 45%), 0 2px 6px rgb(0 0 0 / 30%);
   }
 }
 
@@ -52,7 +56,7 @@ main {
 
 .gallery {
   display: grid;
-  gap: 16px;
+  gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   min-height: 120px;
 }
@@ -143,21 +147,51 @@ main {
   opacity: 0.6;
 }
 
+/* REQ-GAL-003@v3 c8: a visible surface around the image. The padding is that
+   surface; the lift on hover says the card can be activated (REQ-GAL-004). */
 .thumbnail-card {
   background: var(--bar);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px;
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.thumbnail-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--field-line);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .tile {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--line);
   display: block;
   cursor: pointer;
+  transition: filter 160ms ease;
+}
+
+.thumbnail-card:hover .tile {
+  filter: brightness(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbnail-card,
+  .tile {
+    transition: none;
+  }
+
+  .thumbnail-card:hover {
+    transform: none;
+  }
 }
 
 .empty,

@@ -10,6 +10,9 @@ Builds an HTML overview from the project files and opens it in the browser.
 **No database.** Read-only. Four tabs: Requirements, Task Sequence, Records,
 Others (`/help` Where/Next, `/note`, files in `.brain/docs/ref/`).
 
+`--project` is the **client app** (has `.brain/` + `.claude/itm-sdlc/`), not the
+itm-sdlc toolkit clone. Files and this dashboard belong to that app.
+
 ## Before running a vendored script
 
 Every command below runs a script from `.claude/itm-sdlc/scripts/`, vendored

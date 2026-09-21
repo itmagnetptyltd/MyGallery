@@ -57,7 +57,8 @@ What was done, or why nothing was done.
 Paraphrase silently discards intent, and the raw wording is what you will need
 when the interpretation is disputed.
 
-If they attached a PDF or screenshot, keep the file:
+If they attached a PDF or screenshot, keep the file on **that app** (the client
+with `.brain/`), not the itm-sdlc toolkit:
 
 ```
 node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH

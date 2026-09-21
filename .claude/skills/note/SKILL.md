@@ -7,7 +7,12 @@ allowed-tools: Read, Grep, Glob, Write, Bash
 # note
 
 Saves **the words they typed** and any files they attached. Not a REQ. Not a CHG.
-Shows on the dashboard **Others** tab.
+Shows on the dashboard **Others** tab of **that app**.
+
+`--project` is the **client app** that installed itm-sdlc (it has `.brain/` and
+`.claude/itm-sdlc/`). MyGallery, book-library, or any other. **Never** the
+itm-sdlc toolkit clone. Files land in `<app>/.brain/docs/ref/` and the Others
+tab of `<app>`'s dashboard.
 
 **Invoke as** `/note` plus the words. Attach files in the chat if there are any.
 

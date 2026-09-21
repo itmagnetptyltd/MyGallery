@@ -29,7 +29,7 @@ const {
   writeJson,
   readJson,
 } = require("./lib/hooks");
-const { copyToRef } = require("./lib/working");
+const { copyToRef, isToolkitRoot } = require("./lib/working");
 
 function lastPromptFile(projectRoot) {
   return path.join(projectPaths(projectRoot).stateDir, "last-prompt.json");
@@ -49,7 +49,9 @@ function capture(raw, options = {}) {
     const files = attachmentsFromPayload(payload).filter(
       (file) => fs.existsSync(file) && fs.statSync(file).isFile(),
     );
-    if (files.length) kept = copyToRef(projectRoot, files);
+    if (files.length && !isToolkitRoot(projectRoot)) {
+      kept = copyToRef(projectRoot, files);
+    }
   } catch {
     kept = [];
   }
