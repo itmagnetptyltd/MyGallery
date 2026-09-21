@@ -127,6 +127,60 @@ function isToolkitRoot(projectRoot) {
   );
 }
 
+function cursorProjectSlug(projectRoot) {
+  const resolved = path.resolve(projectRoot);
+  const win = /^([A-Za-z]):[\\/](.*)$/.exec(resolved);
+  if (win) return `${win[1].toLowerCase()}-${win[2].replace(/[\\/]+/g, "-")}`;
+  return resolved.replace(/^[\\/]+/, "").replace(/[\\/]+/g, "-");
+}
+
+function cursorAssetDirs(projectRoot) {
+  const os = require("node:os");
+  const dir = path.join(
+    os.homedir(),
+    ".cursor",
+    "projects",
+    cursorProjectSlug(projectRoot),
+    "assets",
+  );
+  return fs.existsSync(dir) ? [dir] : [];
+}
+
+function listRecentFiles(dirs, sinceMs, skip) {
+  const skipRe = skip || /\.(jsonl?|md)$/i;
+  const found = [];
+  function walk(dir) {
+    if (!fs.existsSync(dir)) return;
+    let names;
+    try {
+      names = fs.readdirSync(dir);
+    } catch {
+      return;
+    }
+    for (const name of names) {
+      if (name.startsWith(".")) continue;
+      const full = path.join(dir, name);
+      let st;
+      try {
+        st = fs.statSync(full);
+      } catch {
+        continue;
+      }
+      if (st.isDirectory()) walk(full);
+      else if (
+        st.isFile() &&
+        st.mtimeMs >= sinceMs &&
+        path.extname(name) &&
+        !skipRe.test(name)
+      ) {
+        found.push(full);
+      }
+    }
+  }
+  for (const dir of dirs || []) walk(dir);
+  return found;
+}
+
 function copyToRef(projectRoot, sources) {
   if (isToolkitRoot(projectRoot)) {
     throw new Error(
@@ -220,6 +274,9 @@ module.exports = {
   nextNoteId,
   safeBase,
   isToolkitRoot,
+  cursorProjectSlug,
+  cursorAssetDirs,
+  listRecentFiles,
   copyToRef,
   listInbox,
   drainInbox,

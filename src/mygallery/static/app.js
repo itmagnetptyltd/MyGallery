@@ -81,7 +81,15 @@ function tileFor(photo) {
   tile.dataset.testid = "thumbnail";
   tile.dataset.filename = photo.filename;
   tile.dataset.photoId = photo.id;
-  card.append(tile);
+  // The frame clips the hover zoom to the image's rounded edge. The badge is
+  // decoration only: the Photo's text stays in alt, as the client chose.
+  const frame = document.createElement("div");
+  frame.className = "tile-frame";
+  const badge = document.createElement("span");
+  badge.className = "tile-zoom";
+  badge.setAttribute("aria-hidden", "true");
+  frame.append(tile, badge);
+  card.append(frame);
   return card;
 }
 

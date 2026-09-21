@@ -8,8 +8,11 @@
      against the field's own background, which is what made the description
      box impossible to pick out from the panel. */
   --field-line: #b9bdc7;
-  --card-shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 2px 6px rgb(16 24 40 / 6%);
-  --card-shadow-hover: 0 6px 16px rgb(16 24 40 / 12%), 0 2px 4px rgb(16 24 40 / 8%);
+  --card-surface: linear-gradient(180deg, #ffffff, #f3f4f7);
+  --card-shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 4px 12px -4px rgb(16 24 40 / 10%);
+  --card-shadow-hover: 0 22px 40px -14px rgb(16 24 40 / 30%), 0 4px 10px -2px rgb(16 24 40 / 10%);
+  --card-ring-hover: #9aa3b5;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +22,12 @@
     --bar: #1e2128;
     --line: #2c303a;
     --field-line: #5a6172;
-    --card-shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 2px 8px rgb(0 0 0 / 25%);
-    --card-shadow-hover: 0 10px 24px rgb(0 0 0 / 45%), 0 2px 6px rgb(0 0 0 / 30%);
+    --card-surface: linear-gradient(180deg, #252932, #1d2027);
+    --card-shadow: 0 1px 0 rgb(255 255 255 / 4%) inset, 0 8px 20px -10px rgb(0 0 0 / 60%);
+    --card-shadow-hover:
+      0 1px 0 rgb(255 255 255 / 6%) inset, 0 28px 48px -18px rgb(0 0 0 / 85%),
+      0 8px 16px -6px rgb(0 0 0 / 50%);
+    --card-ring-hover: #6b7488;
   }
 }
 
@@ -150,46 +157,127 @@ main {
 /* REQ-GAL-003@v3 c8: a visible surface around the image. The padding is that
    surface; the lift on hover says the card can be activated (REQ-GAL-004). */
 .thumbnail-card {
-  background: var(--bar);
+  padding: 6px;
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 8px;
+  border-radius: 16px;
+  background: var(--card-surface);
   box-shadow: var(--card-shadow);
   cursor: pointer;
   transition:
-    transform 160ms ease,
-    box-shadow 160ms ease,
-    border-color 160ms ease;
+    transform 320ms var(--ease-out),
+    box-shadow 320ms var(--ease-out),
+    border-color 320ms var(--ease-out);
 }
 
-.thumbnail-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--field-line);
-  box-shadow: var(--card-shadow-hover);
+.tile-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 11px;
+  background: var(--line);
+  isolation: isolate;
 }
 
 .tile {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 10px;
-  background: var(--line);
-  display: block;
   cursor: pointer;
-  transition: filter 160ms ease;
+  transition: transform 600ms var(--ease-out);
 }
 
-.thumbnail-card:hover .tile {
-  filter: brightness(1.06);
+/* A shade from the bottom edge, so the badge reads on a white Photo as well
+   as a dark one. pointer-events none: a click must still reach the image. */
+.tile-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(8 10 14 / 55%), rgb(8 10 14 / 0%) 55%);
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+  pointer-events: none;
+}
+
+/* A magnifier drawn with borders: the CSP allows no data: images. */
+.tile-zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 35%);
+  opacity: 0;
+  transform: translateY(8px) scale(0.85);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+  pointer-events: none;
+}
+
+.tile-zoom::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #16181d;
+  border-radius: 50%;
+}
+
+.tile-zoom::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 21px;
+  width: 7px;
+  height: 2px;
+  border-radius: 1px;
+  background: #16181d;
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+@media (hover: hover) {
+  .thumbnail-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--card-ring-hover);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .thumbnail-card:hover .tile {
+    transform: scale(1.06);
+  }
+
+  .thumbnail-card:hover .tile-frame::after,
+  .thumbnail-card:hover .tile-zoom {
+    opacity: 1;
+  }
+
+  .thumbnail-card:hover .tile-zoom {
+    transform: none;
+  }
+}
+
+.thumbnail-card:active {
+  transform: translateY(-2px) scale(0.99);
+  transition-duration: 120ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .thumbnail-card,
-  .tile {
-    transition: none;
+  .tile,
+  .tile-zoom {
+    transition: opacity 150ms linear;
   }
 
-  .thumbnail-card:hover {
+  .thumbnail-card:hover,
+  .thumbnail-card:active,
+  .thumbnail-card:hover .tile,
+  .thumbnail-card:hover .tile-zoom {
     transform: none;
   }
 }
