@@ -108,6 +108,8 @@ def test_the_close_control_is_inside_the_larger_view_panel(page, running_server,
     _upload_one(page, tmp_path)
     page.get_by_test_id("thumbnail").first.click()
     expect(page.get_by_test_id("larger-view")).to_be_visible()
+    # The panel resizes when the photo loads; measure it once it has.
+    page.get_by_test_id("larger-view-photo").evaluate("photo => photo.decode()")
 
     panel = page.get_by_test_id("larger-view").bounding_box()
     close = page.get_by_test_id("larger-view-close").bounding_box()
@@ -123,6 +125,8 @@ def test_the_delete_control_is_inside_the_larger_view_panel(page, running_server
     _upload_one(page, tmp_path)
     page.get_by_test_id("thumbnail").first.click()
     expect(page.get_by_test_id("larger-view")).to_be_visible()
+    # The panel resizes when the photo loads; measure it once it has.
+    page.get_by_test_id("larger-view-photo").evaluate("photo => photo.decode()")
 
     panel = page.get_by_test_id("larger-view").bounding_box()
     delete = page.get_by_test_id("delete-photo").bounding_box()

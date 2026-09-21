@@ -22,6 +22,7 @@ const largerViewClose = document.querySelector(
   '[data-testid="larger-view-close"]',
 );
 const deletePhoto = document.querySelector('[data-testid="delete-photo"]');
+const downloadPhoto = document.querySelector('[data-testid="download-photo"]');
 const deleteConfirmation = document.querySelector(
   '[data-testid="delete-confirmation"]',
 );
@@ -191,6 +192,7 @@ gallery.addEventListener("click", (event) => {
     return;
   }
   largerViewPhoto.src = `/api/photos/${tile.dataset.photoId}`;
+  downloadPhoto.href = `/api/photos/${tile.dataset.photoId}/download`;
   largerViewPhoto.alt = tile.dataset.filename;
   largerViewPhoto.dataset.filename = tile.dataset.filename;
   largerViewDescription.value = tile.dataset.description || "";

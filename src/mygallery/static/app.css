@@ -212,8 +212,14 @@ main {
      the description field and the actions row. REQ-GAL-014 requires Delete to
      sit inside the panel, and it only does while this allowance is honest. */
   max-height: calc(92vh - 260px);
+  /* REQ-GAL-004@v2 c2: larger than its Thumbnail, which a small photo at its
+     own size is not, so a floor. contain keeps its proportions when the floor
+     and the height cap meet. Centred when narrower than the panel. */
+  min-width: min(480px, 88vw);
   width: auto;
   height: auto;
+  margin-inline: auto;
+  object-fit: contain;
   border-radius: 10px;
 }
 
@@ -237,6 +243,7 @@ main {
   color: var(--fg);
   font: inherit;
   font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
 }
 
