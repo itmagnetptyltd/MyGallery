@@ -123,10 +123,15 @@
         <button type="button" class="outline-button" data-testid="description-save">
           Save description
         </button>
-        <!-- REQ-GAL-006: an anchor to the download route is all a download
-             needs. Its href is set when the Larger view opens a Photo. -->
-        <a class="outline-button" data-testid="download-photo" href="" download>Download</a>
-        <button type="button" class="danger" data-testid="delete-photo">Delete</button>
+        <!-- REQ-GAL-004@v3 c7/c8: Save description and Close. Download and
+             Delete live on each Thumbnail card since REQ-GAL-003@v4. -->
+        <button
+          type="button"
+          class="outline-button"
+          data-testid="larger-view-close-button"
+        >
+          Close
+        </button>
       </div>
     </dialog>
 

@@ -44,7 +44,7 @@ def test_an_upload_carrying_a_long_description_is_not_refused_for_length(client)
     assert len(response.get_json()["photos"][0]["description"]) == 250
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_the_gallery_listing_carries_each_photos_description(client):
     _upload(client, name="described.jpg", description="Beach at dawn")
     _upload(client, name="plain.jpg")

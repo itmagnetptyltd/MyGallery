@@ -187,13 +187,15 @@
   verified_by:
     - tests/api/test_description_http.py
     - tests/api/test_gallery_http.py
+    - tests/e2e/test_card_actions_browser.py
     - tests/e2e/test_description_browser.py
     - tests/e2e/test_gallery_browser.py
     - tests/e2e/test_uat_visual_browser.py
+    - tests/test_card_actions.py
     - tests/test_gallery.py
     - tests/test_thumbnails.py
     - tests/test_uat_visual.py
-  version: 3
+  version: 4
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "see them in a gallery";
     Thumbnail defined in .brain/glossary.md; clarified by client answers
@@ -201,7 +203,10 @@
     CHG-0001 and CHG-0002 (FB-0001, absorbed 2026-09-18);
     a Photo's description shown on its card on hover added by CHG-0008
     (FB-0004, absorbed 2026-09-21);
-    clarified by client answers 2026-09-21 (ANSWERS.md)
+    clarified by client answers 2026-09-21 (ANSWERS.md);
+    Download and Delete on each card added by CHG-0015 and CHG-0016
+    (FB-0006, absorbed), clarified by answers 2026-09-22 (ANSWERS.md).
+    The same criteria are on REQ-GAL-012@v3
   rationale: >-
     Seeing the Photos together is the client's stated reason for the
     application. A Photo that is stored but never shown is invisible to the
@@ -241,6 +246,26 @@
     - given: A Photo with no description is in the Gallery
       when: Its Thumbnail is shown
       then: That Thumbnail's alt text is that Photo's filename
+    - given: Photos are in the Gallery
+      when: The Gallery is shown, with the pointer resting on no card
+      then: >-
+        Each Thumbnail card shows a Download control and a Delete control
+        below its image
+    - given: A Thumbnail card is shown
+      when: Its Download and Delete controls are compared
+      then: The two controls are the same width
+    - given: A known Photo's Thumbnail card is shown
+      when: The user activates that card's Download control
+      then: >-
+        That Photo is downloaded, and the Larger view is not shown
+    - given: A known Photo's Thumbnail card is shown
+      when: The user activates that card's Delete control
+      then: >-
+        The user is asked "Are you sure you want to delete this photo?", and
+        the Larger view is not shown
+    - given: The user has confirmed deleting a Photo from its Thumbnail card
+      when: The Gallery is shown
+      then: That Photo's Thumbnail card is no longer shown
   ambiguities: []
   depends_on:
     - REQ-GAL-001
@@ -261,6 +286,14 @@
         visible surface. The only interaction it named was activation.
         Superseded by CHG-0008: resting the pointer on a card shows that Photo's
         description.
+    - version: 3
+      agreed: 2026-09-21
+      superseded_by: 4
+      summary: >-
+        v3 required a Thumbnail per Photo, newest first, in a card with a
+        visible surface, with the description or filename as alt text. It put
+        no control on a card. Superseded by CHG-0015 and CHG-0016: each card
+        carries equal-width Download and Delete controls.
 
 - id: REQ-GAL-004
   title: Activating a Thumbnail shows the Larger view over the Gallery
@@ -268,16 +301,22 @@
   priority: must
   status: verified
   verified_by:
+    - tests/e2e/test_larger_view_actions_browser.py
     - tests/e2e/test_larger_view_browser.py
+    - tests/e2e/test_larger_view_small_photo_browser.py
     - tests/e2e/test_uat_visual_browser.py
     - tests/test_larger_view.py
+    - tests/test_larger_view_actions.py
     - tests/test_uat_visual.py
-  version: 2
+  version: 3
   source: >-
     Client brief 2026-09-18, BRIEF.md; clause "click one to see it larger";
     Larger view defined in .brain/glossary.md; clarified by client answers
     2026-09-18 (ANSWERS.md); panel redesign and in-panel close/Delete added
-    by CHG-0004 (FB-0003, absorbed 2026-09-18)
+    by CHG-0004 (FB-0003, absorbed 2026-09-18); Download and Delete moved out
+    of the panel to the Thumbnail cards, and a Close button added beside Save
+    description, by CHG-0014 (FB-0006, absorbed), clarified by answers
+    2026-09-22 (ANSWERS.md). The same criteria are on REQ-GAL-014@v2
   rationale: >-
     A Thumbnail is too small to judge a Photo by. The client asked to be able
     to go from the overview to one Photo at a usable size, and back to the
@@ -302,8 +341,13 @@
       when: The close control is shown
       then: The close control is inside the Larger view panel
     - given: The Larger view of a Photo is shown
-      when: The Delete control is shown
-      then: The Delete control is inside the Larger view panel
+      when: Its actions are shown
+      then: >-
+        The panel's actions are a Save description button and a Close button,
+        side by side, and it shows no Download control and no Delete control
+    - given: The Larger view of a Photo is shown over the Gallery
+      when: The user activates the Close button
+      then: The Larger view is no longer shown and the Gallery is shown again
   ambiguities: []
   depends_on:
     - REQ-GAL-003
@@ -318,6 +362,13 @@
         close control or Delete inside the panel. Superseded by CHG-0004
         and the absorbed FB-0003 placement: both sit inside the Larger
         view panel.
+    - version: 2
+      agreed: 2026-09-18
+      superseded_by: 3
+      summary: >-
+        v2 added that the close control and Delete sit inside the Larger view
+        panel. Superseded by CHG-0014: Download and Delete leave the panel for
+        the Thumbnail cards, and its actions are Save description and Close.
 
 - id: REQ-GAL-005
   title: Deleting a Photo removes it and its Thumbnail from the Gallery
@@ -643,15 +694,20 @@
   priority: must
   status: verified
   verified_by:
+    - tests/e2e/test_card_actions_browser.py
     - tests/e2e/test_uat_visual_browser.py
+    - tests/test_card_actions.py
     - tests/test_uat_visual.py
-  version: 2
+  version: 3
   source: >-
     FB-0001, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0001 and CHG-0002.
     The same criteria are on REQ-GAL-003@v2.;
     a Photo's description shown on its card on hover added by CHG-0008
     (FB-0004, absorbed 2026-09-21). The same criteria are on REQ-GAL-003@v3;
-    clarified by client answers 2026-09-21 (ANSWERS.md)
+    clarified by client answers 2026-09-21 (ANSWERS.md);
+    Download and Delete on each card added by CHG-0015 and CHG-0016
+    (FB-0006, absorbed), clarified by answers 2026-09-22 (ANSWERS.md).
+    The same criteria are on REQ-GAL-003@v4
   rationale: >-
     The delivered v1 tiles were too small and looked unfinished. The client
     asked for larger cards whose design has changed, while still serving
@@ -670,6 +726,14 @@
     - given: A Photo with a description is in the Gallery
       when: Its Thumbnail is shown
       then: That Thumbnail's alt text is that Photo's description
+    - given: Photos are in the Gallery
+      when: The Gallery is shown, with the pointer resting on no card
+      then: >-
+        Each Thumbnail card shows a Download control and a Delete control
+        below its image
+    - given: A Thumbnail card is shown
+      when: Its Download and Delete controls are compared
+      then: The two controls are the same width
   ambiguities: []
   depends_on:
     - REQ-GAL-003
@@ -681,6 +745,13 @@
       summary: >-
         v1 required the home Gallery cards to be larger than the v1 tile and
         designed as cards. It named no hover behaviour. Superseded by CHG-0008.
+    - version: 2
+      agreed: 2026-09-21
+      superseded_by: 3
+      summary: >-
+        v2 required larger designed cards with the description as alt text. It
+        put no control on a card. Superseded by CHG-0015 and CHG-0016: each
+        card carries equal-width Download and Delete controls.
 
 - id: REQ-GAL-013
   title: Upload is started from a popup
@@ -765,18 +836,23 @@
         CHG-0013.
 
 - id: REQ-GAL-014
-  title: Larger view close and Delete sit inside the panel
+  title: Larger view close sits inside the panel, beside Save description and Close
   module: GAL
   priority: must
   status: verified
   verified_by:
+    - tests/e2e/test_larger_view_actions_browser.py
     - tests/e2e/test_uat_visual_browser.py
+    - tests/test_larger_view_actions.py
     - tests/test_uat_visual.py
-  version: 1
+  version: 2
   source: >-
     FB-0003, Chat 2026-09-18, KCB/DEV; absorbed as CHG-0004, with the
     escalate on placement answered: close and Delete stay inside the
-    panel. The same criteria are on REQ-GAL-004@v2.
+    panel. The same criteria are on REQ-GAL-004@v2.;
+    Download and Delete moved out of the panel to the Thumbnail cards by
+    CHG-0014 (FB-0006, absorbed), clarified by answers 2026-09-22
+    (ANSWERS.md). The same criteria are on REQ-GAL-004@v3
   rationale: >-
     The v1 close control and Delete sat outside the Larger view panel.
     The client asked for a redesigned panel with those controls inside.
@@ -785,12 +861,22 @@
       when: The close control is shown
       then: The close control is inside the Larger view panel
     - given: The Larger view of a Photo is shown
-      when: The Delete control is shown
-      then: The Delete control is inside the Larger view panel
+      when: Its actions are shown
+      then: >-
+        The panel's actions are a Save description button and a Close button,
+        side by side, and it shows no Download control and no Delete control
   ambiguities: []
   depends_on:
     - REQ-GAL-004
   belts: [A, B]
+  history:
+    - version: 1
+      agreed: 2026-09-18
+      superseded_by: 2
+      summary: >-
+        v1 required the close control and Delete inside the Larger view panel.
+        Superseded by CHG-0014: Delete and Download leave the panel for the
+        Thumbnail cards, and its actions are Save description and Close.
 
 - id: REQ-GAL-015
   title: The Upload popup shows the chosen files before they become Photos

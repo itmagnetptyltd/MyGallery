@@ -36,3 +36,6 @@ analysis:
     Larger view beyond the two buttons named?
 decision: absorbed
 commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-004: v3
+  - REQ-GAL-014: v2

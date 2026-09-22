@@ -21,14 +21,14 @@ def _grid_min_px(css: str) -> int:
     return int(match.group(1))
 
 
-# @covers REQ-GAL-012@v2
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-012@v3
+# @covers REQ-GAL-003@v4
 def test_gallery_css_sets_card_min_width_above_160px(project_root):
     assert _grid_min_px(_css(project_root)) > 160
 
 
-# @covers REQ-GAL-012@v2
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-012@v3
+# @covers REQ-GAL-003@v4
 def test_gallery_html_has_a_card_surface_around_each_thumbnail(project_root):
     script = _js(project_root)
 
@@ -56,8 +56,8 @@ def test_empty_gallery_html_includes_a_control_that_opens_the_upload_popup(clien
     assert 'data-testid="upload-open"' in page
 
 
-# @covers REQ-GAL-014@v1
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-014@v2
+# @covers REQ-GAL-004@v3
 def test_larger_view_markup_places_close_inside_the_panel(project_root, client):
     page = client.get("/").get_data(as_text=True)
     css = _css(project_root)
@@ -70,24 +70,11 @@ def test_larger_view_markup_places_close_inside_the_panel(project_root, client):
     )
 
 
-# @covers REQ-GAL-014@v1
-# @covers REQ-GAL-004@v2
-def test_larger_view_markup_places_delete_inside_the_panel(project_root, client):
-    page = client.get("/").get_data(as_text=True)
-    css = _css(project_root)
-
-    assert 'data-testid="delete-photo"' in page
-    assert not re.search(
-        r"\.larger-view-actions\s*\{[^}]*bottom:\s*-\d+px",
-        css,
-        re.DOTALL,
-    )
-
 
 # --- REQ-GAL-012@v2 / REQ-GAL-013@v2, from CHG-0005, CHG-0008 and CHG-0009 ---
 
 
-# @covers REQ-GAL-012@v2
+# @covers REQ-GAL-012@v3
 # @covers REQ-GAL-018@v1
 def test_a_thumbnails_alt_text_is_its_photos_description(project_root):
     """The client chose alt over a tooltip when asked, on 2026-09-21."""

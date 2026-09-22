@@ -48,7 +48,7 @@ def _open_one(page, gallery_url, tmp_path, size: tuple[int, int]) -> dict[str, f
     return page.evaluate(_MEASURE)
 
 
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-004@v3
 def test_a_photo_smaller_than_its_thumbnail_is_still_rendered_larger(page, gallery_url, tmp_path):
     photo = tmp_path / "small.jpg"
     photo.write_bytes(an_image("JPEG", size=SMALL_PHOTO))

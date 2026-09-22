@@ -31,3 +31,7 @@ analysis:
     sit alongside it? Always visible, or only on hover?
 decision: absorbed
 commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-003: v4
+  - REQ-GAL-012: v3
+  - REQ-GAL-005: unchanged

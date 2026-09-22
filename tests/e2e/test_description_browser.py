@@ -130,7 +130,7 @@ def test_dropping_files_on_the_popup_chooses_them_for_the_upload(page, gallery_u
     expect(page.get_by_test_id("photo-count")).to_have_text("1")
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 # @covers REQ-GAL-018@v1
 def test_a_thumbnail_carries_its_photos_description_as_alt_text(page, gallery_url, tmp_path):
     page.goto(gallery_url)
@@ -142,7 +142,7 @@ def test_a_thumbnail_carries_its_photos_description_as_alt_text(page, gallery_ur
     expect(page.get_by_test_id("thumbnail")).to_have_attribute("alt", "Beach at dawn")
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 # @covers REQ-GAL-018@v1
 def test_a_thumbnail_with_no_description_carries_its_filename_as_alt_text(
     page, gallery_url, tmp_path

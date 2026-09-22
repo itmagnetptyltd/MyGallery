@@ -13,6 +13,8 @@
   --card-shadow-hover: 0 22px 40px -14px rgb(16 24 40 / 30%), 0 4px 10px -2px rgb(16 24 40 / 10%);
   --card-ring-hover: #9aa3b5;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --action-soft: rgb(16 24 40 / 4%);
+  --danger-fg: #b3261e;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +30,9 @@
       0 1px 0 rgb(255 255 255 / 6%) inset, 0 28px 48px -18px rgb(0 0 0 / 85%),
       0 8px 16px -6px rgb(0 0 0 / 50%);
     --card-ring-hover: #6b7488;
+    --action-soft: rgb(255 255 255 / 6%);
+    /* #b3261e on the dark card is under 3:1; this lighter red clears 4.5:1. */
+    --danger-fg: #ff7a70;
   }
 }
 
@@ -260,6 +265,78 @@ main {
   .thumbnail-card:hover .tile-zoom {
     transform: none;
   }
+}
+
+/* REQ-GAL-003@v4 c11-c12: Download and Delete below the image, always shown.
+   Two equal grid columns make them the same width whatever their labels. */
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 8px 2px 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  cursor: default;
+}
+
+/* Quieter than the panel buttons: on a card the Photo is the subject, and
+   twelve pairs of white outlines compete with it. */
+.card-actions .outline-button,
+.card-actions button.danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.card-actions .outline-button {
+  border: 1px solid var(--line);
+  background: var(--action-soft);
+  color: var(--fg);
+}
+
+.card-actions .outline-button:hover {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.card-actions button.danger {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--danger-fg);
+}
+
+.card-actions button.danger:hover {
+  border-color: #b3261e;
+  background: #b3261e;
+  color: #fff;
+}
+
+.card-action-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thumbnail-card:has(.card-actions:active) {
+  transform: none;
 }
 
 .thumbnail-card:active {

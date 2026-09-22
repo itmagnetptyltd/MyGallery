@@ -51,6 +51,13 @@ sits and is the answer ask 1 reverses, not the same ask.
 | 2 — Download at the bottom of each card | not-covered | variation | CHG-0015 |
 | 3 — Delete at the bottom of each card | not-covered | variation | CHG-0016 |
 
-`decision:` and `commercial:` are blank in all three. No requirement version
-has been moved. Absorbed, varied, deferred or declined is a person's call and
-has not been made.
+All three were decided absorbed, no charge, by KCB/DEV. The open questions —
+replace or add, and always shown or on hover — were answered on 2026-09-22
+(ANSWERS.md): the Larger view's actions are Save description and Close, and
+each card has equal-width Download and Delete. The round close control at the
+Larger view's top right is kept: REQ-GAL-013@v3 c8 and REQ-GAL-019@v2 c4 use
+it as the look for the Upload popup's close control.
+
+Versions moved: REQ-GAL-003 v3 → v4, REQ-GAL-004 v2 → v3, REQ-GAL-012 v2 → v3,
+REQ-GAL-014 v1 → v2. REQ-GAL-005 and REQ-GAL-006 are unchanged — their
+criteria hold wherever Delete and Download are started.

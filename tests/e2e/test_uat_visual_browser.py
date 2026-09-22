@@ -50,8 +50,8 @@ def _grid_minmax_px(page) -> int:
     return int(match.group(1))
 
 
-# @covers REQ-GAL-012@v2
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-012@v3
+# @covers REQ-GAL-003@v4
 def test_a_thumbnail_card_is_wider_than_160_pixels(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
     _upload_one(page, tmp_path)
@@ -62,8 +62,8 @@ def test_a_thumbnail_card_is_wider_than_160_pixels(page, running_server, tmp_pat
     assert box["width"] > 160
 
 
-# @covers REQ-GAL-012@v2
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-012@v3
+# @covers REQ-GAL-003@v4
 def test_a_thumbnail_is_shown_as_a_card_not_a_bare_image(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
     _upload_one(page, tmp_path)
@@ -101,8 +101,8 @@ def test_an_empty_gallery_shows_a_control_that_opens_the_upload_popup(
     expect(page.get_by_test_id("upload-popup")).to_be_visible()
 
 
-# @covers REQ-GAL-014@v1
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-014@v2
+# @covers REQ-GAL-004@v3
 def test_the_close_control_is_inside_the_larger_view_panel(page, running_server, tmp_path):
     page.goto(_gallery_url(running_server))
     _upload_one(page, tmp_path)
@@ -117,22 +117,6 @@ def test_the_close_control_is_inside_the_larger_view_panel(page, running_server,
     assert panel is not None and close is not None
     assert _box_inside(close, panel)
 
-
-# @covers REQ-GAL-014@v1
-# @covers REQ-GAL-004@v2
-def test_the_delete_control_is_inside_the_larger_view_panel(page, running_server, tmp_path):
-    page.goto(_gallery_url(running_server))
-    _upload_one(page, tmp_path)
-    page.get_by_test_id("thumbnail").first.click()
-    expect(page.get_by_test_id("larger-view")).to_be_visible()
-    # The panel resizes when the photo loads; measure it once it has.
-    page.get_by_test_id("larger-view-photo").evaluate("photo => photo.decode()")
-
-    panel = page.get_by_test_id("larger-view").bounding_box()
-    delete = page.get_by_test_id("delete-photo").bounding_box()
-
-    assert panel is not None and delete is not None
-    assert _box_inside(delete, panel)
 
 
 # --- REQ-GAL-012@v2 / REQ-GAL-013@v2 ----------------------------------------
@@ -198,7 +182,7 @@ def test_the_upload_popup_previews_every_chosen_file(page, running_server, tmp_p
     expect(page.get_by_test_id("photo-count")).to_have_text("0")
 
 
-# @covers REQ-GAL-012@v2
+# @covers REQ-GAL-012@v3
 # @covers REQ-GAL-018@v1
 def test_a_thumbnail_shows_its_photos_description_as_alt_text(page, running_server, tmp_path):
     photo = tmp_path / "holiday.jpg"

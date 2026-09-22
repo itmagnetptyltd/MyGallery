@@ -370,3 +370,24 @@ _In plain words: The close (X) will be a white circle, like the one on the photo
 
 (b). Choose files and Upload stay rectangles, outlined in white, same as Save description on the photo preview. Only the close (X) is a white circle. Not (a), not (c).
 
+---
+
+# Answers given 2026-09-22 (FB-0006)
+
+From "In Preview there will be Save Description and close button, and with
+item bottom there will be download and delete". CHG-0014 to CHG-0016 were
+decided absorbed; these two questions were what the sentence did not say.
+Answered by KCB / DEV, in chat, with a screenshot of the Larger view.
+
+---
+
+## Do the card buttons replace the Larger view's, or sit alongside them? Always shown, or on hover?
+
+_Blocks: REQ-GAL-003, REQ-GAL-004, REQ-GAL-012, REQ-GAL-014_
+
+_In plain words: Download and Delete will go on each photo on the home page. Do they leave the photo preview, or appear in both places? And are they always on the card, or only when the mouse rests on it?_
+
+<!-- Paste the client's answer below, in their words. -->
+
+in image preview will have two buttons "Save Description" and "Close" buttons. And in Item on home will have two equal width buttond "Download" and "Delete"
+
