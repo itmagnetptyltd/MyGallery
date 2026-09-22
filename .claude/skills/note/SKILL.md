@@ -14,8 +14,15 @@ Shows on the dashboard **Others** tab of **that app**.
 itm-sdlc toolkit clone. Files land in `<app>/.brain/docs/ref/` and the Others
 tab of `<app>`'s dashboard.
 
-This happens for **any prompt** in that app with a file attached — not only
-`/note`. `/tdd` still skips the prompt log, but the file is kept.
+In a client app the Cursor capture hook does this without `/note`:
+
+- **Words** — any prompt that is not a slash skill (`/tdd`, `/dashboard`,
+  `/note`, …) is saved to `.brain/docs/commands.yaml`.
+- **Files** — any attached image, PDF, or other file is copied to
+  `.brain/docs/ref/`, including on slash skills. `/tdd` still skips the
+  prompt-change log; the file is still kept.
+
+`/note` is the manual path when the hook did not fire.
 
 **Invoke as** `/note` plus the words. Attach files in the chat if there are any.
 

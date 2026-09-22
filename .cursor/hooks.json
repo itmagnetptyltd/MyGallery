@@ -12,11 +12,6 @@
         "matcher": "Read"
       }
     ],
-    "stop": [
-      {
-        "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js harvest"
-      }
-    ],
     "afterFileEdit": [
       {
         "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js record"
@@ -29,6 +24,9 @@
       }
     ],
     "sessionEnd": [
+      {
+        "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js harvest"
+      },
       {
         "command": "node .claude/itm-sdlc/scripts/hook-report.js"
       }

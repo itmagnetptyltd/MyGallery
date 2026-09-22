@@ -9,15 +9,12 @@
  *   node scripts/note.js --project <path> --text "..." [--file <path>]...
  */
 
-const fs = require("node:fs");
-const path = require("node:path");
-const yaml = require("js-yaml");
 const {
-  commandsPath,
   listNotes,
   listRefs,
   nextNoteId,
   keepFiles,
+  writeNotes,
 } = require("./lib/working");
 
 const EXIT_OK = 0;
@@ -54,12 +51,7 @@ function addNote(projectRoot, text, files) {
     files: copied,
   };
   notes.push(row);
-  const dest = commandsPath(projectRoot);
-  fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.writeFileSync(
-    dest,
-    yaml.dump(notes, { lineWidth: 88, noRefs: true, quotingType: '"' }),
-  );
+  writeNotes(projectRoot, notes);
   return { note: row, refs: listRefs(projectRoot) };
 }
 

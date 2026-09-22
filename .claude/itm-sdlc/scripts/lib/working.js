@@ -134,16 +134,73 @@ function cursorProjectSlug(projectRoot) {
   return resolved.replace(/^[\\/]+/, "").replace(/[\\/]+/g, "-");
 }
 
+function decodeFolderUri(uri) {
+  let text = String(uri || "").trim();
+  if (/^file:/i.test(text)) {
+    try {
+      text = decodeURIComponent(text.replace(/^file:\/\//i, ""));
+    } catch {
+      text = text.replace(/^file:\/\//i, "");
+    }
+    if (/^\/[A-Za-z]:/.test(text)) text = text.slice(1);
+  }
+  return text;
+}
+
+function sameProjectPath(a, b) {
+  try {
+    return path.resolve(a).toLowerCase() === path.resolve(b).toLowerCase();
+  } catch {
+    return false;
+  }
+}
+
+function cursorStorageRoots(home) {
+  return [
+    path.join(home, "AppData", "Roaming", "Cursor", "User", "workspaceStorage"),
+    path.join(
+      home,
+      "Library",
+      "Application Support",
+      "Cursor",
+      "User",
+      "workspaceStorage",
+    ),
+    path.join(home, ".config", "Cursor", "User", "workspaceStorage"),
+  ];
+}
+
 function cursorAssetDirs(projectRoot) {
   const os = require("node:os");
-  const dir = path.join(
-    os.homedir(),
-    ".cursor",
-    "projects",
-    cursorProjectSlug(projectRoot),
-    "assets",
-  );
-  return fs.existsSync(dir) ? [dir] : [];
+  const home = os.homedir();
+  const root = path.resolve(projectRoot);
+  const slug = cursorProjectSlug(root);
+  const dirs = [];
+  const projectDir = path.join(home, ".cursor", "projects", slug);
+  if (fs.existsSync(projectDir)) dirs.push(projectDir);
+  for (const storage of cursorStorageRoots(home)) {
+    if (!fs.existsSync(storage)) continue;
+    let hashes;
+    try {
+      hashes = fs.readdirSync(storage);
+    } catch {
+      continue;
+    }
+    for (const hash of hashes) {
+      const folderFile = path.join(storage, hash, "workspace.json");
+      let folder = "";
+      try {
+        const doc = JSON.parse(fs.readFileSync(folderFile, "utf8"));
+        folder = decodeFolderUri(doc.folder || "");
+      } catch {
+        continue;
+      }
+      if (!folder || !sameProjectPath(folder, root)) continue;
+      const images = path.join(storage, hash, "images");
+      if (fs.existsSync(images)) dirs.push(images);
+    }
+  }
+  return dirs;
 }
 
 function listRecentFiles(dirs, sinceMs, skip) {
@@ -239,6 +296,15 @@ function keepFiles(projectRoot, sources) {
   return [...copyToRef(projectRoot, sources || []), ...drainInbox(projectRoot)];
 }
 
+function writeNotes(projectRoot, chronological) {
+  const dest = commandsPath(projectRoot);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.writeFileSync(
+    dest,
+    yaml.dump(chronological, { lineWidth: 88, noRefs: true, quotingType: '"' }),
+  );
+}
+
 function stageRefs(projectRoot, destDir) {
   const dest = path.resolve(destDir);
   const source = path.resolve(refDir(projectRoot));
@@ -281,5 +347,6 @@ module.exports = {
   listInbox,
   drainInbox,
   keepFiles,
+  writeNotes,
   stageRefs,
 };

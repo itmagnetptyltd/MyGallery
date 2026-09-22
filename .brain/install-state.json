@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "ccad0ec1b1b78144220b962d7825a7e6e61ccf8b",
+  "commit": "aace3d42afc7638fadf9ea77d5f59807477a820e",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-21T11:52:24.967Z",
+  "installedAt": "2026-09-22T03:19:36.924Z",
   "modules": [
     "GAL"
   ],
@@ -88,7 +88,7 @@
       "policy": "managed"
     },
     ".claude/skills/note/SKILL.md": {
-      "sha256": "cfb59e4bbcb2fd765d6654dfcdeeca7e5f79f086cdf7bf4429334c6cc3fbb7ce",
+      "sha256": "e1cbf98e21df42f06e10a2ccc1b97f2a67faf136ebf6b1bda80f2b1d504ee269",
       "policy": "managed"
     },
     ".claude/skills/pr-prepare/SKILL.md": {
@@ -220,7 +220,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "da2c6bce6e8459ca3d95dfae3b4bb8f8ee0068947d9e0ab8c14a91277a303c13",
+      "sha256": "6a16f504492924758a25e1c94721e0aa2e312ed347494bebad046d189f9de02d",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {
@@ -236,7 +236,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-prompt-log.js": {
-      "sha256": "8f3936c40117b1e18995af9fb0b3240f0f99bd01cee4ffdf4db12856e665c118",
+      "sha256": "e5f69a38912faa8813b554a3419cb397c0d0da9677966fba2d2d4beccbba413d",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-report.js": {
@@ -260,7 +260,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/hooks.js": {
-      "sha256": "5f7eff1cecc11b4c6224e0e43f85f3f60416547bd30b0dd9cf43f7a88ce0599c",
+      "sha256": "61b4a221e324bd30dae046ef82d8c8cee54b12ba606618c6c36fc2e1c6bf52ab",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/installer.js": {
@@ -276,7 +276,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/working.js": {
-      "sha256": "b554252bfe5e4ae3fdc96cb6381c55e62bd0cb349a9c6bb192ea5a0d2ae11105",
+      "sha256": "1455ced9969f196b992288cce6118c36702f1c1e94db201f2f7211c188fc845b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/metrics.js": {
@@ -288,7 +288,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/note.js": {
-      "sha256": "e545d88002a3691f81fca698809515eab72898abab5971454213d8e41bbec13d",
+      "sha256": "a3caa43a73ad1672ea3c89ac4ec99db3cda4d98074b0e323883ba69e537641ca",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/regression-select.js": {
@@ -336,7 +336,7 @@
       "policy": "managed"
     },
     ".cursor/hooks.json": {
-      "sha256": "3ee9513eaaaf3d5762e05348b27beefd4cf1b20c33df91ce43049b6d6f537e62",
+      "sha256": "a5a1bfedc11f75d015b5c7d648412ce744338e564191877edf9bba00cb5cc5be",
       "policy": "managed"
     },
     ".claude/itm-sdlc/package.json": {
@@ -364,7 +364,7 @@
       "policy": "seeded"
     },
     ".brain/docs/commands.yaml": {
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "sha256": "97103cd44b447c7b71b96369fc7e82d5c1c51bc4fbffeb1fe55c533ed1be6022",
       "policy": "seeded"
     },
     ".brain/docs/inbox/README.md": {

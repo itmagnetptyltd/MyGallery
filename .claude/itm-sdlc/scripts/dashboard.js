@@ -964,18 +964,35 @@ function renderHtml(data) {
 `;
 }
 
-function openFile(file) {
-  const abs = path.resolve(file);
-  const child =
-    process.platform === "win32"
-      ? execFile("cmd", ["/c", "start", "", abs], {
-          detached: true,
-          stdio: "ignore",
-        })
-      : execFile(process.platform === "darwin" ? "open" : "xdg-open", [abs], {
-          detached: true,
-          stdio: "ignore",
-        });
+function quoteWin(value) {
+  return `"${String(value).replace(/"/g, "")}"`;
+}
+
+function openCommand(target, platform = process.platform) {
+  const isUrl = /^https?:\/\//i.test(target);
+  const value = isUrl ? target : path.resolve(target);
+  if (platform === "win32") {
+    return {
+      command: "cmd",
+      args: ["/c", "start", '""', quoteWin(value)],
+      options: {
+        detached: true,
+        stdio: "ignore",
+        windowsHide: true,
+        windowsVerbatimArguments: true,
+      },
+    };
+  }
+  return {
+    command: platform === "darwin" ? "open" : "xdg-open",
+    args: [value],
+    options: { detached: true, stdio: "ignore" },
+  };
+}
+
+function openFile(target) {
+  const spec = openCommand(target);
+  const child = execFile(spec.command, spec.args, spec.options);
   child.unref();
 }
 
@@ -1194,4 +1211,5 @@ module.exports = {
   listenDashboard,
   dashPort,
   dashboardUrl,
+  openCommand,
 };

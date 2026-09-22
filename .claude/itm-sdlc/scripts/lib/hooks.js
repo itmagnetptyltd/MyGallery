@@ -150,6 +150,21 @@ function isTddPrompt(prompt) {
   return TDD_PROMPT.test(prompt);
 }
 
+function innerPrompt(prompt) {
+  const raw = String(prompt || "");
+  const query = raw.match(/<user_query>\s*([\s\S]*?)\s*<\/user_query>/i);
+  let text = (query ? query[1] : raw).trim();
+  text = text.replace(/^<timestamp>[\s\S]*?<\/timestamp>\s*/i, "").trim();
+  return text;
+}
+
+function shouldKeepPrompt(prompt) {
+  const text = innerPrompt(prompt);
+  if (text.length < 12) return false;
+  if (/^\s*\//.test(text)) return false;
+  return true;
+}
+
 function projectPaths(projectRoot) {
   const root = path.resolve(projectRoot);
   const vendored = path.join(root, ".claude", "itm-sdlc");
@@ -191,6 +206,8 @@ module.exports = {
   adapterForFile,
   formatCommand,
   isTddPrompt,
+  innerPrompt,
+  shouldKeepPrompt,
   projectPaths,
   ensureDir,
   writeJson,

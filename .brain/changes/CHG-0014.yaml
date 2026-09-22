@@ -1,0 +1,38 @@
+id: CHG-0014
+raised: 2026-09-22
+stream: scope_change
+source: "Chat with screenshot, 2026-09-22, KCB/DEV (FB-0006, ask 1)"
+raw: "In Preview there will be Save Description and close button, and with item bottom there will be download and delete"
+affects: [REQ-GAL-004, REQ-GAL-014]
+analysis:
+  dependants:
+    - REQ-GAL-005
+    - REQ-GAL-006
+  tests_invalidated: 20
+  estimate: >-
+    Small in code: two buttons leave the Larger view actions row. The cost is
+    in the record and the tests - 16 tests are pinned to REQ-GAL-004@v2 and 4
+    to REQ-GAL-014@v1, and the Delete and Download browser tests start from
+    the Larger view today.
+  notes: >-
+    This record is ask 1 only: the Larger view keeps Save description and the
+    close control, and Download and Delete leave it. variation-agent:
+    contradicts, on the Delete half. REQ-GAL-014@v1 c2 and REQ-GAL-004@v2 c7
+    read "The Delete control is inside the Larger view panel", and
+    REQ-GAL-014's source records that this placement was an escalation
+    answered in FB-0003 / CHG-0004: "close and Delete stay inside the panel".
+    Removing Delete reverses that answer. The Download half is not-covered in
+    either direction: REQ-GAL-006@v1 c1-c6 say what a Download delivers, not
+    where it is started. Keeping close (REQ-GAL-004@v2 c4, c6; REQ-GAL-014@v1
+    c1) and description editing (REQ-GAL-002@v2 c9, REQ-GAL-017@v1 c8) is
+    already covered. Must still hold whatever is decided: REQ-GAL-005@v1 c1-c6
+    and REQ-GAL-006@v1 c1-c6, from wherever they are started. Only meaningful
+    together with CHG-0015 and CHG-0016 - without them, Download and Delete
+    would be reachable from nowhere. Versions are not moved until decision is
+    filled.
+  open_question: >-
+    FB-0006 comes from KCB/DEV. Is the reversal of the FB-0003 placement the
+    client's own call? And does "only" rule out anything else now in the
+    Larger view beyond the two buttons named?
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
