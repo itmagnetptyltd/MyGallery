@@ -116,6 +116,11 @@ const SINGLE_FILES = [
     policy: "managed",
   },
   {
+    source: "templates/run-Browsertest.cmd",
+    destination: "scripts/run-Browsertest.cmd",
+    policy: "managed",
+  },
+  {
     source: "templates/prompt-changes.md",
     destination: ".claude/prompt-changes.md",
     policy: "seeded",
@@ -211,6 +216,7 @@ const SKILL_PROFILE = {
   "regression-select": "os",
   librarian: "os",
   note: "os",
+  "run-browsertest": "os",
 };
 
 /** Whether one skill file (its PAYLOAD-relative path, e.g. `tdd/SKILL.md`) ships at `profile`. */

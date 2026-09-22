@@ -36,6 +36,7 @@
     "lint": "ruff check .",
     "coverage": "pytest --cov --cov-fail-under=80 -q",
     "format": "ruff format {file}",
+    "e2e": "pytest -q tests/e2e",
     "integration": "pytest -q -m integration"
   },
   "ci": {

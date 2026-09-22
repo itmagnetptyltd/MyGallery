@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "aace3d42afc7638fadf9ea77d5f59807477a820e",
+  "commit": "f3844fc7accc876a0e925c3eae52c24954b843c7",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-22T03:19:36.924Z",
+  "installedAt": "2026-09-22T12:46:01.706Z",
   "modules": [
     "GAL"
   ],
@@ -68,7 +68,7 @@
       "policy": "managed"
     },
     ".claude/skills/help/SKILL.md": {
-      "sha256": "d878cd5526a8e5e81a11645d36814f85a66a1085f5b60b6e0d9fe99282e92363",
+      "sha256": "7f690bd348271c90e62cb08ec77f926bb30d96e1fa7027d623266efc8e1554ad",
       "policy": "managed"
     },
     ".claude/skills/impact-analysis/SKILL.md": {
@@ -101,6 +101,10 @@
     },
     ".claude/skills/resolve-ambiguities/SKILL.md": {
       "sha256": "4653cf46accdd5350d424c0a5193898d4354144fa3836cd00a9079d87efae483",
+      "policy": "managed"
+    },
+    ".claude/skills/run-browsertest/SKILL.md": {
+      "sha256": "6ace63c94389dcd3f2e5da9c68dbd2a8fa73500a1f2467ff36eb280a10519553",
       "policy": "managed"
     },
     ".claude/skills/slice-add/SKILL.md": {
@@ -264,7 +268,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/installer.js": {
-      "sha256": "e97f77b6859e4fdef1493e62d56d5f8b3cb081e4447537fa346bf430f54c729e",
+      "sha256": "72a7983e3957c04ffb810c69c724dbdc92bafd8dff0952ab3a0252d9b43858f0",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/requirements.js": {
@@ -299,6 +303,10 @@
       "sha256": "a9546b143582af3b69dbadd51425cbdc4821c69694a28383ec71335e30c33a45",
       "policy": "managed"
     },
+    ".claude/itm-sdlc/scripts/run-browsertest.js": {
+      "sha256": "9f53eb9b4fecca1265ecee1d428668f12450f15fb87bc4344b2e491c9331a345",
+      "policy": "managed"
+    },
     ".claude/itm-sdlc/scripts/run-golden-set.js": {
       "sha256": "97dacd2ea6b28e8d8f70187465ad3cca7df9f18bc793d7c859bd63ab7a1f04a8",
       "policy": "managed"
@@ -308,23 +316,23 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/csharp.json": {
-      "sha256": "16a5b55d30f2beeb133b9037e6d112a70a96edb214971f1138755d729fd9509b",
+      "sha256": "18656a241c68fd6ec063fe8a50826709e428f86fba24dde5ba8e877bc13aaf6f",
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/javascript.json": {
-      "sha256": "7eb3ddef727dd290544d4a6524ed1071404ff7b3e5aaa07ff49310dfd98a64df",
+      "sha256": "42224b3e8d4c658ae5be8e0f0e7f5f638c941bf21dedf448b5f6d17a77741968",
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/python.json": {
-      "sha256": "cfbe0c21cf7c9e509370741814fe03884bbaedfb5c6f04c270caba39b77a79be",
+      "sha256": "46d7b18d83655aa8c693b6793241d774aea6e2ccec46427d4675f80d61054f7b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/typescript.json": {
-      "sha256": "03a02a4224391afcb3b9649f32cbcf4d40042d1caa4635953b6eedcfccaf9e98",
+      "sha256": "dfba40c559275c35948b9fe6665017e880c3e5874cd5adf565172b569dfc70a2",
       "policy": "managed"
     },
     ".claude/itm-sdlc/schema/adapter.schema.json": {
-      "sha256": "528199b8669ccf4aa010dabbd18c3ab06f121466f9cfd27205fed0a01e99be03",
+      "sha256": "a219336c7932aad8a2852fd097b13291facc245c1f59d58cd5f5e5b53bd869eb",
       "policy": "managed"
     },
     ".claude/itm-sdlc/schema/requirement.example.yaml": {
@@ -337,6 +345,10 @@
     },
     ".cursor/hooks.json": {
       "sha256": "a5a1bfedc11f75d015b5c7d648412ce744338e564191877edf9bba00cb5cc5be",
+      "policy": "managed"
+    },
+    "scripts/run-Browsertest.cmd": {
+      "sha256": "a1043d1ec5ed8ce47262a6520a88ed0736700dc5d1e646f3c3bd93f88879fc5b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/package.json": {
@@ -404,7 +416,7 @@
       "policy": "seeded"
     },
     "CLAUDE.md": {
-      "sha256": "80fc323e5940f964ded30d1ae7ba44aed68112de4f2337aabbbd3fa3dc01be3c",
+      "sha256": "1c28b09c5cc9ccf46b9527510c78432babd096a85a8ef2eba179cb5285323e8b",
       "policy": "seeded"
     },
     ".claude/prompt-changes.md": {
