@@ -1,6 +1,6 @@
 @echo off
 rem Belt B — open Chromium and run the browser tests.
-rem Same as typing /run-Browsertest in Cursor.
+rem Same as typing /run-browsertest in Cursor.
 
 setlocal
 cd /d "%~dp0.."

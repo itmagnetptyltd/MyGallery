@@ -124,7 +124,7 @@
         },
         "e2e": {
           "$ref": "#/$defs/command",
-          "description": "Belt B — real browser tests. Run by /run-Browsertest and scripts/run-Browsertest.cmd. Not the unit command and not G4's HTTP/integration command."
+          "description": "Belt B — real browser tests. Run by /run-browsertest and scripts/run-browsertest.cmd. Not the unit command and not G4's HTTP/integration command."
         },
         "integration": {
           "$ref": "#/$defs/command",

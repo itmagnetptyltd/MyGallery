@@ -54,7 +54,7 @@ python -m venv .venv
 | Task | Command |
 |---|---|
 | Unit tests (belt A) | `.venv/Scripts/python.exe -m pytest tests/ --ignore=tests/e2e -q` |
-| Browser tests (belt B) | `/run-Browsertest`, or double-click `scripts/run-Browsertest.cmd` |
+| Browser tests (belt B) | `/run-browsertest`, or double-click `scripts/run-browsertest.cmd` |
 | Coverage (80% floor) | `.venv/Scripts/python.exe -m pytest --cov --cov-fail-under=80 -q` |
 | Lint | `.venv/Scripts/python.exe -m ruff check .` |
 

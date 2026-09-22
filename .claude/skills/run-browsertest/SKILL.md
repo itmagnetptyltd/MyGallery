@@ -1,10 +1,10 @@
 ---
-name: run-Browsertest
-description: Run belt B browser tests in Chromium. Use when asked to run browser tests, e2e, Playwright, /run-Browsertest, or to watch the UI tests click.
+name: run-browsertest
+description: Run belt B browser tests in Chromium. Use when asked to run browser tests, e2e, Playwright, /run-browsertest, or to watch the UI tests click.
 allowed-tools: Read, Grep, Glob, Bash
 ---
 
-# run-Browsertest
+# run-browsertest
 
 Opens Chromium and runs the project's belt B tests (`e2e/`). Starts its own
 app server. Does **not** use a site you already have open.
@@ -37,7 +37,7 @@ Headless (CI-style):
 node .claude/itm-sdlc/scripts/run-browsertest.js --project . --headless
 ```
 
-On Windows, double-click `scripts/run-Browsertest.cmd` — same thing, headed.
+On Windows, double-click `scripts/run-browsertest.cmd` — same thing, headed.
 
 Show the command output as written. Do not paraphrase a failure into a lecture.
 

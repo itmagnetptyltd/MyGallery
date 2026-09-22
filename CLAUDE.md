@@ -16,7 +16,7 @@ Start with `.brain/index.md`. It maps the record and says when to read each part
 | Change architecture, or anything an ADR governs | `.brain/decisions/` |
 | Assume something is possible | `.brain/constraints/` |
 | Write a test | The requirement it covers. Annotate it `@covers REQ-<MODULE>-<NNN>@v<version>` |
-| Run belt B in a real browser | `/run-Browsertest` (Chromium). Or `scripts/run-Browsertest.cmd` |
+| Run belt B in a real browser | `/run-browsertest` (Chromium). Or `scripts/run-browsertest.cmd` |
 | See which prompts changed files (not `/tdd`, not format) | `.claude/prompt-changes.md` |
 | See requirement status (dashboard) | `.claude/reports/dashboard.html` and `dashboard.json` — kept current by hooks |
 
@@ -49,7 +49,7 @@ Start with `.brain/index.md`. It maps the record and says when to read each part
 | `/metrics` | "How are we doing?" or gate-promotion evidence |
 | `/client-report` | Weekly update, milestone, or sign-off attachment |
 | `/dashboard` | Open the visual project overview in a browser |
-| `/run-Browsertest` | Watch belt B in Chromium. Starts its own server — not the site you already opened. Or double-click `scripts/run-Browsertest.cmd` |
+| `/run-browsertest` | Watch belt B in Chromium. Starts its own server — not the site you already opened. Or double-click `scripts/run-browsertest.cmd` |
 | `/help` | Lost — where you are and the one next command |
 | `/note` | Polish or a screenshot after the slice is built — not a requirement |
 | `/librarian` | On request, or weekly — proposes brain edits, never writes them |

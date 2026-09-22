@@ -47,7 +47,7 @@ Feedback:     their words → /feedback-capture → /find-variation → you fill
 Changes:      CHG decision filled → agent outcome + REQs → /resolve-ambiguities → /slice-add → /feature-plan → /tdd
 New feature:  /find-variation (not /decompose) → same as Changes
 Polish:       /note the words (and --file for a screenshot). Dashboard Others tab. Not a REQ.
-Belt B:       /run-Browsertest — Chromium. Or scripts/run-Browsertest.cmd.
+Belt B:       /run-browsertest — Chromium. Or scripts/run-browsertest.cmd.
 ```
 
 You never type REQ ids. `affects:` already has them.

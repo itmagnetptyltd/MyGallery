@@ -347,7 +347,7 @@
       "sha256": "a5a1bfedc11f75d015b5c7d648412ce744338e564191877edf9bba00cb5cc5be",
       "policy": "managed"
     },
-    "scripts/run-Browsertest.cmd": {
+    "scripts/run-browsertest.cmd": {
       "sha256": "a1043d1ec5ed8ce47262a6520a88ed0736700dc5d1e646f3c3bd93f88879fc5b",
       "policy": "managed"
     },

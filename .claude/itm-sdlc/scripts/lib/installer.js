@@ -116,8 +116,8 @@ const SINGLE_FILES = [
     policy: "managed",
   },
   {
-    source: "templates/run-Browsertest.cmd",
-    destination: "scripts/run-Browsertest.cmd",
+    source: "templates/run-browsertest.cmd",
+    destination: "scripts/run-browsertest.cmd",
     policy: "managed",
   },
   {
