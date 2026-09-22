@@ -116,3 +116,8 @@ draft. Say so rather than letting it look like a fault.
   the client's order; the sequence carries ours.
 - **A refusal is information.** Report it and stop; do not work around it.
 - **`.brain/` reaches `main` through a reviewed pull request.** Work on a branch.
+
+## Then
+
+Next: `/feature-plan` that slice — only if earlier slices are Done.
+Lost? `/help`

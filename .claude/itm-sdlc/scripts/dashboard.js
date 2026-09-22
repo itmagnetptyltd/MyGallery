@@ -5,10 +5,11 @@
  * Visual project dashboard. Reads files only — no database.
  *
  * Usage:
- *   node scripts/dashboard.js [--project <path>] [--out <file>] [--open]
+ *   node scripts/dashboard.js [--project <path>] [--out <file>] [--open] [--serve]
  */
 
-const { execFile } = require("node:child_process");
+const { execFile, spawn } = require("node:child_process");
+const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -19,6 +20,16 @@ const {
 } = require("./lib/requirements");
 const { computeReport } = require("./client-report");
 const { readSlices } = require("./lib/slices");
+const {
+  listNotes,
+  listRefs,
+  parsePromptLog,
+  drainInbox,
+  stageRefs,
+  inboxDir,
+  safeBase,
+} = require("./lib/working");
+const { report } = require("./next");
 
 const EXIT_OK = 0;
 const EXIT_TOOL_ERROR = 2;
@@ -42,9 +53,7 @@ function listNamed(projectRoot, dir, prefix) {
 }
 
 function promptCount(projectRoot) {
-  const file = path.join(projectRoot, ".claude", "prompt-changes.md");
-  if (!fs.existsSync(file)) return 0;
-  return (fs.readFileSync(file, "utf8").match(/^## /gm) || []).length;
+  return parsePromptLog(projectRoot).length;
 }
 
 function collect(projectRoot) {
@@ -85,6 +94,8 @@ function collect(projectRoot) {
       decisions: listNamed(projectRoot, ".brain/decisions", "ADR-").length,
       versioned: versioned.length,
       prompts: promptCount(projectRoot),
+      notes: listNotes(projectRoot).length,
+      refs: listRefs(projectRoot).length,
       openQuestions: matrix.rows.reduce(
         (n, row) => n + row.openQuestions.length,
         0,
@@ -93,6 +104,10 @@ function collect(projectRoot) {
     changes: listNamed(projectRoot, ".brain/changes", "CHG-"),
     feedback: listNamed(projectRoot, ".brain/feedback", "FB-"),
     decisions: listNamed(projectRoot, ".brain/decisions", "ADR-"),
+    notes: listNotes(projectRoot),
+    refs: listRefs(projectRoot),
+    prompts: parsePromptLog(projectRoot),
+    help: report(projectRoot),
     history,
   };
 }
@@ -253,6 +268,45 @@ function renderHtml(data) {
   const stat = (n, label, extra = "") =>
     `<div class="stat${extra}"><b>${n}</b><span>${label}</span></div>`;
 
+  const noteItems = (data.notes || [])
+    .map((n) => {
+      const files = (n.files || []).length
+        ? `<p class="note-files">${n.files
+            .map((f) => `<code>${escapeHtml(f)}</code>`)
+            .join(" ")}</p>`
+        : "";
+      return `<li class="note"><code>${escapeHtml(n.id)}</code><div><p>${escapeHtml(n.text)}</p>${files}</div></li>`;
+    })
+    .join("");
+
+  const promptItems = (data.prompts || [])
+    .map(
+      (p) =>
+        `<li class="note"><span class="ver">${escapeHtml(formatStamp(p.at) === p.at ? p.at : formatStamp(p.at))}</span><div><p>${escapeHtml(p.text)}</p></div></li>`,
+    )
+    .join("");
+
+  const refRows = (data.refs || [])
+    .map((r) => {
+      const href = `ref/${escapeHtml(r.filename)}`;
+      const icon =
+        r.kind === "image"
+          ? `<img class="thumb" data-kind="image" src="${href}" alt="">`
+          : `<span class="file-icon" data-kind="${escapeHtml(r.kind)}" aria-hidden="true"></span>`;
+      return `<tr><td>${escapeHtml(r.serial)}</td><td class="file-cell">${icon}<a href="${href}">${escapeHtml(r.filename)}</a></td><td>${escapeHtml(r.type)}</td></tr>`;
+    })
+    .join("");
+
+  const help = data.help || {};
+  const nextCard = `<article class="next-card">
+      <h2>Where you are</h2>
+      <p class="next-where">${escapeHtml(help.where || "No requirements yet.")}</p>
+      <h2>Next</h2>
+      <p class="next-cmd"><code>${escapeHtml(help.next || "/help")}</code></p>
+      ${help.avoid ? `<p class="next-avoid">${escapeHtml(help.avoid)}</p>` : ""}
+      <p class="empty-note">Same as <code>/help</code>.</p>
+    </article>`;
+
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -406,6 +460,7 @@ function renderHtml(data) {
     .stats { grid-template-columns: repeat(4, 1fr); }
     .split { grid-template-columns: 1fr; }
     .cols3 { grid-template-columns: 1fr; }
+    .others-grid { grid-template-columns: 1fr; }
     .tabs { flex-wrap: wrap; }
   }
   @media (max-width: 640px) {
@@ -413,9 +468,17 @@ function renderHtml(data) {
     header { padding-left: 1rem; padding-right: 1rem; }
     main { width: 94vw; }
   }
-  .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 7px 0; }
-  .bar-label { font-size: 12px; color: var(--muted); }
-  .bar { height: 7px; background: #e7dfd2; border-radius: 99px; overflow: hidden; }
+  .status-chart {
+    height: 175px;
+    overflow: auto;
+  }
+  .change-history {
+    height: 175px;
+    overflow: auto;
+  }
+  .bar-row { display: grid; grid-template-columns: 6.5rem 1fr 1.6rem; gap: 8px; align-items: center; margin: 8px 0; line-height: 1.6; }
+  .bar-label { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .bar { height: 21px; background: #e7dfd2; border-radius: 99px; overflow: hidden; }
   .bar i { display: block; height: 100%; border-radius: inherit; }
   .bar i.draft { background: var(--draft); }
   .bar i.agreed { background: var(--agreed); }
@@ -460,6 +523,11 @@ function renderHtml(data) {
     border-radius: 8px;
     background: var(--card);
     min-height: min(42vh, 28rem);
+  }
+  .tab-panel[data-panel="reqs"] .table-wrap {
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
   }
   .paged { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
   .pager {
@@ -546,6 +614,116 @@ function renderHtml(data) {
   .hist p { margin: 2px 0 0; color: #44403c; text-wrap: pretty; }
   .ver { color: var(--muted); font-size: 12px; }
   .empty { color: var(--muted); margin: 0; }
+  .note {
+    display: grid;
+    grid-template-columns: 6.2rem 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .note p { margin: 0; text-wrap: pretty; }
+  .note-files { margin-top: 4px; }
+  .file-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .thumb {
+    width: 22px;
+    height: 22px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .file-icon {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: inline-block;
+    position: relative;
+    border: 1.5px solid var(--muted);
+    border-radius: 3px;
+    background: #fff;
+  }
+  .file-icon[data-kind="pdf"] { border-color: #b3261e; }
+  .file-icon[data-kind="pdf"]::after {
+    content: "P";
+    position: absolute;
+    inset: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: #b3261e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .file-icon[data-kind="text"]::after {
+    content: "";
+    position: absolute;
+    left: 4px; right: 4px; top: 5px;
+    border-top: 1.5px solid var(--muted);
+    box-shadow: 0 4px 0 var(--muted), 0 8px 0 var(--muted);
+    height: 0;
+  }
+  .file-icon[data-kind="file"]::after {
+    content: "";
+    position: absolute;
+    left: 5px; right: 5px; top: 6px; bottom: 6px;
+    border: 1.5px solid var(--muted);
+  }
+  table.refs .file-cell a { color: inherit; }
+  .add-file {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .add-file input { display: none; }
+  .others-grid {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .next-card {
+    grid-column: 1 / -1;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .next-card h2 { text-align: left; margin-bottom: 6px; }
+  .next-card h2 + h2 { margin-top: 12px; }
+  .next-where, .next-cmd, .next-avoid { margin: 0; }
+  .next-cmd {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  .next-cmd code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #f0ece6;
+  }
+  .next-avoid { margin-top: 8px; color: var(--warn); font-size: 12px; }
+  .tab-panel[data-panel="others"] .table-wrap {
+    min-height: 0;
+    max-height: 220px;
+  }
+  .tab-panel[data-panel="others"] .box .records {
+    max-height: 180px;
+    overflow: auto;
+  }
+  .tab-panel[data-panel="others"] [data-kind="prompts"] .records {
+    max-height: none;
+    overflow: visible;
+  }
 </style>
 </head>
 <body>
@@ -568,6 +746,7 @@ function renderHtml(data) {
     <button type="button" role="tab" class="tab on" data-tab="reqs" aria-selected="true">Requirements <b>${data.counts.requirements}</b></button>
     <button type="button" role="tab" class="tab" data-tab="slices" aria-selected="false">Task Sequence <b>${slices.slices.length}</b></button>
     <button type="button" role="tab" class="tab" data-tab="records" aria-selected="false">Records <b>${data.counts.feedback + data.counts.decisions + data.counts.changes}</b></button>
+    <button type="button" role="tab" class="tab" data-tab="others" aria-selected="false">Others</button>
   </div>
 
   <div class="board">
@@ -576,11 +755,15 @@ function renderHtml(data) {
         <div class="split">
           <section>
             <h2>Status</h2>
+            <div class="status-chart">
             ${bars}
+            </div>
           </section>
           <section>
             <h2>Change history</h2>
+            <div class="change-history">
             <ul>${hist}</ul>
+            </div>
           </section>
         </div>
         <h2 class="spaced">Requirements</h2>
@@ -625,6 +808,34 @@ function renderHtml(data) {
             <h2>Change records <span class="count">${data.counts.changes}</span></h2>
             ${list(highestFirst(data.changes), "None yet.", 8)}
           </section>
+        </div>
+      </section>
+
+      <section class="tab-panel" data-panel="others" role="tabpanel" hidden>
+        <div class="others-grid">
+          ${nextCard}
+          <section class="box">
+            <h2>Notes <span class="count">${data.counts.notes || 0}</span></h2>
+            <p class="empty-note">Polish. Saved with <code>/note</code>. Not a REQ.</p>
+            <ul class="records">${noteItems || '<li class="empty">None yet.</li>'}</ul>
+          </section>
+          <section class="box">
+            <h2>Files <span class="count">${data.counts.refs || 0}</span></h2>
+            <p class="empty-note">Use <strong>Add file</strong>, or drop anything in <code>.brain/docs/inbox/</code> then <code>/dashboard</code>.</p>
+            <label class="add-file">Add file<input type="file" id="ref-upload"></label>
+            <div class="table-wrap">
+              <table class="refs">
+                <thead><tr><th>Serial</th><th>Filename</th><th>Type</th></tr></thead>
+                <tbody>${refRows || '<tr><td colspan="3">None yet.</td></tr>'}</tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+        <h2 class="spaced">Logged prompts <span class="count">${data.counts.prompts}</span></h2>
+        <p class="empty-note">Chat that changed files. From the prompt hook, not the brain.</p>
+        <div class="paged" data-page-size="10" data-kind="prompts">
+          <ul class="records">${promptItems || '<li class="empty">None yet.</li>'}</ul>
+          ${pager("Logged prompts")}
         </div>
       </section>
     </div>
@@ -696,7 +907,7 @@ function renderHtml(data) {
   if (q) q.addEventListener("input", apply);
   apply();
 
-  document.querySelectorAll(".paged:not([data-kind])").forEach((box) => {
+  document.querySelectorAll('.paged:not([data-kind="reqs"])').forEach((box) => {
     bindPager(box, Array.from(box.querySelectorAll("li")));
   });
 
@@ -714,6 +925,26 @@ function renderHtml(data) {
   }
   tabs.forEach((t) => {
     t.addEventListener("click", () => show(t.getAttribute("data-tab")));
+  });
+  const upload = document.getElementById("ref-upload");
+  upload?.addEventListener("change", async () => {
+    const file = upload.files && upload.files[0];
+    if (!file) return;
+    if (location.protocol !== "http:" && location.protocol !== "https:") {
+      alert("Run /dashboard --open so Add file can save into docs/ref.");
+      upload.value = "";
+      return;
+    }
+    const res = await fetch("/upload?name=" + encodeURIComponent(file.name), {
+      method: "POST",
+      body: await file.arrayBuffer(),
+    });
+    if (!res.ok) {
+      alert("Could not save the file.");
+      upload.value = "";
+      return;
+    }
+    location.reload();
   });
   // Keyboard: a tablist is arrow-navigable, not tab-through-every-button.
   document.querySelector(".tabs")?.addEventListener("keydown", (event) => {
@@ -733,22 +964,40 @@ function renderHtml(data) {
 `;
 }
 
-function openFile(file) {
-  const abs = path.resolve(file);
-  const child =
-    process.platform === "win32"
-      ? execFile("cmd", ["/c", "start", "", abs], {
-          detached: true,
-          stdio: "ignore",
-        })
-      : execFile(process.platform === "darwin" ? "open" : "xdg-open", [abs], {
-          detached: true,
-          stdio: "ignore",
-        });
+function quoteWin(value) {
+  return `"${String(value).replace(/"/g, "")}"`;
+}
+
+function openCommand(target, platform = process.platform) {
+  const isUrl = /^https?:\/\//i.test(target);
+  const value = isUrl ? target : path.resolve(target);
+  if (platform === "win32") {
+    return {
+      command: "cmd",
+      args: ["/c", "start", '""', quoteWin(value)],
+      options: {
+        detached: true,
+        stdio: "ignore",
+        windowsHide: true,
+        windowsVerbatimArguments: true,
+      },
+    };
+  }
+  return {
+    command: platform === "darwin" ? "open" : "xdg-open",
+    args: [value],
+    options: { detached: true, stdio: "ignore" },
+  };
+}
+
+function openFile(target) {
+  const spec = openCommand(target);
+  const child = execFile(spec.command, spec.args, spec.options);
   child.unref();
 }
 
 function writeDashboard(projectRoot, outFile) {
+  drainInbox(projectRoot);
   const data = collect(projectRoot);
   const dest =
     outFile || path.join(projectRoot, ".claude", "reports", "dashboard.html");
@@ -756,7 +1005,143 @@ function writeDashboard(projectRoot, outFile) {
   fs.writeFileSync(dest, renderHtml(data));
   const jsonDest = dest.replace(/\.html$/i, ".json");
   fs.writeFileSync(jsonDest, `${JSON.stringify(data, null, 2)}\n`);
+  stageRefs(projectRoot, path.join(path.dirname(dest), "ref"));
   return { dest, jsonDest, data };
+}
+
+const MAX_UPLOAD = 20 * 1024 * 1024;
+
+function dashPort(projectRoot) {
+  let n = 0;
+  for (const ch of path.resolve(projectRoot)) {
+    n = (n * 33 + ch.charCodeAt(0)) >>> 0;
+  }
+  return 18000 + (n % 1000);
+}
+
+function dashboardUrl(projectRoot) {
+  return `http://127.0.0.1:${dashPort(projectRoot)}/dashboard.html`;
+}
+
+function contentType(file) {
+  return (
+    {
+      ".html": "text/html; charset=utf-8",
+      ".json": "application/json",
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".gif": "image/gif",
+      ".webp": "image/webp",
+      ".svg": "image/svg+xml",
+      ".pdf": "application/pdf",
+    }[path.extname(file).toLowerCase()] || "application/octet-stream"
+  );
+}
+
+function saveUpload(projectRoot, filename, body, outFile) {
+  const base = safeBase(filename);
+  if (!path.extname(base)) throw new Error("not a file name");
+  if (!body || body.length > MAX_UPLOAD) throw new Error("file too large");
+  const inbox = inboxDir(projectRoot);
+  fs.mkdirSync(inbox, { recursive: true });
+  fs.writeFileSync(path.join(inbox, base), body);
+  return writeDashboard(projectRoot, outFile);
+}
+
+function listenDashboard(projectRoot, dest, port) {
+  const root = path.resolve(path.dirname(dest));
+  const bound = port == null ? dashPort(projectRoot) : port;
+  const server = http.createServer((req, res) => {
+    const url = new URL(req.url || "/", `http://127.0.0.1:${bound}`);
+    if (req.method === "GET" && url.pathname === "/health") {
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("ok");
+      return;
+    }
+    if (req.method === "POST" && url.pathname === "/upload") {
+      const chunks = [];
+      let size = 0;
+      let tooLarge = false;
+      req.on("data", (chunk) => {
+        size += chunk.length;
+        if (size > MAX_UPLOAD) {
+          if (!tooLarge) {
+            tooLarge = true;
+            res.writeHead(413);
+            res.end("too large");
+          }
+          req.destroy();
+          return;
+        }
+        chunks.push(chunk);
+      });
+      req.on("end", () => {
+        if (tooLarge || res.writableEnded) return;
+        try {
+          saveUpload(
+            projectRoot,
+            url.searchParams.get("name") || "upload.bin",
+            Buffer.concat(chunks),
+            dest,
+          );
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ ok: true, refs: listRefs(projectRoot) }));
+        } catch (err) {
+          res.writeHead(400, { "Content-Type": "text/plain" });
+          res.end(err.message);
+        }
+      });
+      return;
+    }
+    let rel = decodeURIComponent(url.pathname);
+    if (rel === "/") rel = "/dashboard.html";
+    const file = path.normalize(path.join(root, rel));
+    const fromRoot = path.relative(root, file);
+    if (!fromRoot || fromRoot.startsWith("..") || path.isAbsolute(fromRoot)) {
+      res.writeHead(403);
+      res.end();
+      return;
+    }
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
+      res.writeHead(404);
+      res.end();
+      return;
+    }
+    res.writeHead(200, { "Content-Type": contentType(file) });
+    fs.createReadStream(file).pipe(res);
+  });
+  server.listen(bound, "127.0.0.1");
+  return server;
+}
+
+function spawnServe(projectRoot) {
+  const child = spawn(
+    process.execPath,
+    [
+      path.resolve(__filename),
+      "--project",
+      path.resolve(projectRoot),
+      "--serve",
+    ],
+    { detached: true, stdio: "ignore", windowsHide: true },
+  );
+  child.unref();
+}
+
+function pause(ms) {
+  const end = Date.now() + ms;
+  while (Date.now() < end) {
+    /* wait for --serve to bind */
+  }
+}
+
+function openDashboard(projectRoot) {
+  spawnServe(projectRoot);
+  pause(400);
+  const url = dashboardUrl(projectRoot);
+  openFile(url);
+  return url;
 }
 
 function parseArgs(argv) {
@@ -764,12 +1149,14 @@ function parseArgs(argv) {
     project: process.cwd(),
     out: null,
     open: false,
+    serve: false,
     help: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "-h" || arg === "--help") options.help = true;
     else if (arg === "--open") options.open = true;
+    else if (arg === "--serve") options.serve = true;
     else if (arg === "--project") {
       i += 1;
       options.project = argv[i];
@@ -786,13 +1173,22 @@ function main(argv) {
     const options = parseArgs(argv);
     if (options.help) {
       process.stdout.write(
-        "Usage: node scripts/dashboard.js [--project <path>] [--out <file>] [--open]\n",
+        "Usage: node scripts/dashboard.js [--project <path>] [--out <file>] [--open] [--serve]\n",
       );
       return EXIT_OK;
     }
     const { dest } = writeDashboard(options.project, options.out);
+    if (options.serve) {
+      const server = listenDashboard(options.project, dest);
+      server.on("error", (err) => {
+        if (err.code === "EADDRINUSE") process.exit(0);
+        throw err;
+      });
+      process.stdout.write(`${dashboardUrl(options.project)}\n`);
+      return null;
+    }
     process.stdout.write(`${dest}\n`);
-    if (options.open) openFile(dest);
+    if (options.open) openDashboard(options.project);
     return EXIT_OK;
   } catch (err) {
     process.stderr.write(`${err.message}\n`);
@@ -801,7 +1197,19 @@ function main(argv) {
 }
 
 if (require.main === module) {
-  process.exitCode = main(process.argv.slice(2));
+  const code = main(process.argv.slice(2));
+  if (code !== null && code !== undefined) process.exitCode = code;
 }
 
-module.exports = { collect, renderHtml, writeDashboard, parseArgs, main };
+module.exports = {
+  collect,
+  renderHtml,
+  writeDashboard,
+  parseArgs,
+  main,
+  saveUpload,
+  listenDashboard,
+  dashPort,
+  dashboardUrl,
+  openCommand,
+};

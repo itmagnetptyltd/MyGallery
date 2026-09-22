@@ -53,7 +53,7 @@ def _drop_onto(page, testid: str, name: str, content: bytes) -> None:
 
 
 # @covers REQ-GAL-001@v3
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-015@v2
 def test_choosing_a_file_shows_a_preview_image_before_the_upload_is_made(
     page, gallery_url, tmp_path
 ):
@@ -67,7 +67,7 @@ def test_choosing_a_file_shows_a_preview_image_before_the_upload_is_made(
 
 
 # @covers REQ-GAL-001@v3
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-015@v2
 def test_choosing_thirty_files_shows_a_preview_for_every_one(page, gallery_url, tmp_path):
     photos = [_a_photo(tmp_path, f"p{n}.jpg") for n in range(30)]
     page.goto(gallery_url)
@@ -130,7 +130,7 @@ def test_dropping_files_on_the_popup_chooses_them_for_the_upload(page, gallery_u
     expect(page.get_by_test_id("photo-count")).to_have_text("1")
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 # @covers REQ-GAL-018@v1
 def test_a_thumbnail_carries_its_photos_description_as_alt_text(page, gallery_url, tmp_path):
     page.goto(gallery_url)
@@ -142,7 +142,7 @@ def test_a_thumbnail_carries_its_photos_description_as_alt_text(page, gallery_ur
     expect(page.get_by_test_id("thumbnail")).to_have_attribute("alt", "Beach at dawn")
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 # @covers REQ-GAL-018@v1
 def test_a_thumbnail_with_no_description_carries_its_filename_as_alt_text(
     page, gallery_url, tmp_path
@@ -191,7 +191,7 @@ def test_typing_a_forty_first_character_shows_forty_one_of_two_hundred_and_fifty
     expect(page.get_by_test_id("description-count")).to_have_text("41/250")
 
 
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-015@v2
 def test_each_preview_renders_its_own_file(page, gallery_url, tmp_path):
     """REQ-GAL-015 c2.
 

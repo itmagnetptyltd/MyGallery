@@ -90,3 +90,8 @@ that have not.
 - **`.brain/` knowledge still goes through `/checkpoint`.** This command
   only writes `status`, `verified_by` (and whatever `advance-status.js`
   writes with them) on the code branch.
+
+## Then
+
+If Done: `/verifyReq` then PR, or `/feature-plan` the next slice.
+If not Done: `/tdd` the OPEN ids in this slice. Lost? `/help`

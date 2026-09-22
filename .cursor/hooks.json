@@ -6,6 +6,12 @@
         "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js capture"
       }
     ],
+    "preToolUse": [
+      {
+        "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js keep-read",
+        "matcher": "Read"
+      }
+    ],
     "afterFileEdit": [
       {
         "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js record"
@@ -18,6 +24,9 @@
       }
     ],
     "sessionEnd": [
+      {
+        "command": "node .claude/itm-sdlc/scripts/hook-prompt-log.js harvest"
+      },
       {
         "command": "node .claude/itm-sdlc/scripts/hook-report.js"
       }

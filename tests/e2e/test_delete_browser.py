@@ -1,5 +1,8 @@
 """Belt B — REQ-GAL-005: confirming and declining a deletion, in a browser.
 
+Delete is started from the Photo's Thumbnail card (REQ-GAL-003@v4); the
+Larger view has no Delete since REQ-GAL-004@v3.
+
 No `wait_for_function` anywhere: the application sets
 `Content-Security-Policy: default-src 'self'`, which refuses the in-page eval
 it needs. See constraints/csp-blocks-playwright-wait-for-function.md.
@@ -27,18 +30,12 @@ def _upload(page, tmp_path, count: int) -> None:
     expect(page.get_by_test_id("thumbnail")).to_have_count(count)
 
 
-def _open_first_photo(page) -> None:
-    page.get_by_test_id("thumbnail").first.click()
-    expect(page.get_by_test_id("larger-view")).to_be_visible()
-
-
 # @covers REQ-GAL-005@v1
 def test_asking_to_delete_a_photo_asks_for_confirmation(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
-    _open_first_photo(page)
 
-    page.get_by_test_id("delete-photo").click()
+    page.get_by_test_id("card-delete").first.click()
 
     expect(page.get_by_test_id("delete-confirmation")).to_be_visible()
 
@@ -49,9 +46,8 @@ def test_the_confirmation_asks_are_you_sure_you_want_to_delete_this_photo(
 ):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
-    _open_first_photo(page)
 
-    page.get_by_test_id("delete-photo").click()
+    page.get_by_test_id("card-delete").first.click()
 
     # The client gave this wording verbatim; it is a criterion, not a caption.
     expect(page.get_by_test_id("delete-confirmation-question")).to_have_text(CONFIRMATION)
@@ -63,8 +59,7 @@ def test_declining_the_confirmation_leaves_the_photo_in_the_gallery(
 ):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
-    _open_first_photo(page)
-    page.get_by_test_id("delete-photo").click()
+    page.get_by_test_id("card-delete").first.click()
 
     page.get_by_test_id("delete-decline").click()
 
@@ -77,8 +72,7 @@ def test_confirming_the_deletion_removes_the_thumbnail_from_the_gallery(
 ):
     page.goto(gallery_url)
     _upload(page, tmp_path, 1)
-    _open_first_photo(page)
-    page.get_by_test_id("delete-photo").click()
+    page.get_by_test_id("card-delete").first.click()
 
     page.get_by_test_id("delete-confirm").click()
 
@@ -89,21 +83,9 @@ def test_confirming_the_deletion_removes_the_thumbnail_from_the_gallery(
 def test_confirming_the_deletion_leaves_the_other_thumbnails(page, gallery_url, tmp_path):
     page.goto(gallery_url)
     _upload(page, tmp_path, 3)
-    _open_first_photo(page)
-    page.get_by_test_id("delete-photo").click()
+    page.get_by_test_id("card-delete").first.click()
 
     page.get_by_test_id("delete-confirm").click()
 
     expect(page.get_by_test_id("thumbnail")).to_have_count(2)
 
-
-# @covers REQ-GAL-005@v1
-def test_the_larger_view_closes_once_the_photo_is_deleted(page, gallery_url, tmp_path):
-    page.goto(gallery_url)
-    _upload(page, tmp_path, 2)
-    _open_first_photo(page)
-    page.get_by_test_id("delete-photo").click()
-
-    page.get_by_test_id("delete-confirm").click()
-
-    expect(page.get_by_test_id("larger-view")).to_be_hidden()

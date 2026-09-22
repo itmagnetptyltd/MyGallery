@@ -18,7 +18,7 @@ def _upload(client, name: str, content: bytes) -> dict:
     return client.get("/api/photos").get_json()["photos"][0]
 
 
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-004@v3
 def test_requesting_a_photo_returns_the_bytes_that_were_uploaded(client, gallery_dir):
     content = an_image("JPEG")
     photo = _upload(client, "holiday.jpg", content)
@@ -28,7 +28,7 @@ def test_requesting_a_photo_returns_the_bytes_that_were_uploaded(client, gallery
     assert response.data == content
 
 
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-004@v3
 def test_requesting_a_photo_returns_it_as_an_image(client, gallery_dir):
     photo = _upload(client, "holiday.jpg", an_image("JPEG"))
 
@@ -38,7 +38,7 @@ def test_requesting_a_photo_returns_it_as_an_image(client, gallery_dir):
     assert response.headers["Content-Type"].startswith("image/")
 
 
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-004@v3
 def test_the_photo_served_is_larger_than_its_thumbnail(client, gallery_dir):
     photo = _upload(client, "big.png", a_noisy_image())
 

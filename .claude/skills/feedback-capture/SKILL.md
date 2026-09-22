@@ -1,7 +1,7 @@
 ---
 name: feedback-capture
 description: Capture client feedback verbatim and propose a triage classification. Use at the end of every client-facing meeting, demo or UAT session.
-allowed-tools: Read, Grep, Glob, Write
+allowed-tools: Read, Grep, Glob, Write, Bash
 ---
 
 # feedback-capture
@@ -9,7 +9,8 @@ allowed-tools: Read, Grep, Glob, Write
 What the client said about work already delivered, recorded before anyone
 interprets it.
 
-**Paste their words, and say who said it, where and when.**
+**Paste their words, and say who said it, where and when.** Attach the PDF or
+screenshot in the same message if they sent one.
 
 ---
 
@@ -56,6 +57,17 @@ What was done, or why nothing was done.
 Paraphrase silently discards intent, and the raw wording is what you will need
 when the interpretation is disputed.
 
+If they attached a PDF or screenshot, keep the file on **that app** (the client
+with `.brain/`), not the itm-sdlc toolkit:
+
+```
+node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH
+```
+
+PATH is the attachment from the user message. No path: drop it in
+`.brain/docs/inbox/` and run keep-ref without `--file`. Put the printed
+`.brain/docs/ref/NNN-name.ext` on the FB record. Then `/dashboard`.
+
 ## 3. Propose a triage
 
 | Class | Means | Routes to |
@@ -84,3 +96,8 @@ concerns is hard to act on and easy to lose.
   queue. That is what `sentiment` is for.
 - Capture even when you disagree. Especially then.
 - Work on a branch. `.brain/` reaches `main` through a reviewed pull request.
+
+## Then
+
+Next: `/find-variation` on this FB.
+Lost? `/help`

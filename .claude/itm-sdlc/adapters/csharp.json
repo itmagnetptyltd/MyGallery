@@ -30,6 +30,7 @@
     "lint": "dotnet format --verify-no-changes",
     "coverage": "dotnet test --collect:\"XPlat Code Coverage\"",
     "format": "dotnet format --include {file}",
+    "e2e": "dotnet test --filter \"Category=E2E\"",
     "integration": "dotnet test --filter \"Category=Integration\""
   },
   "ci": {

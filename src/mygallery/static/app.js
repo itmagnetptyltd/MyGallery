@@ -21,7 +21,9 @@ const largerViewPhoto = document.querySelector(
 const largerViewClose = document.querySelector(
   '[data-testid="larger-view-close"]',
 );
-const deletePhoto = document.querySelector('[data-testid="delete-photo"]');
+const largerViewCloseButton = document.querySelector(
+  '[data-testid="larger-view-close-button"]',
+);
 const deleteConfirmation = document.querySelector(
   '[data-testid="delete-confirmation"]',
 );
@@ -55,8 +57,12 @@ const descriptionSave = document.querySelector(
 // between the two.
 let chosen = [];
 
-// The Photo the Larger view is currently showing — what Delete acts on.
+// The Photo the Larger view is currently showing.
 let openPhotoId = null;
+
+// The Photo the delete confirmation is about, set by the card's Delete that
+// asked (REQ-GAL-003@v4 c14).
+let pendingDeletePhotoId = null;
 
 let nextCursor = null;
 let loading = false;
@@ -80,8 +86,63 @@ function tileFor(photo) {
   tile.dataset.testid = "thumbnail";
   tile.dataset.filename = photo.filename;
   tile.dataset.photoId = photo.id;
-  card.append(tile);
+  // The frame clips the hover zoom to the image's rounded edge. The badge is
+  // decoration only: the Photo's text stays in alt, as the client chose.
+  const frame = document.createElement("div");
+  frame.className = "tile-frame";
+  const badge = document.createElement("span");
+  badge.className = "tile-zoom";
+  badge.setAttribute("aria-hidden", "true");
+  frame.append(tile, badge);
+  card.append(frame, cardActionsFor(photo));
   return card;
+}
+
+// REQ-GAL-003@v4 c11-c15: Download and Delete on every card, always shown.
+// Download is a link: the route already sends Content-Disposition, so the
+// browser saves the file with no script involved.
+function cardActionsFor(photo) {
+  const actions = document.createElement("div");
+  actions.className = "card-actions";
+  const download = document.createElement("a");
+  download.className = "outline-button";
+  download.dataset.testid = "card-download";
+  download.href = `/api/photos/${photo.id}/download`;
+  download.download = "";
+  download.append(iconFor(DOWNLOAD_ICON), labelFor("Download"));
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "danger";
+  remove.dataset.testid = "card-delete";
+  remove.dataset.photoId = photo.id;
+  remove.append(iconFor(DELETE_ICON), labelFor("Delete"));
+  actions.append(download, remove);
+  return actions;
+}
+
+// Inline SVG rather than an image: the CSP allows no data: URLs, and an SVG
+// drawn with currentColor follows the button's own colour on hover.
+const SVG_NS = "http://www.w3.org/2000/svg";
+const DOWNLOAD_ICON = ["M12 4v11", "m7 10 5 5 5-5", "M5 20h14"];
+const DELETE_ICON = ["M4 7h16", "M9 7V4h6v3", "M6 7l1 13h10l1-13", "M10 11v6", "M14 11v6"];
+
+function iconFor(paths) {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.classList.add("card-action-icon");
+  for (const d of paths) {
+    const path = document.createElementNS(SVG_NS, "path");
+    path.setAttribute("d", d);
+    svg.append(path);
+  }
+  return svg;
+}
+
+function labelFor(text) {
+  const label = document.createElement("span");
+  label.textContent = text;
+  return label;
 }
 
 function showChosen(files) {
@@ -183,6 +244,17 @@ async function upload(files, description) {
 
 // REQ-GAL-004. Delegated, because tiles arrive as the user scrolls.
 gallery.addEventListener("click", (event) => {
+  // c13/c14: a card's own controls act on the card, and never open the
+  // Larger view. Delete asks first, exactly as it does from the Larger view.
+  const cardDelete = event.target.closest('[data-testid="card-delete"]');
+  if (cardDelete) {
+    pendingDeletePhotoId = cardDelete.dataset.photoId;
+    deleteConfirmation.showModal();
+    return;
+  }
+  if (event.target.closest(".card-actions")) {
+    return;
+  }
   const card = event.target.closest('[data-testid="thumbnail-card"]');
   const tile =
     event.target.closest('[data-testid="thumbnail"]') ||
@@ -199,15 +271,15 @@ gallery.addEventListener("click", (event) => {
   largerView.showModal();
 });
 
-// Escape is handled by <dialog> itself; this is the close control.
-largerViewClose.addEventListener("click", () => {
-  largerView.close();
-});
+// Escape is handled by <dialog> itself. The round close control and the
+// Close button (REQ-GAL-004@v3 c8) do the same thing.
+for (const control of [largerViewClose, largerViewCloseButton]) {
+  control.addEventListener("click", () => {
+    largerView.close();
+  });
+}
 
 // REQ-GAL-005. Asking is not deleting: nothing is removed until confirmed.
-deletePhoto.addEventListener("click", () => {
-  deleteConfirmation.showModal();
-});
 
 deleteDecline.addEventListener("click", () => {
   deleteConfirmation.close();
@@ -215,10 +287,9 @@ deleteDecline.addEventListener("click", () => {
 
 deleteConfirm.addEventListener("click", () => {
   void (async () => {
-    await fetch(`/api/photos/${openPhotoId}`, { method: "DELETE" });
+    await fetch(`/api/photos/${pendingDeletePhotoId}`, { method: "DELETE" });
     deleteConfirmation.close();
-    largerView.close();
-    openPhotoId = null;
+    pendingDeletePhotoId = null;
     nextCursor = null;
     await loadPage({ reset: true });
   })();

@@ -1,0 +1,42 @@
+id: CHG-0011
+raised: 2026-09-21
+stream: scope_change
+source: "Document (PDF 'Increase Upload model size.pdf'), 2026-09-21, KCB/DEV (FB-0005, ask 2)"
+raw: "Increase Upload model size, after upload preview/show will be in a bigger way and border a white line and buttons and close buttons will be like as in other forms"
+affects: [REQ-GAL-015]
+analysis:
+  dependants: []
+  tests_invalidated: 5
+  estimate: >-
+    Not estimable as stated: no size is named. The cost is not the resize but
+    what it does to thirty chosen files - larger previews mean fewer per row
+    and more scrolling inside the popup, and REQ-GAL-015@v1 c3 still requires
+    every one of the thirty to be shown.
+  notes: >-
+    This record is ask 2 only: the preview images of chosen files, shown
+    before the Upload is made, are shown larger. "after upload" is read as
+    after files are chosen, because the screenshot shows a chosen file not
+    yet uploaded. variation-agent: not-covered. REQ-GAL-015@v1 c1-c3 (same
+    text REQ-GAL-013@v2 c5-c6 and REQ-GAL-001@v3 c15-c16) require a preview
+    to exist, one per chosen file, showing the right file; none sets a size.
+    No earlier version fixed one. A larger preview breaks no agreed
+    criterion provided all thirty are still shown. 5 tests are pinned to
+    REQ-GAL-015@v1. Versions are not moved until decision is filled.
+  note_for_the_commercial_reader: >-
+    The client's own recorded answer leans the other way, and the reader
+    should have it in front of them. ANSWERS.md, "When several files are
+    chosen at once, is every one previewed?": "Yes. A small preview of every
+    chosen file, including thirty." variation-agent did not call this
+    contradicts - "small" came from our question, and what the answer
+    settled was every file versus one - but the client's recorded words ask
+    for small previews, and this ask asks for bigger ones.
+  open_question: >-
+    How large, and what should the popup do when thirty are chosen at that
+    size? A second reading also exists: "after upload" could mean the
+    Gallery's Thumbnail cards once the Upload is made. On that reading,
+    REQ-GAL-003@v3 c7 and REQ-GAL-012@v2 c1 already require cards wider than
+    the v1 tile, and anything larger again is still not covered.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-015: v2

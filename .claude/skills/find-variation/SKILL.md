@@ -100,3 +100,8 @@ The strongest evidence in any scope dispute is the client's own recorded answer.
 a later login request from an argument into a variation nobody argues about.
 
 That file is not admin. It is the commercial record.
+
+## Then
+
+You fill `decision:` and `commercial:` only. Do not type REQ ids.
+Then tell the agent those CHGs are filled. Lost? `/help`

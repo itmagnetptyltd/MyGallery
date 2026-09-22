@@ -1,0 +1,37 @@
+id: CHG-0016
+raised: 2026-09-22
+stream: scope_change
+source: "Chat with screenshot, 2026-09-22, KCB/DEV (FB-0006, ask 3)"
+raw: "In Preview there will be Save Description and close button, and with item bottom there will be download and delete"
+affects: [REQ-GAL-003, REQ-GAL-012, REQ-GAL-005]
+analysis:
+  dependants:
+    - REQ-GAL-004
+    - REQ-GAL-014
+  tests_invalidated: 48
+  estimate: >-
+    Small to medium: a Delete control on each Thumbnail card that opens the
+    existing confirmation, and removes that card on yes. 28 tests are pinned
+    to REQ-GAL-003@v3, 6 to REQ-GAL-012@v2 and 14 to REQ-GAL-005@v1; the
+    Delete browser tests start from the Larger view today.
+  notes: >-
+    This record is ask 3 only: each Thumbnail card has a Delete control at
+    its bottom. variation-agent: not-covered. REQ-GAL-005@v1 c1-c6 say
+    nothing about where Delete is started; REQ-GAL-003@v3 and REQ-GAL-012@v2
+    put no control on a card. Adding a card Delete alongside the Larger view
+    Delete conflicts with nothing; moving it there is CHG-0014, which
+    contradicts REQ-GAL-014@v1 c2. Must still hold wherever Delete lives:
+    REQ-GAL-005@v1 c4 "The user is asked 'Are you sure you want to delete
+    this photo?'" and c5 (declining keeps the Photo) - the client's words
+    were "only delete it if I say yes". Pressing Delete must not also open
+    the Larger view (REQ-GAL-004@v2 c1). Versions are not moved until
+    decision is filled.
+  open_question: >-
+    Replace or add - does the card Delete replace the Larger view Delete, or
+    sit alongside it? Always visible, or only on hover?
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-003: v4
+  - REQ-GAL-012: v3
+  - REQ-GAL-005: unchanged

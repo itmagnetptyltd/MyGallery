@@ -122,6 +122,10 @@
           "$ref": "#/$defs/command",
           "description": "Rewrite one file in place. Used by the format hook, not by CI. Include the token {file}; the hook substitutes the path. Optional: an adapter with no formatter is skipped, not failed."
         },
+        "e2e": {
+          "$ref": "#/$defs/command",
+          "description": "Belt B — real browser tests. Run by /run-Browsertest and scripts/run-Browsertest.cmd. Not the unit command and not G4's HTTP/integration command."
+        },
         "integration": {
           "$ref": "#/$defs/command",
           "description": "Integration and contract tests, run at gate G4. Optional when no REQ lists belt B: a project with none skips G4 rather than failing it. Required (fail, not skip) when any agreed-or-later requirement lists belt B."

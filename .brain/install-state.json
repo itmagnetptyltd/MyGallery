@@ -2,10 +2,10 @@
   "stateVersion": 1,
   "toolkit": "itm-sdlc",
   "version": "1.0.0",
-  "commit": "7804cc4452ada09cfff42a3c4a3e7c1359e86cd3",
+  "commit": "f3844fc7accc876a0e925c3eae52c24954b843c7",
   "ref": "kcb-dev-v2",
   "remote": "https://github.com/itmagnetptyltd/itm-sdlc.git",
-  "installedAt": "2026-09-18T04:36:33.776Z",
+  "installedAt": "2026-09-22T12:46:01.706Z",
   "modules": [
     "GAL"
   ],
@@ -28,7 +28,7 @@
       "policy": "managed"
     },
     ".claude/skills/change-record/SKILL.md": {
-      "sha256": "ad061080bbbf14e4c4c19340c379e34895b9f1e425a5ed0a6052e27650022a9b",
+      "sha256": "e2e8b730da979231cbf441be3c1db629bbd7eb7bb43bfa0559462df06522e944",
       "policy": "managed"
     },
     ".claude/skills/checkpoint/SKILL.md": {
@@ -40,31 +40,35 @@
       "policy": "managed"
     },
     ".claude/skills/close-slice/SKILL.md": {
-      "sha256": "38610e84076ddb9b0c71b7f6d272b541a452173677b8fbf65273bebfe20f1ba4",
+      "sha256": "e5c01dd49c897ad03269b05803764832e48948b215bf7460be5d4d5b528234ef",
       "policy": "managed"
     },
     ".claude/skills/dashboard/SKILL.md": {
-      "sha256": "441aafe7628238d7cc31f3fa08a0eba0640d87f309fed0b1725f622f6104ff8f",
+      "sha256": "695359d4ee448af3978c340846f915e83bdb6263b9b5cf957b97ae8cb3d9d2fc",
       "policy": "managed"
     },
     ".claude/skills/decompose/SKILL.md": {
-      "sha256": "7ced75c11757c7fde25d9f06cfc659f1da206445ce47feb63508c85952066057",
+      "sha256": "b9dc3c7cbd1d9807085f9497b482a679a5a2e6b14d607205408503e83b2ed4c8",
       "policy": "managed"
     },
     ".claude/skills/feature-plan/SKILL.md": {
-      "sha256": "e196619406762ee9dce06d5449580773b54572d76e2d1fe201d58f51e1eb930b",
+      "sha256": "6e08f4266a24e4c034c3d023c306c2439da2e2f3a4bbcd4d18ffe1f3d3d792b7",
       "policy": "managed"
     },
     ".claude/skills/feedback-capture/SKILL.md": {
-      "sha256": "8d664ef562dcfb8623ea2685657267010700a28051ad4bb1acf0cb78a6d352d6",
+      "sha256": "9a6b60e24951b14b71621526040dac19e093e20b09a4e61ed8a744bebca4bcb5",
       "policy": "managed"
     },
     ".claude/skills/find-variation/SKILL.md": {
-      "sha256": "fba9eb422a700d41f5b1e9b4f18852001024a031e02a4e373a000295153c7f31",
+      "sha256": "01d8434c23b81cdbd6fc3c3d3b2dd65fc1e56d249ae7cecc59b5d860625fe2b8",
       "policy": "managed"
     },
     ".claude/skills/fix/SKILL.md": {
-      "sha256": "c4e5ebd3a93ecd36047ed787a24f71cf908e5b42538e45c055e91a45db592894",
+      "sha256": "41312ea22ec55a3dcc47615fd10173df0b19c93f15eb640da5e8c8d079b349b7",
+      "policy": "managed"
+    },
+    ".claude/skills/help/SKILL.md": {
+      "sha256": "7f690bd348271c90e62cb08ec77f926bb30d96e1fa7027d623266efc8e1554ad",
       "policy": "managed"
     },
     ".claude/skills/impact-analysis/SKILL.md": {
@@ -83,6 +87,10 @@
       "sha256": "b8a81f8215890ecad1ee7ad0c805499b87817a43652a36e1d09906c706ba6842",
       "policy": "managed"
     },
+    ".claude/skills/note/SKILL.md": {
+      "sha256": "e1cbf98e21df42f06e10a2ccc1b97f2a67faf136ebf6b1bda80f2b1d504ee269",
+      "policy": "managed"
+    },
     ".claude/skills/pr-prepare/SKILL.md": {
       "sha256": "f44cea054f323a6236df36c77f01145d8112bd53b903e50d929f0a6d545d88da",
       "policy": "managed"
@@ -92,15 +100,19 @@
       "policy": "managed"
     },
     ".claude/skills/resolve-ambiguities/SKILL.md": {
-      "sha256": "b42d843d36a6a87a781c082d304ff46980e061597be136c55cee58add7ea9601",
+      "sha256": "4653cf46accdd5350d424c0a5193898d4354144fa3836cd00a9079d87efae483",
+      "policy": "managed"
+    },
+    ".claude/skills/run-browsertest/SKILL.md": {
+      "sha256": "6ace63c94389dcd3f2e5da9c68dbd2a8fa73500a1f2467ff36eb280a10519553",
       "policy": "managed"
     },
     ".claude/skills/slice-add/SKILL.md": {
-      "sha256": "9b534da6e182d467fac28299aa9c71a7312e9c48feb0093d6c6476c4cffdf99c",
+      "sha256": "305673b3e1cce80e59b30ce44da5dac0eedcd85eb7777ce57c38f72f38be01fe",
       "policy": "managed"
     },
     ".claude/skills/tdd/SKILL.md": {
-      "sha256": "5a8182129e37e0d64fddeaa6a701d822597595705ad39508d5dbce7b1a9ba794",
+      "sha256": "b040350248a535618204c2675ee50fb6034b50311d4e29a723b2ded84f8a0cb2",
       "policy": "managed"
     },
     ".claude/skills/verifyReq/SKILL.md": {
@@ -212,7 +224,7 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/dashboard.js": {
-      "sha256": "bad00e70e74c7b9d00941ea8be90aceea05d59d1bd537c5250717213ec8fe472",
+      "sha256": "6a16f504492924758a25e1c94721e0aa2e312ed347494bebad046d189f9de02d",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/gate-scope.js": {
@@ -228,11 +240,15 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-prompt-log.js": {
-      "sha256": "cfefd7f4019669d866b150a10a530ab8946e6c7987ddfbaa68f72b49a02f4d3b",
+      "sha256": "e5f69a38912faa8813b554a3419cb397c0d0da9677966fba2d2d4beccbba413d",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/hook-report.js": {
       "sha256": "a559f4f263774a0b7b03662c27253758965fd19429ae91273c7d87e955443071",
+      "policy": "managed"
+    },
+    ".claude/itm-sdlc/scripts/keep-ref.js": {
+      "sha256": "45d3e181c3425cb5038602a185ef7eb7cbf20046d34c8e236a53e3c1a62e13a0",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/legacy-discover.js": {
@@ -248,11 +264,11 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/hooks.js": {
-      "sha256": "4b1addb84f90d7670255ea2b50da9cc8e9477e7638a9285fb3864bd2eea6b281",
+      "sha256": "61b4a221e324bd30dae046ef82d8c8cee54b12ba606618c6c36fc2e1c6bf52ab",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/installer.js": {
-      "sha256": "5e82397904947a29133e5b4b0bda16d50b4508c386bee3a102624d74fdbce9a4",
+      "sha256": "72a7983e3957c04ffb810c69c724dbdc92bafd8dff0952ab3a0252d9b43858f0",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/requirements.js": {
@@ -260,11 +276,23 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/lib/slices.js": {
-      "sha256": "f71b8f5998190bc084ca0028be115b60e3c5a0028245eef6847bd78d5eefc760",
+      "sha256": "cf7236781d4c8325aeaafd5eea6decbca59c9817ab2c9825ac745be7041a94a6",
+      "policy": "managed"
+    },
+    ".claude/itm-sdlc/scripts/lib/working.js": {
+      "sha256": "1455ced9969f196b992288cce6118c36702f1c1e94db201f2f7211c188fc845b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/metrics.js": {
       "sha256": "89f1994e8ba09b6d070b51ece034ebb0a70afeea45aebecc1ef2524bab9a7066",
+      "policy": "managed"
+    },
+    ".claude/itm-sdlc/scripts/next.js": {
+      "sha256": "e2ee205bffacbda37a987945711e8a48878bf8e9ffb5b756a8b9d9c298d7c106",
+      "policy": "managed"
+    },
+    ".claude/itm-sdlc/scripts/note.js": {
+      "sha256": "a3caa43a73ad1672ea3c89ac4ec99db3cda4d98074b0e323883ba69e537641ca",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/regression-select.js": {
@@ -273,6 +301,10 @@
     },
     ".claude/itm-sdlc/scripts/review-change.js": {
       "sha256": "a9546b143582af3b69dbadd51425cbdc4821c69694a28383ec71335e30c33a45",
+      "policy": "managed"
+    },
+    ".claude/itm-sdlc/scripts/run-browsertest.js": {
+      "sha256": "9f53eb9b4fecca1265ecee1d428668f12450f15fb87bc4344b2e491c9331a345",
       "policy": "managed"
     },
     ".claude/itm-sdlc/scripts/run-golden-set.js": {
@@ -284,23 +316,23 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/csharp.json": {
-      "sha256": "16a5b55d30f2beeb133b9037e6d112a70a96edb214971f1138755d729fd9509b",
+      "sha256": "18656a241c68fd6ec063fe8a50826709e428f86fba24dde5ba8e877bc13aaf6f",
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/javascript.json": {
-      "sha256": "7eb3ddef727dd290544d4a6524ed1071404ff7b3e5aaa07ff49310dfd98a64df",
+      "sha256": "42224b3e8d4c658ae5be8e0f0e7f5f638c941bf21dedf448b5f6d17a77741968",
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/python.json": {
-      "sha256": "cfbe0c21cf7c9e509370741814fe03884bbaedfb5c6f04c270caba39b77a79be",
+      "sha256": "46d7b18d83655aa8c693b6793241d774aea6e2ccec46427d4675f80d61054f7b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/adapters/typescript.json": {
-      "sha256": "03a02a4224391afcb3b9649f32cbcf4d40042d1caa4635953b6eedcfccaf9e98",
+      "sha256": "dfba40c559275c35948b9fe6665017e880c3e5874cd5adf565172b569dfc70a2",
       "policy": "managed"
     },
     ".claude/itm-sdlc/schema/adapter.schema.json": {
-      "sha256": "528199b8669ccf4aa010dabbd18c3ab06f121466f9cfd27205fed0a01e99be03",
+      "sha256": "a219336c7932aad8a2852fd097b13291facc245c1f59d58cd5f5e5b53bd869eb",
       "policy": "managed"
     },
     ".claude/itm-sdlc/schema/requirement.example.yaml": {
@@ -308,11 +340,15 @@
       "policy": "managed"
     },
     ".claude/itm-sdlc/schema/requirement.schema.json": {
-      "sha256": "33f88c470e035ccf393eb11fe0b55bd531efd3a9f498cb3e7187b7ab477d13f9",
+      "sha256": "971e1dc4591d577a4be552768e5cce96e9ffe52786c74dcfbb5d37b33879ea10",
       "policy": "managed"
     },
     ".cursor/hooks.json": {
-      "sha256": "3ee9513eaaaf3d5762e05348b27beefd4cf1b20c33df91ce43049b6d6f537e62",
+      "sha256": "a5a1bfedc11f75d015b5c7d648412ce744338e564191877edf9bba00cb5cc5be",
+      "policy": "managed"
+    },
+    "scripts/run-Browsertest.cmd": {
+      "sha256": "a1043d1ec5ed8ce47262a6520a88ed0736700dc5d1e646f3c3bd93f88879fc5b",
       "policy": "managed"
     },
     ".claude/itm-sdlc/package.json": {
@@ -335,12 +371,28 @@
       "sha256": "32ffdbf01cd439f1ae0506116f0259db5b73f09a9b849563c9f2d81eb3e32f43",
       "policy": "seeded"
     },
+    ".brain/docs/README.md": {
+      "sha256": "eb2c103792d6ec39439974e6157d2be47efb0b1947bb930659d5c3c9ff533bcb",
+      "policy": "seeded"
+    },
+    ".brain/docs/commands.yaml": {
+      "sha256": "97103cd44b447c7b71b96369fc7e82d5c1c51bc4fbffeb1fe55c533ed1be6022",
+      "policy": "seeded"
+    },
+    ".brain/docs/inbox/README.md": {
+      "sha256": "5614c98d734cec2f5cf647a0a3ac94ea128f0b22d8bcf4577e51e06ba8150366",
+      "policy": "seeded"
+    },
+    ".brain/docs/ref/README.md": {
+      "sha256": "fb3577a7d8a56b1f23a8b2f0dc00ab04a873acc8c1acb31b80e84fe928509573",
+      "policy": "seeded"
+    },
     ".brain/feedback/README.md": {
       "sha256": "44868bcdbedcc6d798d04c42052c3799e259818802e64fe39cf3da1f6ea3c5fd",
       "policy": "seeded"
     },
     ".brain/glossary.md": {
-      "sha256": "4433a293e297e2a26988f9081669bafb9bc51613eaa2b7ccca06e338c9dac3e0",
+      "sha256": "d5689b409899de7ff28509b8571330528c20a65329d14b238f0b6b8904abb5a8",
       "policy": "seeded"
     },
     ".brain/index.md": {
@@ -360,15 +412,15 @@
       "policy": "seeded"
     },
     ".brain/slices.yaml": {
-      "sha256": "60ad7076247f107b82af1148d4fb06ae3485743da5645f9c22418fa4006cff21",
+      "sha256": "0c6732b79a0aff159bd98af0a5114e7384c41e0bd93da37e069849f15fddb44c",
       "policy": "seeded"
     },
     "CLAUDE.md": {
-      "sha256": "80fc323e5940f964ded30d1ae7ba44aed68112de4f2337aabbbd3fa3dc01be3c",
+      "sha256": "1c28b09c5cc9ccf46b9527510c78432babd096a85a8ef2eba179cb5285323e8b",
       "policy": "seeded"
     },
     ".claude/prompt-changes.md": {
-      "sha256": "3382fe5fd5f6117df2d134ddc966035949910c8a465ce584a439211a6e56256a",
+      "sha256": "e490f9d6674f59a52b9d470a41ac69b0b2fdf627f629e78cfaa3a9a192d885be",
       "policy": "seeded"
     },
     ".gitignore": {

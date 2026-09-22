@@ -46,6 +46,7 @@
     "lint": "npm run lint",
     "coverage": "npm run coverage",
     "format": "npx --yes prettier --write {file}",
+    "e2e": "npx playwright test",
     "integration": "npm run test:integration",
     "testFiles": "npx vitest run",
     "integrationFiles": "npx playwright test"

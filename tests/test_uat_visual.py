@@ -21,14 +21,14 @@ def _grid_min_px(css: str) -> int:
     return int(match.group(1))
 
 
-# @covers REQ-GAL-012@v2
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-012@v3
+# @covers REQ-GAL-003@v4
 def test_gallery_css_sets_card_min_width_above_160px(project_root):
     assert _grid_min_px(_css(project_root)) > 160
 
 
-# @covers REQ-GAL-012@v2
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-012@v3
+# @covers REQ-GAL-003@v4
 def test_gallery_html_has_a_card_surface_around_each_thumbnail(project_root):
     script = _js(project_root)
 
@@ -36,7 +36,7 @@ def test_gallery_html_has_a_card_surface_around_each_thumbnail(project_root):
     assert 'dataset.testid = "thumbnail"' in script
 
 
-# @covers REQ-GAL-013@v2
+# @covers REQ-GAL-013@v3
 # @covers REQ-GAL-001@v3
 def test_gallery_html_includes_an_upload_popup(client):
     page = client.get("/").get_data(as_text=True)
@@ -48,7 +48,7 @@ def test_gallery_html_includes_an_upload_popup(client):
     assert input_at > popup_at
 
 
-# @covers REQ-GAL-013@v2
+# @covers REQ-GAL-013@v3
 # @covers REQ-GAL-007@v2
 def test_empty_gallery_html_includes_a_control_that_opens_the_upload_popup(client):
     page = client.get("/").get_data(as_text=True)
@@ -56,8 +56,8 @@ def test_empty_gallery_html_includes_a_control_that_opens_the_upload_popup(clien
     assert 'data-testid="upload-open"' in page
 
 
-# @covers REQ-GAL-014@v1
-# @covers REQ-GAL-004@v2
+# @covers REQ-GAL-014@v2
+# @covers REQ-GAL-004@v3
 def test_larger_view_markup_places_close_inside_the_panel(project_root, client):
     page = client.get("/").get_data(as_text=True)
     css = _css(project_root)
@@ -70,24 +70,11 @@ def test_larger_view_markup_places_close_inside_the_panel(project_root, client):
     )
 
 
-# @covers REQ-GAL-014@v1
-# @covers REQ-GAL-004@v2
-def test_larger_view_markup_places_delete_inside_the_panel(project_root, client):
-    page = client.get("/").get_data(as_text=True)
-    css = _css(project_root)
-
-    assert 'data-testid="delete-photo"' in page
-    assert not re.search(
-        r"\.larger-view-actions\s*\{[^}]*bottom:\s*-\d+px",
-        css,
-        re.DOTALL,
-    )
-
 
 # --- REQ-GAL-012@v2 / REQ-GAL-013@v2, from CHG-0005, CHG-0008 and CHG-0009 ---
 
 
-# @covers REQ-GAL-012@v2
+# @covers REQ-GAL-012@v3
 # @covers REQ-GAL-018@v1
 def test_a_thumbnails_alt_text_is_its_photos_description(project_root):
     """The client chose alt over a tooltip when asked, on 2026-09-21."""
@@ -96,16 +83,16 @@ def test_a_thumbnails_alt_text_is_its_photos_description(project_root):
     assert "tile.alt = photo.description || photo.filename" in script
 
 
-# @covers REQ-GAL-013@v2
-# @covers REQ-GAL-019@v1
+# @covers REQ-GAL-013@v3
+# @covers REQ-GAL-019@v2
 def test_the_upload_popup_has_a_close_control(client):
     page = client.get("/").get_data(as_text=True)
 
     assert 'data-testid="upload-popup-close"' in page
 
 
-# @covers REQ-GAL-013@v2
-# @covers REQ-GAL-019@v1
+# @covers REQ-GAL-013@v3
+# @covers REQ-GAL-019@v2
 def test_the_upload_popup_close_control_is_inside_the_popup(client):
     page = client.get("/").get_data(as_text=True)
 
@@ -115,8 +102,8 @@ def test_the_upload_popup_close_control_is_inside_the_popup(client):
     assert popup_at < close_at < end_at
 
 
-# @covers REQ-GAL-013@v2
-# @covers REQ-GAL-019@v1
+# @covers REQ-GAL-013@v3
+# @covers REQ-GAL-019@v2
 def test_the_upload_popup_close_control_is_placed_at_the_top_right(project_root):
     css = _css(project_root)
 
@@ -128,8 +115,8 @@ def test_the_upload_popup_close_control_is_placed_at_the_top_right(project_root)
     assert "right:" in rule
 
 
-# @covers REQ-GAL-013@v2
-# @covers REQ-GAL-019@v1
+# @covers REQ-GAL-013@v3
+# @covers REQ-GAL-019@v2
 def test_the_upload_popup_close_control_closes_the_popup(project_root):
     script = _js(project_root)
 
@@ -137,8 +124,8 @@ def test_the_upload_popup_close_control_closes_the_popup(project_root):
     assert "uploadPopup.close()" in script
 
 
-# @covers REQ-GAL-013@v2
-# @covers REQ-GAL-015@v1
+# @covers REQ-GAL-013@v3
+# @covers REQ-GAL-015@v2
 def test_the_upload_popup_shows_a_preview_of_each_chosen_file(project_root):
     script = _js(project_root)
 
@@ -169,7 +156,7 @@ def test_dropping_on_the_upload_popup_is_not_the_only_way_to_choose(client):
     assert 'data-testid="upload-input"' in page
 
 
-# @covers REQ-GAL-019@v1
+# @covers REQ-GAL-019@v2
 def test_closing_the_upload_popup_leaves_it_reusable(project_root):
     """Closing has to be close(), not remove() or hidden.
 

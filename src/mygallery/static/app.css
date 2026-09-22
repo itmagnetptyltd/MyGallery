@@ -8,6 +8,13 @@
      against the field's own background, which is what made the description
      box impossible to pick out from the panel. */
   --field-line: #b9bdc7;
+  --card-surface: linear-gradient(180deg, #ffffff, #f3f4f7);
+  --card-shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 4px 12px -4px rgb(16 24 40 / 10%);
+  --card-shadow-hover: 0 22px 40px -14px rgb(16 24 40 / 30%), 0 4px 10px -2px rgb(16 24 40 / 10%);
+  --card-ring-hover: #9aa3b5;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --action-soft: rgb(16 24 40 / 4%);
+  --danger-fg: #b3261e;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +24,15 @@
     --bar: #1e2128;
     --line: #2c303a;
     --field-line: #5a6172;
+    --card-surface: linear-gradient(180deg, #252932, #1d2027);
+    --card-shadow: 0 1px 0 rgb(255 255 255 / 4%) inset, 0 8px 20px -10px rgb(0 0 0 / 60%);
+    --card-shadow-hover:
+      0 1px 0 rgb(255 255 255 / 6%) inset, 0 28px 48px -18px rgb(0 0 0 / 85%),
+      0 8px 16px -6px rgb(0 0 0 / 50%);
+    --card-ring-hover: #6b7488;
+    --action-soft: rgb(255 255 255 / 6%);
+    /* #b3261e on the dark card is under 3:1; this lighter red clears 4.5:1. */
+    --danger-fg: #ff7a70;
   }
 }
 
@@ -42,7 +58,7 @@ body {
 
 .bar h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 24px;
   letter-spacing: -0.01em;
 }
 
@@ -52,7 +68,7 @@ main {
 
 .gallery {
   display: grid;
-  gap: 16px;
+  gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   min-height: 120px;
 }
@@ -61,8 +77,7 @@ main {
   margin-right: auto;
 }
 
-.upload,
-.upload-pick span {
+.upload {
   display: inline-block;
   padding: 7px 14px;
   border: 1px solid var(--line);
@@ -87,40 +102,50 @@ main {
   outline-offset: 2px;
 }
 
+/* REQ-GAL-013@v3 c7: wider than the 680 pixels delivered at v2, and still
+   capped below the viewport on a small screen. c9: the Larger view panel's
+   border. */
 .upload-popup {
   position: relative;
-  /* Wide enough to show a row of previews at a size worth looking at, and
-     still capped below the viewport on a small screen. */
-  width: min(680px, 92vw);
-  max-width: 680px;
+  width: min(900px, 92vw);
+  max-width: 900px;
   padding: 24px;
-  border: none;
+  border: 1px solid #fff;
   border-radius: 10px;
   background: var(--bar);
   color: var(--fg);
 }
 
-/* REQ-GAL-013@v2 c3: inside the popup, at its top right. */
+/* REQ-GAL-013@v2 c3: inside the popup, at its top right. Its look is the
+   Larger view's close control, in the shared rule below. */
 .upload-popup-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 32px;
-  height: 32px;
+}
+
+/* REQ-GAL-013@v3 c8: one rule for both close controls, so the Upload popup's
+   cannot drift from the Larger view's again. */
+.upload-popup-close,
+.larger-view-close {
+  width: 36px;
+  height: 36px;
   border: 1px solid #fff;
   border-radius: 50%;
   background: #fff;
   color: #16181d;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
   cursor: pointer;
 }
 
-.upload-popup-close:hover {
+.upload-popup-close:hover,
+.larger-view-close:hover {
   background: #e8e9ec;
 }
 
-.upload-popup-close:focus-visible {
+.upload-popup-close:focus-visible,
+.larger-view-close:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
@@ -134,21 +159,204 @@ main {
   opacity: 0.6;
 }
 
+/* REQ-GAL-003@v3 c8: a visible surface around the image. The padding is that
+   surface; the lift on hover says the card can be activated (REQ-GAL-004). */
 .thumbnail-card {
-  background: var(--bar);
+  padding: 6px;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px;
+  border-radius: 16px;
+  background: var(--card-surface);
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition:
+    transform 320ms var(--ease-out),
+    box-shadow 320ms var(--ease-out),
+    border-color 320ms var(--ease-out);
+}
+
+.tile-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 11px;
+  background: var(--line);
+  isolation: isolate;
 }
 
 .tile {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 8px;
-  background: var(--line);
-  display: block;
   cursor: pointer;
+  transition: transform 600ms var(--ease-out);
+}
+
+/* A shade from the bottom edge, so the badge reads on a white Photo as well
+   as a dark one. pointer-events none: a click must still reach the image. */
+.tile-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(8 10 14 / 55%), rgb(8 10 14 / 0%) 55%);
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+  pointer-events: none;
+}
+
+/* A magnifier drawn with borders: the CSP allows no data: images. */
+.tile-zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 35%);
+  opacity: 0;
+  transform: translateY(8px) scale(0.85);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+  pointer-events: none;
+}
+
+.tile-zoom::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #16181d;
+  border-radius: 50%;
+}
+
+.tile-zoom::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 21px;
+  width: 7px;
+  height: 2px;
+  border-radius: 1px;
+  background: #16181d;
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+@media (hover: hover) {
+  .thumbnail-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--card-ring-hover);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .thumbnail-card:hover .tile {
+    transform: scale(1.06);
+  }
+
+  .thumbnail-card:hover .tile-frame::after,
+  .thumbnail-card:hover .tile-zoom {
+    opacity: 1;
+  }
+
+  .thumbnail-card:hover .tile-zoom {
+    transform: none;
+  }
+}
+
+/* REQ-GAL-003@v4 c11-c12: Download and Delete below the image, always shown.
+   Two equal grid columns make them the same width whatever their labels. */
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 8px 2px 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  cursor: default;
+}
+
+/* Quieter than the panel buttons: on a card the Photo is the subject, and
+   twelve pairs of white outlines compete with it. */
+.card-actions .outline-button,
+.card-actions button.danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.card-actions .outline-button {
+  border: 1px solid var(--line);
+  background: var(--action-soft);
+  color: var(--fg);
+}
+
+.card-actions .outline-button:hover {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.card-actions button.danger {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--danger-fg);
+}
+
+.card-actions button.danger:hover {
+  border-color: #b3261e;
+  background: #b3261e;
+  color: #fff;
+}
+
+.card-action-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thumbnail-card:has(.card-actions:active) {
+  transform: none;
+}
+
+.thumbnail-card:active {
+  transform: translateY(-2px) scale(0.99);
+  transition-duration: 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbnail-card,
+  .tile,
+  .tile-zoom {
+    transition: opacity 150ms linear;
+  }
+
+  .thumbnail-card:hover,
+  .thumbnail-card:active,
+  .thumbnail-card:hover .tile,
+  .thumbnail-card:hover .tile-zoom {
+    transform: none;
+  }
 }
 
 .empty,
@@ -203,30 +411,15 @@ main {
      the description field and the actions row. REQ-GAL-014 requires Delete to
      sit inside the panel, and it only does while this allowance is honest. */
   max-height: calc(92vh - 260px);
+  /* REQ-GAL-004@v2 c2: larger than its Thumbnail, which a small photo at its
+     own size is not, so a floor. contain keeps its proportions when the floor
+     and the height cap meet. Centred when narrower than the panel. */
+  min-width: min(480px, 88vw);
   width: auto;
   height: auto;
+  margin-inline: auto;
+  object-fit: contain;
   border-radius: 10px;
-}
-
-.larger-view-close {
-  width: 36px;
-  height: 36px;
-  border: 1px solid #fff;
-  border-radius: 50%;
-  background: #fff;
-  color: #16181d;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.larger-view-close:hover {
-  background: #e8e9ec;
-}
-
-.larger-view-close:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
 }
 
 .larger-view-actions {
@@ -237,8 +430,11 @@ main {
 }
 
 /* The Delete button's shape, bordered white rather than red — it sits beside
-   Delete and should read as the same kind of control, not the same action. */
-button.save {
+   Delete and should read as the same kind of control, not the same action.
+   REQ-GAL-013@v3 c10: Save description, Choose files and Upload all wear it,
+   so it is named for its look rather than for saving. */
+.outline-button {
+  display: inline-block;
   padding: 7px 16px;
   border: 1px solid #fff;
   border-radius: 7px;
@@ -246,15 +442,16 @@ button.save {
   color: var(--fg);
   font: inherit;
   font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
 }
 
-button.save:hover {
+.outline-button:hover {
   background: #fff;
   color: #16181d;
 }
 
-button.save:focus-visible {
+.outline-button:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
@@ -317,29 +514,31 @@ button.danger:focus-visible {
 
 
 /* --- the Upload popup's previews and description -------------------------
-   REQ-GAL-001@v3 c16 requires a preview for each of thirty chosen files, so
-   the list is a scrolling grid of small tiles rather than thirty full-width
-   images that would push the Upload button off the screen. */
+   REQ-GAL-015@v2: one preview to a row, as wide as the description field, in
+   the image's own proportions, and centred when the image is narrower. */
 
 .upload-previews {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
   /* REQ-GAL-001 c7 allows thirty in one Upload, so the list scrolls rather
-     than growing the dialog past the screen. */
+     than pushing the Upload button off the screen. Its scrollbar is hidden
+     because it would take width from the previews, and c4 holds them to the
+     description field's width. It still scrolls by wheel, touch and keys. */
   max-height: 320px;
   margin: 16px 0 0;
   padding: 0;
   overflow-y: auto;
+  scrollbar-width: none;
   list-style: none;
 }
 
 .upload-preview-image {
   display: block;
-  width: 100%;
-  height: 120px;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
   border-radius: 6px;
-  object-fit: cover;
 }
 
 .upload-description-label,

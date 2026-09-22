@@ -1,7 +1,7 @@
 ---
 name: decompose
 description: Turn a client brief into atomic requirements plus an ambiguity register. Use at discovery, and again on every scope variation.
-allowed-tools: Read, Grep, Glob, Write, Task
+allowed-tools: Read, Grep, Glob, Write, Task, Bash
 ---
 
 # decompose
@@ -9,7 +9,8 @@ allowed-tools: Read, Grep, Glob, Write, Task
 Turns whatever the client gave you into structured requirements and an honest
 list of everything they did not actually say.
 
-**Paste the brief when you invoke this.** If you did not, ask for it and stop.
+**Paste the brief when you invoke this.** Attach the PDF or screenshot in the
+same message. If you did not, ask for it and stop.
 
 ---
 
@@ -32,6 +33,22 @@ pagination ever mentioned?", this file is the answer.
 
 If a brief already exists, append the new one under a dated heading rather than
 replacing it.
+
+**Keep the source file.** Chat attachments are copied into **that app's**
+`.brain/docs/ref/` when the prompt hook gets a path. Still run this so a missed
+hook is not silent. `--project` is the client app, never the itm-sdlc toolkit:
+
+```
+node .claude/itm-sdlc/scripts/keep-ref.js --project . --file PATH
+```
+
+PATH is the attachment path from the user message. If you have no path, put the
+file in `.brain/docs/inbox/` and run keep-ref without `--file`. The script
+prints `.brain/docs/ref/NNN-name.ext`. Put those paths in `BRIEF.md`. Then
+`/dashboard` so the Others tab Files table shows them.
+
+Do not skip the copy because you already quoted the words. The file is the
+evidence; `BRIEF.md` is the transcript.
 
 ## 2. Check the glossary
 
@@ -131,7 +148,8 @@ below.
   Do not invent behaviour that is not on disk.
 - **Never resolve by convention or by the easier build.** Production behaviour
   is allowed. "What people usually do" is not.
-- **Write only inside `.brain/requirements/`.**
+- **Write only inside `.brain/requirements/`**, except attached source files
+  which go in `.brain/docs/ref/` via `keep-ref.js`.
 - **Work on a branch**, never on `main`. `.brain/` changes reach `main` through a
   reviewed pull request.
 
@@ -170,3 +188,8 @@ Building starts when the requirements for the next slice are `agreed`.
 `/resolve-ambiguities` writes the first task sequence when it agrees them —
 you should not need a separate command just to see `/dashboard` Task Sequence
 fill in.
+
+## Then
+
+Send the open questions. Next: answers in `ANSWERS.md`, then `/resolve-ambiguities`.
+Lost? `/help`

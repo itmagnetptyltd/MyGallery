@@ -127,3 +127,8 @@ plainly that you are waiting.
   and the toolkit's own `.brain/`, `.claude/` and `.github/` belong beside it. A
   plan that puts `public/`, `lib/` or `app/` at the root is wrong.
 - Write only to `.brain/sessions/`. No code yet.
+
+## Then
+
+Stop. Wait for "I approve" or a correction.
+Next: `/tdd` those ids. Lost? `/help`

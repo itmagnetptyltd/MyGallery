@@ -1,0 +1,33 @@
+id: CHG-0015
+raised: 2026-09-22
+stream: scope_change
+source: "Chat with screenshot, 2026-09-22, KCB/DEV (FB-0006, ask 2)"
+raw: "In Preview there will be Save Description and close button, and with item bottom there will be download and delete"
+affects: [REQ-GAL-003, REQ-GAL-012]
+analysis:
+  dependants:
+    - REQ-GAL-006
+    - REQ-GAL-004
+  tests_invalidated: 34
+  estimate: >-
+    Small: a Download control on each Thumbnail card, pointing at the existing
+    download route. 28 tests are pinned to REQ-GAL-003@v3 and 6 to
+    REQ-GAL-012@v2; most need no change, but the card-shape checks and the
+    Download browser tests must be re-read.
+  notes: >-
+    This record is ask 2 only: each Thumbnail card has a Download control at
+    its bottom. variation-agent: not-covered. REQ-GAL-006@v1 c1-c6 require
+    what a Download delivers and say nothing about where it is started;
+    REQ-GAL-003@v3 c7-c10 and REQ-GAL-012@v2 c1-c3 put no control on a card.
+    Must still hold: REQ-GAL-006@v1 c1-c6 (byte-for-byte, original filename),
+    REQ-GAL-004@v2 c1 (activating a card still opens that Photo's Larger
+    view - pressing Download must not also open it), and the card criteria
+    REQ-GAL-003@v3 c7-c10. Versions are not moved until decision is filled.
+  open_question: >-
+    "bottom" is read as inside the card surface, below the image. Always
+    visible, or only on hover? No criterion styles the control.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-003: v4
+  - REQ-GAL-012: v3

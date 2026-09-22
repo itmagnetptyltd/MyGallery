@@ -18,7 +18,7 @@ def _upload(client, count: int) -> None:
     )
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_listing_returns_photos_newest_first(client, gallery_dir):
     _upload(client, 3)
 
@@ -27,7 +27,7 @@ def test_listing_returns_photos_newest_first(client, gallery_dir):
     assert [p["filename"] for p in listed] == ["p2.jpg", "p1.jpg", "p0.jpg"]
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_listing_returns_at_most_one_page(client, gallery_dir):
     from mygallery import config
 
@@ -36,7 +36,7 @@ def test_listing_returns_at_most_one_page(client, gallery_dir):
     assert len(client.get("/api/photos").get_json()["photos"]) == config.PAGE_SIZE
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_a_long_gallery_reports_a_cursor_for_the_next_page(client, gallery_dir):
     from mygallery import config
 
@@ -45,7 +45,7 @@ def test_a_long_gallery_reports_a_cursor_for_the_next_page(client, gallery_dir):
     assert client.get("/api/photos").get_json()["nextCursor"] is not None
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_following_the_cursor_returns_the_photos_the_first_page_omitted(client, gallery_dir):
     _upload(client, 4)
     first = client.get("/api/photos?limit=2").get_json()
@@ -55,7 +55,7 @@ def test_following_the_cursor_returns_the_photos_the_first_page_omitted(client, 
     assert [p["filename"] for p in second["photos"]] == ["p1.jpg", "p0.jpg"]
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_requesting_a_thumbnail_returns_an_image(client, gallery_dir):
     _upload(client, 1)
     photo = client.get("/api/photos").get_json()["photos"][0]
@@ -67,7 +67,7 @@ def test_requesting_a_thumbnail_returns_an_image(client, gallery_dir):
     assert response.headers["Content-Type"].startswith("image/")
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_a_delivered_thumbnail_decodes_as_an_image(client, gallery_dir):
     _upload(client, 1)
     photo = client.get("/api/photos").get_json()["photos"][0]
@@ -77,7 +77,7 @@ def test_a_delivered_thumbnail_decodes_as_an_image(client, gallery_dir):
     assert dominant_colour(thumbnail.data)
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_a_thumbnail_is_delivered_smaller_than_its_photo(client, gallery_dir):
     # The criterion says "a Photo whose stored file is several megabytes". A
     # tiny Photo is outside that precondition: its Thumbnail re-encodes at the
@@ -96,7 +96,7 @@ def test_a_thumbnail_is_delivered_smaller_than_its_photo(client, gallery_dir):
     assert len(thumbnail.data) < photo["byteSize"]
 
 
-# @covers REQ-GAL-003@v3
+# @covers REQ-GAL-003@v4
 def test_requesting_a_thumbnail_for_an_unknown_photo_is_not_found(client, gallery_dir):
     response = client.get("/api/photos/does-not-exist/thumbnail")
 

@@ -1,0 +1,36 @@
+id: CHG-0013
+raised: 2026-09-21
+stream: scope_change
+source: "Document (PDF 'Increase Upload model size.pdf'), 2026-09-21, KCB/DEV (FB-0005, ask 4)"
+raw: "Increase Upload model size, after upload preview/show will be in a bigger way and border a white line and buttons and close buttons will be like as in other forms"
+affects: [REQ-GAL-013, REQ-GAL-019]
+analysis:
+  dependants:
+    - REQ-GAL-015
+    - REQ-GAL-016
+  tests_invalidated: 21
+  estimate: >-
+    Small, provided "other forms" means the Larger view - the only other
+    panel the application has. Its close control and Save description /
+    Delete buttons are a finished style to match. 13 tests are pinned to
+    REQ-GAL-013@v2 and 8 to REQ-GAL-019@v1.
+  notes: >-
+    This record is ask 4 only: the Upload popup's buttons and close button
+    look as they do "in other forms". variation-agent: not-covered.
+    REQ-GAL-019@v1 c1-c2 (same text REQ-GAL-013@v2 c3-c4) set where the
+    Upload close control sits and what it does; REQ-GAL-004@v2 c4, c6-c7 and
+    REQ-GAL-014@v1 c1-c2 do the same for the Larger view. None sets how any
+    control looks, and none requires the two panels to share a style. One
+    constraint survives any restyle: REQ-GAL-019@v1 c1 requires the Upload
+    close control inside the popup at its top right, so matching the Larger
+    view must not move it from there. Nothing in ANSWERS.md points the other
+    way. Versions are not moved until decision is filled.
+  open_question: >-
+    "other forms" is read as the Larger view, because the record names no
+    other panel. If the client means a form outside MyGallery, nothing here
+    identifies it.
+decision: absorbed
+commercial: "2026-09-21, KCB/DEV, no charge"
+outcome:
+  - REQ-GAL-013: v3
+  - REQ-GAL-019: v2
