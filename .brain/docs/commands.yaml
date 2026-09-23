@@ -4,3 +4,9 @@
     In Preview there will be Save Description and close button, and with item bottom
     there will be download and delete
   files: []
+- id: NOTE-0002
+  at: "2026-09-23T05:41:33.792Z"
+  text: run this project
+  files:
+    - 001-CLAUDE.md
+    - 002-07b654fc-e489-4681-a50f-95a11701e772.jsonl

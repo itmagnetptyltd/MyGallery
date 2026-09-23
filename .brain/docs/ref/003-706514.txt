@@ -1,0 +1,64 @@
+---
+pid: 13948
+cwd: "d:\\practice\\MyGallery"
+command: "$env:MYGALLERY_DIR = 'C:\\Users\\kartik\\MyGallery'; $env:PYTHONPATH = (Get-Location).Path; .venv\\Scripts\\python.exe -m mygallery"
+title: "Start MyGallery on 127.0.0.1:8765"
+status: running  
+started_at: 2026-09-23T05:42:28.340Z
+running_for_ms: 12       
+---
+MyGallery is running at http://127.0.0.1:8765
+ * Serving Flask app 'mygallery.app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8765
+Press CTRL+C to quit
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /static/app.css HTTP/1.1" 304 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /static/app.js HTTP/1.1" 304 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/b7e9720d89a642088524247cc5296588/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/a2a31d793be746f0955fbdacfdbf4adb/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/710b5e535cb44e318a52ad14bc585ed6/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/e191599ef5694a1babc024765a34f0fe/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/3d0183d6b0c64f528768400a437924c9/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/76ad77b903c5420e89605ef99829f7ee/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/3283707e8d7b42dba4cd2b3296028c32/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/f712886bfec5496fa9f1f4867af133b6/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/5dd59933280d47e8bb9296515c02355d/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/e726ef1349054eb29279aa095eaf1c53/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/7ac774f3921d4e9fafc740515d8d98b2/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/e5dbec6f48884736b5a6ba8e299eed4f/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/8ecd69d45ebf4540b1b73fd38fedc97a/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/da0f4ad1092a4e1fafc3a6ca7a897ca0/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/863da6517b6148aeac899439528e830b/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/0a755d4d945a4d9596be52c11ce0816b/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/ef758fdf312542fc9e854c2b261f3462/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/33eed8c0ef5445f4a303aef707278aab/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/572a1433dcde4bf6b5809c0b747625a9/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /json/version HTTP/1.1" 404 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /static/app.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /static/app.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/b7e9720d89a642088524247cc5296588/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/a2a31d793be746f0955fbdacfdbf4adb/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/710b5e535cb44e318a52ad14bc585ed6/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/76ad77b903c5420e89605ef99829f7ee/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/3d0183d6b0c64f528768400a437924c9/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/0a755d4d945a4d9596be52c11ce0816b/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/e191599ef5694a1babc024765a34f0fe/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/e726ef1349054eb29279aa095eaf1c53/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/863da6517b6148aeac899439528e830b/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/7ac774f3921d4e9fafc740515d8d98b2/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/572a1433dcde4bf6b5809c0b747625a9/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/e5dbec6f48884736b5a6ba8e299eed4f/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/3283707e8d7b42dba4cd2b3296028c32/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/33eed8c0ef5445f4a303aef707278aab/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/5dd59933280d47e8bb9296515c02355d/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/da0f4ad1092a4e1fafc3a6ca7a897ca0/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/8ecd69d45ebf4540b1b73fd38fedc97a/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/f712886bfec5496fa9f1f4867af133b6/thumbnail HTTP/1.1" 200 -
+127.0.0.1 - - [23/Sep/2026 11:42:29] "GET /api/photos/ef758fdf312542fc9e854c2b261f3462/thumbnail HTTP/1.1" 200 -

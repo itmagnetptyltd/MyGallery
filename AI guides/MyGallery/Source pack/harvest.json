@@ -1,0 +1,3613 @@
+{
+  "browsers": [],
+  "catalogues": [],
+  "errors": [
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/add-slice.js",
+      "kind": "error",
+      "line": 103,
+      "value": "${arg} needs a value"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/add-slice.js",
+      "kind": "error",
+      "line": 122,
+      "value": "unknown option ${arg}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/advance-status.js",
+      "kind": "error",
+      "line": 452,
+      "value": "--to requires a status"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/advance-status.js",
+      "kind": "error",
+      "line": 457,
+      "value": "--project requires a path"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/advance-status.js",
+      "kind": "error",
+      "line": 463,
+      "value": "--requirements requires a glob"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/advance-status.js",
+      "kind": "error",
+      "line": 467,
+      "value": "unknown option: ${arg}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/advance-status.js",
+      "kind": "error",
+      "line": 473,
+      "value": "--to is required"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/advance-status.js",
+      "kind": "error",
+      "line": 475,
+      "value": "name at least one requirement id"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/check-belt-gates.js",
+      "kind": "error",
+      "line": 63,
+      "value": "--g7-status requires a path"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/check-constraints.js",
+      "kind": "error",
+      "line": 81,
+      "value": "--today is not a date: ${options.today}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/check-constraints.js",
+      "kind": "error",
+      "line": 178,
+      "value": "${arg} requires a value"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/check-constraints.js",
+      "kind": "error",
+      "line": 194,
+      "value": "--within takes a whole number of days"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/check-secrets.js",
+      "kind": "error",
+      "line": 287,
+      "value": "could not run ${command}: ${result.error.message}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/client-report.js",
+      "kind": "error",
+      "line": 272,
+      "value": "--format must be one of: ${FORMATS.join("
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/client-report.js",
+      "kind": "error",
+      "line": 275,
+      "value": "--format both needs --out <path> \u2014 stdout can only hold one document"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/close-slice.js",
+      "kind": "error",
+      "line": 97,
+      "value": "--slice requires a number"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/close-slice.js",
+      "kind": "error",
+      "line": 197,
+      "value": "project not found: ${project}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/close-slice.js",
+      "kind": "error",
+      "line": 212,
+      "value": "no slice ${options.slice} in .brain/slices.yaml"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/dashboard.js",
+      "kind": "error",
+      "line": 1044,
+      "value": "not a file name"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/dashboard.js",
+      "kind": "error",
+      "line": 1045,
+      "value": "file too large"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/hook-prompt-log.js",
+      "kind": "error",
+      "line": 270,
+      "value": "unknown mode: ${mode}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/legacy-discover.js",
+      "kind": "error",
+      "line": 77,
+      "value": "unknown argument: ${arg}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/note.js",
+      "kind": "error",
+      "line": 44,
+      "value": "missing --text"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/regression-select.js",
+      "kind": "error",
+      "line": 195,
+      "value": "${relativeTo(projectDir, file)} names no REQ- id in its affects field"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/regression-select.js",
+      "kind": "error",
+      "line": 286,
+      "value": "give a CHG- id, or one or more REQ- ids"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/regression-select.js",
+      "kind": "error",
+      "line": 294,
+      "value": "not a CHG- or REQ- id: ${unrecognised.join("
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/regression-select.js",
+      "kind": "error",
+      "line": 297,
+      "value": "cannot mix a CHG- id with REQ- ids \u2014 give one CHG- id, or one or more REQ- ids"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/regression-select.js",
+      "kind": "error",
+      "line": 300,
+      "value": "only one CHG- id at a time: ${chgIds.join("
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 157,
+      "value": "could not produce a diff for ${range}: ${detail}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 374,
+      "value": "reviewer command failed to start: ${result.error.message}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 376,
+      "value": "reviewer command exited ${result.status}: ${(result.stderr ||"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 384,
+      "value": "the reviewer returned nothing. A review that produced no output is not a pass."
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 394,
+      "value": "the reviewer did not return usable JSON (${err.message})."
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 399,
+      "value": "the reviewer returned JSON with no"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 425,
+      "value": "supply --requirements or --pr-description so the reviewer knows what to check against."
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 428,
+      "value": "pull request description not found: ${options.prDescription}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 506,
+      "value": "--requirements requires a comma-separated list"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 508,
+      "value": "--requirements contained no valid REQ ids: ${argv[i]}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 514,
+      "value": "--exclude requires a path or glob"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 521,
+      "value": "--requirements-glob requires a glob"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/review-change.js",
+      "kind": "error",
+      "line": 539,
+      "value": "--base is required"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/run-browsertest.js",
+      "kind": "error",
+      "line": 54,
+      "value": "adapter has no commands.e2e"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/run-golden-set.js",
+      "kind": "error",
+      "line": 277,
+      "value": "--min-detection takes a number between 0 and 1"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/run-golden-set.js",
+      "kind": "error",
+      "line": 283,
+      "value": "golden set not found: ${dir}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/run-golden-set.js",
+      "kind": "error",
+      "line": 440,
+      "value": "no cases found in ${options.set}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/validate-requirements.js",
+      "kind": "error",
+      "line": 74,
+      "value": "--schema requires a path"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/validate-requirements.js",
+      "kind": "error",
+      "line": 79,
+      "value": "--cwd requires a path"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/validate-requirements.js",
+      "kind": "error",
+      "line": 350,
+      "value": "cannot load schema at ${schemaPath}: ${err.message}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/lib/installer.js",
+      "kind": "error",
+      "line": 550,
+      "value": "target does not exist: ${resolvedTarget}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/lib/installer.js",
+      "kind": "error",
+      "line": 553,
+      "value": "target is not a directory: ${resolvedTarget}"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/lib/working.js",
+      "kind": "error",
+      "line": 254,
+      "value": "not a file: ${source}"
+    }
+  ],
+  "flags": [],
+  "git": {
+    "branch": "feat/gal-preview-and-description",
+    "churn": [
+      {
+        "changes": 21,
+        "file": ".brain/requirements/gal.yaml"
+      },
+      {
+        "changes": 16,
+        "file": "src/mygallery/static/app.css"
+      },
+      {
+        "changes": 13,
+        "file": ".brain/install-state.json"
+      },
+      {
+        "changes": 13,
+        "file": "src/mygallery/templates/gallery.html"
+      },
+      {
+        "changes": 12,
+        "file": "src/mygallery/static/app.js"
+      },
+      {
+        "changes": 9,
+        "file": "tests/e2e/test_uat_visual_browser.py"
+      },
+      {
+        "changes": 9,
+        "file": ".claude/itm-sdlc/scripts/dashboard.js"
+      },
+      {
+        "changes": 7,
+        "file": "tests/test_uat_visual.py"
+      },
+      {
+        "changes": 6,
+        "file": ".brain/requirements/ANSWERS.md"
+      },
+      {
+        "changes": 6,
+        "file": ".claude/itm-sdlc/scripts/lib/working.js"
+      },
+      {
+        "changes": 6,
+        "file": ".claude/skills/note/SKILL.md"
+      },
+      {
+        "changes": 6,
+        "file": "src/mygallery/web/api.py"
+      },
+      {
+        "changes": 5,
+        "file": "tests/e2e/test_description_browser.py"
+      },
+      {
+        "changes": 5,
+        "file": "tests/e2e/test_gallery_browser.py"
+      },
+      {
+        "changes": 5,
+        "file": ".claude/itm-sdlc/scripts/hook-prompt-log.js"
+      },
+      {
+        "changes": 5,
+        "file": ".claude/itm-sdlc/scripts/note.js"
+      },
+      {
+        "changes": 5,
+        "file": ".claude/skills/dashboard/SKILL.md"
+      },
+      {
+        "changes": 5,
+        "file": ".claude/skills/decompose/SKILL.md"
+      },
+      {
+        "changes": 5,
+        "file": ".claude/skills/feedback-capture/SKILL.md"
+      },
+      {
+        "changes": 5,
+        "file": ".brain/requirements/AMBIGUITIES.md"
+      },
+      {
+        "changes": 5,
+        "file": ".brain/slices.yaml"
+      },
+      {
+        "changes": 4,
+        "file": ".claude/itm-sdlc/scripts/lib/installer.js"
+      },
+      {
+        "changes": 4,
+        "file": ".claude/skills/help/SKILL.md"
+      },
+      {
+        "changes": 4,
+        "file": "tests/api/test_gallery_http.py"
+      },
+      {
+        "changes": 4,
+        "file": "tests/e2e/test_larger_view_browser.py"
+      },
+      {
+        "changes": 4,
+        "file": "tests/test_gallery.py"
+      },
+      {
+        "changes": 4,
+        "file": "tests/test_thumbnails.py"
+      },
+      {
+        "changes": 4,
+        "file": "tests/e2e/test_upload.py"
+      },
+      {
+        "changes": 4,
+        "file": "tests/conftest.py"
+      },
+      {
+        "changes": 4,
+        "file": "src/mygallery/photos/store.py"
+      }
+    ],
+    "commits_since_tag": [
+      "a00d0a4 fix: spell /run-browsertest lowercase so the slash command matches the skill.",
+      "5ef8742 chore: vendor /run-Browsertest and document belt B in CLAUDE.md.",
+      "e0ab43e feat: Download and Delete on each Thumbnail card; Larger view keeps Save description and Close.",
+      "c9bf39d chore: drop four reference screenshots from docs/ref.",
+      "62020b8 chore: vendor informal-prompt capture and record FB-0006 card actions.",
+      "747f6b1 feat: harvest chat attachments on any prompt and lift gallery cards.",
+      "b4d3453 chore: vendor client-only docs/ref and keep the item-design screenshot.",
+      "122c840 chore: vendor ref-file dashboard fix and keep attached screenshots.",
+      "10dac6c feat: download from Larger view and floor size for small photos.",
+      "cba6eda docs(brain): sign off REQ-GAL-011, slice 1 Boot.",
+      "cefc263 chore: vendor keep-ref so /decompose copies attached files into docs/ref.",
+      "a261040 feat: larger, bordered Upload popup with Larger view controls and full-width previews.",
+      "4305783 docs(brain): apply FB-0005 answers and plan slices 7 and 9.",
+      "b15f924 chore: vendor Logged prompts pager and /help CHG outcome wait.",
+      "b7e2cd9 docs: record CHG-0010 to CHG-0013 from FB-0005, absorbed.",
+      "47c30e0 docs: capture FB-0005 on Upload popup size and styling.",
+      "59958cc chore: vendor Others dashboard tab and working /help.",
+      "25b8526 chore: vendor Status bars 5px thicker.",
+      "f1c393f chore: vendor dashboard Status and Change history at 175px.",
+      "836ed5a chore: vendor dashboard paging and 200px Status and Change history.",
+      "ffab656 chore: vendor itm-sdlc /help, /note, and Working dashboard tab.",
+      "334f8be Update & Sync",
+      "91011ab feat: description character count, and previews that actually render.",
+      "5004625 test: trace REQ-GAL-016 and REQ-GAL-019. Slice 8 Done.",
+      "c2dca4a feat: a close control on the Upload popup. Slice 7 Done.",
+      "561ac8d test: cover the description's durability. REQ-GAL-008 v2 verified.",
+      "d3b44cc test: move the slice 2 @covers pins to the current versions.",
+      "6c2997f style: preview and description layout in the Upload popup.",
+      "d065592 feat: optional photo description, upload previews, and gallery alt text.",
+      "3ce6dda docs(brain): close the last two questions and sequence slice 9.",
+      "1b1170e docs(brain): apply the client's 2026-09-21 answers.",
+      "0fba1ad docs(brain): sequence the two agreed FB-0004 requirements as slice 8.",
+      "a56627f docs(brain): absorb CHG-0005 to CHG-0009 and version the requirements.",
+      "fa2758d docs(brain): triage the upload description ask as five variations.",
+      "13d8a40 feat: larger cards, upload popup, and in-panel Larger view controls.",
+      "f8eee3c docs(brain): absorb UAT visual changes and add slice 7.",
+      "4a0b6b4 feat: report failed uploads in plain words and leave no partial file.",
+      "68bcbec docs(brain): checkpoint 2026-09-18 (slice 5)",
+      "0449c94 feat: download a Photo as the original file under its original name.",
+      "eba94a2 docs(brain): checkpoint 2026-09-18 (slice 4)",
+      "8a97014 feat: delete a Photo after confirmation, and keep the rest after restart.",
+      "57e5818 docs(brain): checkpoint 2026-09-18 (slice 3)",
+      "4af7ec7 feat: show the Larger view when a Thumbnail is activated.",
+      "7a01d74 Update",
+      "4ebbaf1 docs(brain): checkpoint 2026-09-18 (slice 2)",
+      "e1f5006 feat: upload photos and show them in the Gallery",
+      "77bf965 docs(brain): delete the G3 constraint, cleared by slice 1 reaching main",
+      "8b31f8e docs(brain): checkpoint 2026-09-18 (slice 1)",
+      "58fe9fc Covers: REQ-GAL-011@v1",
+      "b3395de feat: start MyGallery on Windows with one file to open",
+      "1155c3f docs(brain): checkpoint 2026-09-18",
+      "671d1a3 chore: install itm-sdlc toolkit"
+    ],
+    "is_repository": true,
+    "last_tag": "none",
+    "sha": "a00d0a40c55233de392118aeda6347d249382873",
+    "tags": []
+  },
+  "images": [],
+  "labels": [
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 6,
+      "source": "text",
+      "value": "Project dashboard"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 423,
+      "source": "attribute",
+      "value": "2026-09-22T07:03:08.925Z"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 427,
+      "source": "text",
+      "value": "Requirements"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 428,
+      "source": "text",
+      "value": "Change records"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 429,
+      "source": "text",
+      "value": "Feedback"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 430,
+      "source": "text",
+      "value": "Decisions"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 431,
+      "source": "text",
+      "value": "Versioned REQs"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 432,
+      "source": "text",
+      "value": "Open questions"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 433,
+      "source": "text",
+      "value": "Logged prompts"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 436,
+      "source": "attribute",
+      "value": "Dashboard sections"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 438,
+      "source": "text",
+      "value": "Task Sequence"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 439,
+      "source": "text",
+      "value": "Records"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 440,
+      "source": "text",
+      "value": "Others"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 448,
+      "source": "text",
+      "value": "Status"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 454,
+      "source": "text",
+      "value": "Change history"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-001"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-002"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-003"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-004"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-007"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-008"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-012"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-013"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-014"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-015"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "text",
+      "value": "REQ-GAL-019"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 456,
+      "source": "attribute",
+      "value": "v1 required a close control at the popup"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 462,
+      "source": "text",
+      "value": "All"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 462,
+      "source": "attribute",
+      "value": "Filter by status"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 463,
+      "source": "text",
+      "value": "Search"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 463,
+      "source": "attribute",
+      "value": "REQ, title\u2026"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 468,
+      "source": "text",
+      "value": "Title"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 468,
+      "source": "text",
+      "value": "Ver"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 468,
+      "source": "text",
+      "value": "Evidence"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 468,
+      "source": "text",
+      "value": "Questions"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "Uploading a Photo adds it to the Gallery"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "Activating a Thumbnail shows the Larger view over the Gallery"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-005"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-006"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "A Gallery holding no Photos says so, and does not look broken"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-009"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-010"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-011"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "Home Gallery Thumbnail cards are larger and designed as cards"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "Upload is started from a popup"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-016"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "Files can be chosen by dropping them on the Upload popup"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-017"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "A Photo may carry an optional description given at its Upload"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "REQ-GAL-018"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "A Photo's description is the alt text of its Thumbnail"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 469,
+      "source": "text",
+      "value": "The Upload popup can be closed without uploading anything"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 472,
+      "source": "attribute",
+      "value": "Requirements pages"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 473,
+      "source": "text",
+      "value": "Prev"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 475,
+      "source": "text",
+      "value": "Next"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 485,
+      "source": "text",
+      "value": "Slice"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 485,
+      "source": "text",
+      "value": "Covers"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 485,
+      "source": "text",
+      "value": "Branch"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Boot"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Done"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Done. Next slice may start."
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Upload and Gallery"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Larger view"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Delete and durability"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Download"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Upload failure reporting"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "UAT visual"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Upload popup close and drop"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "text",
+      "value": "Upload previews and Photo description"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "attribute",
+      "value": "signed_off"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 486,
+      "source": "attribute",
+      "value": "verified"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 493,
+      "source": "attribute",
+      "value": "Project records"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "FB-0006"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "Download and Delete move from the Larger view to each card"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "FB-0005"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "FB-0004"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "FB-0003"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "Larger view buttons and close sit outside the panel"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "FB-0002"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "File upload should be from a popup"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "text",
+      "value": "FB-0001"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "attribute",
+      "value": "FB-0006 \u2014 Download and Delete move from the Larger view to each card"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "attribute",
+      "value": "FB-0003 \u2014 Larger view buttons and close sit outside the panel"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "attribute",
+      "value": "FB-0002 \u2014 File upload should be from a popup"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 497,
+      "source": "attribute",
+      "value": "FB-0001 \u2014 Thumbnail cards on the home Gallery should be larger and redesigned"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 498,
+      "source": "attribute",
+      "value": "Records pages"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "text",
+      "value": "ADR-0004"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "text",
+      "value": "ADR-0003"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "text",
+      "value": "ADR-0002"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "text",
+      "value": "Flask is the HTTP layer, chosen at slice 1 for slice 2's sake"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "text",
+      "value": "ADR-0001"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "attribute",
+      "value": "ADR-0003 \u2014 Python is the one prerequisite; the application"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 508,
+      "source": "attribute",
+      "value": "ADR-0002 \u2014 Flask is the HTTP layer, chosen at slice 1 for slice 2"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0016"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0016.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0015"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0015.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0014"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0014.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0013"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0013.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0012"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0012.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0011"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0011.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0010"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0010.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0009"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0009.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0008"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0008.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0007"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0007.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0006"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0006.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0005"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0005.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0004"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0004.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0003"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0003.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0002"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0002.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0001"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 519,
+      "source": "text",
+      "value": "CHG-0001.yaml"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 533,
+      "source": "text",
+      "value": "Where you are"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 534,
+      "source": "text",
+      "value": "Every sequenced requirement is verified."
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 538,
+      "source": "text",
+      "value": "Same as"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 541,
+      "source": "text",
+      "value": "Notes"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 542,
+      "source": "text",
+      "value": "Polish. Saved with"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 543,
+      "source": "text",
+      "value": "NOTE-0001"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 546,
+      "source": "text",
+      "value": "Files"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 547,
+      "source": "text",
+      "value": "Use"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 547,
+      "source": "text",
+      "value": "Add file"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 551,
+      "source": "text",
+      "value": "Serial"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 551,
+      "source": "text",
+      "value": "Filename"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 551,
+      "source": "text",
+      "value": "Type"
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 552,
+      "source": "text",
+      "value": "None yet."
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 558,
+      "source": "text",
+      "value": "Chat that changed files. From the prompt hook, not the brain."
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 560,
+      "source": "text",
+      "value": "CHG-0001, CHG-0002, CHG-0003, CHG-0004 are all absorbed."
+    },
+    {
+      "confidence": "low",
+      "file": ".claude/reports/dashboard.html",
+      "key": "",
+      "kind": "label",
+      "line": 561,
+      "source": "attribute",
+      "value": "Logged prompts pages"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 6,
+      "source": "text",
+      "value": "MyGallery"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 33,
+      "source": "attribute",
+      "value": "Gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 44,
+      "source": "attribute",
+      "value": "Upload"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 52,
+      "source": "attribute",
+      "value": "Close"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 56,
+      "source": "text",
+      "value": "Choose photos to add to the Gallery."
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 58,
+      "source": "text",
+      "value": "Choose files"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 74,
+      "source": "text",
+      "value": "Description (optional)"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 83,
+      "source": "attribute",
+      "value": "What is this photo?"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 94,
+      "source": "attribute",
+      "value": "Photo"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 110,
+      "source": "text",
+      "value": "Description"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 145,
+      "source": "text",
+      "value": "Keep it"
+    },
+    {
+      "confidence": "low",
+      "file": "src/mygallery/templates/gallery.html",
+      "key": "",
+      "kind": "label",
+      "line": 146,
+      "source": "text",
+      "value": "Delete"
+    }
+  ],
+  "limits": [
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/dashboard.js",
+      "kind": "limit",
+      "line": 1012,
+      "setting": "20",
+      "value": "MAX_UPLOAD"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/lib/installer.js",
+      "kind": "limit",
+      "line": 1016,
+      "setting": "12",
+      "value": "CHECK_MAX_DEPTH"
+    },
+    {
+      "confidence": "medium",
+      "file": ".claude/itm-sdlc/scripts/lib/installer.js",
+      "kind": "limit",
+      "line": 1017,
+      "setting": "20000",
+      "value": "CHECK_MAX_FILES"
+    },
+    {
+      "confidence": "medium",
+      "file": "src/mygallery/config.py",
+      "kind": "limit",
+      "line": 34,
+      "setting": "25",
+      "value": "MAX_PHOTO_BYTES"
+    },
+    {
+      "confidence": "medium",
+      "file": "src/mygallery/config.py",
+      "kind": "limit",
+      "line": 39,
+      "setting": "30",
+      "value": "MAX_BATCH_PHOTOS"
+    },
+    {
+      "confidence": "medium",
+      "file": "src/mygallery/config.py",
+      "kind": "limit",
+      "line": 40,
+      "setting": "MAX_BATCH_PHOTOS",
+      "value": "MAX_REQUEST_BYTES"
+    },
+    {
+      "confidence": "medium",
+      "file": "src/mygallery/config.py",
+      "kind": "limit",
+      "line": 45,
+      "setting": "60",
+      "value": "PAGE_SIZE"
+    },
+    {
+      "confidence": "medium",
+      "file": "src/mygallery/photos/store.py",
+      "kind": "limit",
+      "line": 52,
+      "setting": "250",
+      "value": "MAX_DESCRIPTION_CHARACTERS"
+    }
+  ],
+  "permissions": [],
+  "repo": "D:\\practice\\MyGallery",
+  "routes": [],
+  "stack": [
+    "unrecognised"
+  ],
+  "tests": [
+    {
+      "confidence": "low",
+      "file": "tests/test_app.py",
+      "kind": "unit",
+      "line": 5,
+      "value": "test_requesting_the_root_path_serves_the_gallery_page"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_app.py",
+      "kind": "unit",
+      "line": 12,
+      "value": "test_the_gallery_page_presents_the_gallery_region"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_app.py",
+      "kind": "unit",
+      "line": 18,
+      "value": "test_the_gallery_page_is_served_as_html"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_app.py",
+      "kind": "unit",
+      "line": 26,
+      "value": "test_the_gallery_page_is_served_with_a_content_security_policy"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_app.py",
+      "kind": "unit",
+      "line": 45,
+      "value": "test_the_gallery_page_is_served_with_nosniff"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_binding.py",
+      "kind": "unit",
+      "line": 14,
+      "value": "test_a_started_server_reports_a_loopback_bound_address"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_binding.py",
+      "kind": "unit",
+      "line": 23,
+      "value": "test_a_started_server_refuses_a_connection_to_the_machine_network_address"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_card_actions.py",
+      "kind": "unit",
+      "line": 22,
+      "value": "test_a_thumbnail_card_is_built_with_download_and_delete_controls"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_card_actions.py",
+      "kind": "unit",
+      "line": 33,
+      "value": "test_the_card_controls_share_the_row_in_equal_columns"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_config.py",
+      "kind": "unit",
+      "line": 5,
+      "value": "test_the_server_is_configured_to_listen_on_loopback_only"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_config.py",
+      "kind": "unit",
+      "line": 12,
+      "value": "test_the_configured_port_matches_the_port_in_the_start_instructions"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_delete.py",
+      "kind": "unit",
+      "line": 13,
+      "value": "test_deleting_a_photo_removes_it_from_the_gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_delete.py",
+      "kind": "unit",
+      "line": 22,
+      "value": "test_deleting_a_photo_leaves_the_other_photos"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_delete.py",
+      "kind": "unit",
+      "line": 33,
+      "value": "test_deleting_a_photo_removes_its_file_from_disk"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_delete.py",
+      "kind": "unit",
+      "line": 43,
+      "value": "test_deleting_a_photo_removes_its_thumbnail_from_disk"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_delete.py",
+      "kind": "unit",
+      "line": 52,
+      "value": "test_deleting_a_photo_that_is_not_there_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 13,
+      "value": "test_a_photo_uploaded_with_a_description_carries_it"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 20,
+      "value": "test_a_photo_uploaded_with_no_description_carries_none_and_is_still_a_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 30,
+      "value": "test_changing_a_description_replaces_it_and_leaves_the_photo_itself_unchanged"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 41,
+      "value": "test_a_photo_carrying_no_description_can_be_given_one"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 50,
+      "value": "test_changing_the_description_of_a_photo_that_is_not_there_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 60,
+      "value": "test_an_upload_with_no_description_still_becomes_a_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 68,
+      "value": "test_a_description_of_250_characters_is_carried_whole"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 77,
+      "value": "test_a_photo_listed_in_a_page_carries_its_description"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_description.py",
+      "kind": "unit",
+      "line": 86,
+      "value": "test_a_gallery_written_before_descriptions_existed_is_still_readable"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_download.py",
+      "kind": "unit",
+      "line": 19,
+      "value": "test_a_usable_filename_is_delivered_unchanged"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_download.py",
+      "kind": "unit",
+      "line": 24,
+      "value": "test_an_empty_filename_falls_back_to_the_identifier"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_download.py",
+      "kind": "unit",
+      "line": 29,
+      "value": "test_a_filename_of_only_spaces_falls_back"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_download.py",
+      "kind": "unit",
+      "line": 38,
+      "value": "test_a_filename_containing_a_path_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_download.py",
+      "kind": "unit",
+      "line": 47,
+      "value": "test_a_filename_containing_a_control_character_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_download.py",
+      "kind": "unit",
+      "line": 58,
+      "value": "test_a_fallback_name_ends_in_the_extension_for_the_format"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 20,
+      "value": "test_a_photo_is_still_in_the_gallery_later_in_the_same_run"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 27,
+      "value": "test_deleting_one_photo_leaves_the_other_in_the_gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 37,
+      "value": "test_a_photo_is_still_in_the_gallery_when_the_store_is_reopened"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 44,
+      "value": "test_a_photo_is_present_in_the_storage_folder_as_a_readable_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 53,
+      "value": "test_the_stored_file_holds_the_bytes_that_were_uploaded"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 63,
+      "value": "test_a_deleted_photo_is_still_gone_when_the_store_is_reopened"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 75,
+      "value": "test_a_description_given_at_upload_survives_a_restart"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 82,
+      "value": "test_a_description_changed_after_upload_survives_a_restart"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 90,
+      "value": "test_a_description_removed_after_upload_stays_removed_across_a_restart"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_durability.py",
+      "kind": "unit",
+      "line": 98,
+      "value": "test_a_photo_uploaded_before_descriptions_existed_is_shown_carrying_none"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 16,
+      "value": "test_photos_are_listed_with_the_most_recently_uploaded_first"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 25,
+      "value": "test_a_page_holds_no_more_than_the_page_size"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 32,
+      "value": "test_a_page_of_a_long_gallery_is_not_the_whole_gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 41,
+      "value": "test_the_next_page_continues_where_the_previous_one_ended"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 51,
+      "value": "test_a_page_reports_no_cursor_once_the_gallery_is_exhausted"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 61,
+      "value": "test_an_empty_gallery_holds_no_photos"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 66,
+      "value": "test_reading_an_empty_gallery_raises_no_error"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_gallery.py",
+      "kind": "unit",
+      "line": 71,
+      "value": "test_a_gallery_that_cannot_be_read_reports_a_failure"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_identity.py",
+      "kind": "unit",
+      "line": 7,
+      "value": "test_the_application_issues_an_identifier"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_identity.py",
+      "kind": "unit",
+      "line": 12,
+      "value": "test_two_photos_uploaded_under_the_same_filename_get_different_identifiers"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_identity.py",
+      "kind": "unit",
+      "line": 20,
+      "value": "test_an_identifier_contains_no_path_separator"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_larger_view.py",
+      "kind": "unit",
+      "line": 22,
+      "value": "test_requesting_a_photo_returns_the_bytes_that_were_uploaded"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_larger_view.py",
+      "kind": "unit",
+      "line": 32,
+      "value": "test_requesting_a_photo_returns_it_as_an_image"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_larger_view.py",
+      "kind": "unit",
+      "line": 42,
+      "value": "test_the_photo_served_is_larger_than_its_thumbnail"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_larger_view.py",
+      "kind": "unit",
+      "line": 51,
+      "value": "test_requesting_an_unknown_photo_is_not_found"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_larger_view_actions.py",
+      "kind": "unit",
+      "line": 14,
+      "value": "test_the_larger_view_actions_are_save_description_and_close"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_launcher.py",
+      "kind": "unit",
+      "line": 20,
+      "value": "test_the_application_is_launched_at_the_address_the_instructions_name"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_launcher.py",
+      "kind": "unit",
+      "line": 27,
+      "value": "test_starting_the_application_binds_it_to_loopback"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_launcher.py",
+      "kind": "unit",
+      "line": 37,
+      "value": "test_starting_the_application_listens_on_the_documented_port"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_launcher.py",
+      "kind": "unit",
+      "line": 47,
+      "value": "test_starting_the_application_opens_the_browser_at_the_gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_start_instructions.py",
+      "kind": "unit",
+      "line": 9,
+      "value": "test_the_start_instructions_name_exactly_one_prerequisite"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_start_instructions.py",
+      "kind": "unit",
+      "line": 14,
+      "value": "test_the_named_prerequisite_is_python"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_start_instructions.py",
+      "kind": "unit",
+      "line": 19,
+      "value": "test_the_start_instructions_reach_a_running_application_in_a_single_step"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_start_instructions.py",
+      "kind": "unit",
+      "line": 24,
+      "value": "test_the_documented_start_file_exists"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 7,
+      "value": "test_saving_a_photo_puts_it_in_the_gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 14,
+      "value": "test_saving_a_second_photo_leaves_the_first_in_place"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 22,
+      "value": "test_a_saved_photo_can_be_retrieved_afterwards"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 29,
+      "value": "test_a_retrieved_photo_carries_the_bytes_that_were_saved"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 37,
+      "value": "test_two_photos_saved_under_the_same_filename_get_different_identifiers"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 45,
+      "value": "test_a_photo_keeps_the_filename_it_was_uploaded_under"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 52,
+      "value": "test_a_filename_containing_path_separators_stores_inside_the_photo_directory"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_store.py",
+      "kind": "unit",
+      "line": 61,
+      "value": "test_a_filename_containing_a_drive_letter_stores_inside_the_photo_directory"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_thumbnails.py",
+      "kind": "unit",
+      "line": 12,
+      "value": "test_a_thumbnail_is_smaller_in_bytes_than_its_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_thumbnails.py",
+      "kind": "unit",
+      "line": 20,
+      "value": "test_a_thumbnail_renders_its_own_photo_and_not_another"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_thumbnails.py",
+      "kind": "unit",
+      "line": 34,
+      "value": "test_every_photo_in_the_gallery_has_a_thumbnail"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 26,
+      "value": "test_gallery_css_sets_card_min_width_above_160px"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 32,
+      "value": "test_gallery_html_has_a_card_surface_around_each_thumbnail"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 41,
+      "value": "test_gallery_html_includes_an_upload_popup"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 53,
+      "value": "test_empty_gallery_html_includes_a_control_that_opens_the_upload_popup"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 61,
+      "value": "test_larger_view_markup_places_close_inside_the_panel"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 79,
+      "value": "test_a_thumbnails_alt_text_is_its_photos_description"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 88,
+      "value": "test_the_upload_popup_has_a_close_control"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 96,
+      "value": "test_the_upload_popup_close_control_is_inside_the_popup"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 107,
+      "value": "test_the_upload_popup_close_control_is_placed_at_the_top_right"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 120,
+      "value": "test_the_upload_popup_close_control_closes_the_popup"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 129,
+      "value": "test_the_upload_popup_shows_a_preview_of_each_chosen_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 140,
+      "value": "test_the_upload_popup_accepts_dropped_files"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 148,
+      "value": "test_dropping_on_the_upload_popup_is_not_the_only_way_to_choose"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 160,
+      "value": "test_closing_the_upload_popup_leaves_it_reusable"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 176,
+      "value": "test_the_upload_popup_shows_a_character_count_for_the_description"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_uat_visual.py",
+      "kind": "unit",
+      "line": 183,
+      "value": "test_the_character_count_reads_its_limit_from_the_field"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_failures.py",
+      "kind": "unit",
+      "line": 33,
+      "value": "test_an_interrupted_save_adds_no_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_failures.py",
+      "kind": "unit",
+      "line": 43,
+      "value": "test_an_interrupted_save_leaves_no_photo_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_failures.py",
+      "kind": "unit",
+      "line": 53,
+      "value": "test_an_interrupted_save_leaves_no_thumbnail"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_failures.py",
+      "kind": "unit",
+      "line": 63,
+      "value": "test_an_interrupted_save_leaves_no_temp_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_failures.py",
+      "kind": "unit",
+      "line": 79,
+      "value": "test_opening_the_store_removes_a_file_that_has_no_row"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_failures.py",
+      "kind": "unit",
+      "line": 91,
+      "value": "test_the_too_large_reason_names_the_25_mb_limit"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_popup_look.py",
+      "kind": "unit",
+      "line": 38,
+      "value": "test_the_upload_popup_is_wider_than_the_delivered_680_pixels"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_popup_look.py",
+      "kind": "unit",
+      "line": 49,
+      "value": "test_the_upload_popup_and_larger_view_share_one_close_control_rule"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_popup_look.py",
+      "kind": "unit",
+      "line": 65,
+      "value": "test_the_upload_popup_border_matches_the_larger_view_panels"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_popup_look.py",
+      "kind": "unit",
+      "line": 75,
+      "value": "test_choose_files_and_upload_use_the_save_description_button_look"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_preview_size.py",
+      "kind": "unit",
+      "line": 27,
+      "value": "test_previews_are_laid_out_one_to_a_row"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_preview_size.py",
+      "kind": "unit",
+      "line": 34,
+      "value": "test_a_preview_is_capped_at_the_column_width_and_keeps_its_height_in_proportion"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_preview_size.py",
+      "kind": "unit",
+      "line": 44,
+      "value": "test_the_preview_list_hides_its_scrollbar_so_previews_keep_the_fields_width"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_preview_size.py",
+      "kind": "unit",
+      "line": 57,
+      "value": "test_a_preview_is_never_cropped"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_upload_preview_size.py",
+      "kind": "unit",
+      "line": 64,
+      "value": "test_a_narrow_preview_is_centred"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 16,
+      "value": "test_each_accepted_image_format_is_accepted"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 23,
+      "value": "test_content_that_is_not_an_image_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 30,
+      "value": "test_content_renamed_to_an_accepted_extension_is_still_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 37,
+      "value": "test_a_file_in_an_unaccepted_image_format_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 46,
+      "value": "test_the_reason_for_an_unsupported_type_says_so"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 53,
+      "value": "test_a_file_at_the_size_limit_is_accepted"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 65,
+      "value": "test_a_file_over_the_size_limit_is_refused"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/test_validation.py",
+      "kind": "unit",
+      "line": 77,
+      "value": "test_the_reason_for_an_oversized_file_names_the_size"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_delete_http.py",
+      "kind": "unit",
+      "line": 23,
+      "value": "test_deleting_a_photo_reports_success"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_delete_http.py",
+      "kind": "unit",
+      "line": 32,
+      "value": "test_a_deleted_photo_is_no_longer_listed"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_delete_http.py",
+      "kind": "unit",
+      "line": 41,
+      "value": "test_deleting_a_photo_leaves_the_others_listed"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_delete_http.py",
+      "kind": "unit",
+      "line": 51,
+      "value": "test_the_thumbnail_of_a_deleted_photo_is_no_longer_served"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_delete_http.py",
+      "kind": "unit",
+      "line": 60,
+      "value": "test_deleting_an_unknown_photo_is_not_found"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 21,
+      "value": "test_uploading_with_a_description_carries_it_into_the_gallery"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 30,
+      "value": "test_uploading_without_a_description_still_succeeds"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 39,
+      "value": "test_an_upload_carrying_a_long_description_is_not_refused_for_length"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 48,
+      "value": "test_the_gallery_listing_carries_each_photos_description"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 60,
+      "value": "test_a_description_can_be_changed_after_the_upload"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 70,
+      "value": "test_a_photo_with_no_description_can_be_given_one_afterwards"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_description_http.py",
+      "kind": "unit",
+      "line": 79,
+      "value": "test_changing_the_description_of_a_photo_that_is_not_there_is_not_found"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_download_http.py",
+      "kind": "unit",
+      "line": 21,
+      "value": "test_downloading_a_photo_delivers_a_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_download_http.py",
+      "kind": "unit",
+      "line": 30,
+      "value": "test_the_delivered_file_is_the_requested_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_download_http.py",
+      "kind": "unit",
+      "line": 41,
+      "value": "test_the_delivered_file_is_byte_for_byte_what_was_uploaded"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_download_http.py",
+      "kind": "unit",
+      "line": 51,
+      "value": "test_the_delivered_file_carries_the_name_it_was_uploaded_under"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_download_http.py",
+      "kind": "unit",
+      "line": 60,
+      "value": "test_a_photo_uploaded_under_an_unusable_name_is_delivered_with_the_right_extension"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_download_http.py",
+      "kind": "unit",
+      "line": 72,
+      "value": "test_downloading_an_unknown_photo_delivers_no_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 22,
+      "value": "test_listing_returns_photos_newest_first"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 31,
+      "value": "test_listing_returns_at_most_one_page"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 40,
+      "value": "test_a_long_gallery_reports_a_cursor_for_the_next_page"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 49,
+      "value": "test_following_the_cursor_returns_the_photos_the_first_page_omitted"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 59,
+      "value": "test_requesting_a_thumbnail_returns_an_image"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 71,
+      "value": "test_a_delivered_thumbnail_decodes_as_an_image"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 81,
+      "value": "test_a_thumbnail_is_delivered_smaller_than_its_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_gallery_http.py",
+      "kind": "unit",
+      "line": 100,
+      "value": "test_requesting_a_thumbnail_for_an_unknown_photo_is_not_found"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 26,
+      "value": "test_uploading_one_photo_reports_success"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 33,
+      "value": "test_an_uploaded_photo_is_listed_afterwards"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 40,
+      "value": "test_uploading_thirty_photos_in_one_request_creates_thirty_photos"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 47,
+      "value": "test_uploading_thirty_of_which_three_are_not_images_creates_twenty_seven"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 59,
+      "value": "test_a_batch_with_failures_names_each_failed_file"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 68,
+      "value": "test_uploading_a_non_image_adds_no_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 75,
+      "value": "test_uploading_only_a_non_image_does_not_report_success"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_photos_http.py",
+      "kind": "unit",
+      "line": 82,
+      "value": "test_the_refusal_says_the_file_is_not_a_supported_image_type"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_upload_failures_http.py",
+      "kind": "unit",
+      "line": 38,
+      "value": "test_uploading_thirty_of_which_three_fail_keeps_twenty_seven"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_upload_failures_http.py",
+      "kind": "unit",
+      "line": 45,
+      "value": "test_each_failed_file_is_named_in_the_response"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_upload_failures_http.py",
+      "kind": "unit",
+      "line": 56,
+      "value": "test_each_failed_file_carries_its_reason"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_upload_failures_http.py",
+      "kind": "unit",
+      "line": 65,
+      "value": "test_an_oversized_file_is_reported_as_too_large_with_the_limit"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_upload_failures_http.py",
+      "kind": "unit",
+      "line": 77,
+      "value": "test_a_save_that_throws_is_reported_and_leaves_no_photo"
+    },
+    {
+      "confidence": "low",
+      "file": "tests/api/test_upload_failures_http.py",
+      "kind": "unit",
+      "line": 93,
+      "value": "test_a_save_that_throws_in_a_batch_does_not_stop_the_others"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_boot.py",
+      "kind": "e2e",
+      "line": 21,
+      "value": "test_following_the_documented_start_steps_displays_the_gallery"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_boot.py",
+      "kind": "e2e",
+      "line": 28,
+      "value": "test_the_gallery_page_is_titled_for_the_application"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_card_actions_browser.py",
+      "kind": "e2e",
+      "line": 39,
+      "value": "test_every_card_shows_download_and_delete_without_hovering"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_card_actions_browser.py",
+      "kind": "e2e",
+      "line": 59,
+      "value": "test_a_cards_download_and_delete_are_the_same_width"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_card_actions_browser.py",
+      "kind": "e2e",
+      "line": 71,
+      "value": "test_downloading_from_a_card_delivers_that_photo_without_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_card_actions_browser.py",
+      "kind": "e2e",
+      "line": 88,
+      "value": "test_deleting_from_a_card_asks_first_without_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_card_actions_browser.py",
+      "kind": "e2e",
+      "line": 101,
+      "value": "test_declining_a_delete_from_a_card_keeps_the_photo"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_card_actions_browser.py",
+      "kind": "e2e",
+      "line": 112,
+      "value": "test_confirming_a_delete_from_a_card_removes_that_card"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_delete_browser.py",
+      "kind": "e2e",
+      "line": 34,
+      "value": "test_asking_to_delete_a_photo_asks_for_confirmation"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_delete_browser.py",
+      "kind": "e2e",
+      "line": 44,
+      "value": "test_the_confirmation_asks_are_you_sure_you_want_to_delete_this_photo"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_delete_browser.py",
+      "kind": "e2e",
+      "line": 57,
+      "value": "test_declining_the_confirmation_leaves_the_photo_in_the_gallery"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_delete_browser.py",
+      "kind": "e2e",
+      "line": 70,
+      "value": "test_confirming_the_deletion_removes_the_thumbnail_from_the_gallery"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_delete_browser.py",
+      "kind": "e2e",
+      "line": 83,
+      "value": "test_confirming_the_deletion_leaves_the_other_thumbnails"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 57,
+      "value": "test_choosing_a_file_shows_a_preview_image_before_the_upload_is_made"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 71,
+      "value": "test_choosing_thirty_files_shows_a_preview_for_every_one"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 83,
+      "value": "test_a_description_given_with_the_upload_reaches_the_gallery"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 96,
+      "value": "test_an_upload_with_no_description_still_adds_the_photo"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 106,
+      "value": "test_the_description_field_holds_250_characters_and_the_upload_is_not_refused"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 122,
+      "value": "test_dropping_files_on_the_popup_chooses_them_for_the_upload"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 135,
+      "value": "test_a_thumbnail_carries_its_photos_description_as_alt_text"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 147,
+      "value": "test_a_thumbnail_with_no_description_carries_its_filename_as_alt_text"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 160,
+      "value": "test_a_description_is_changed_in_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 172,
+      "value": "test_typing_one_character_shows_one_of_two_hundred_and_fifty"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 182,
+      "value": "test_typing_a_forty_first_character_shows_forty_one_of_two_hundred_and_fifty"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_description_browser.py",
+      "kind": "e2e",
+      "line": 195,
+      "value": "test_each_preview_renders_its_own_file"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_download_browser.py",
+      "kind": "e2e",
+      "line": 31,
+      "value": "test_downloading_from_a_card_delivers_a_file"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_download_browser.py",
+      "kind": "e2e",
+      "line": 42,
+      "value": "test_the_downloaded_file_is_named_as_it_was_uploaded"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_download_browser.py",
+      "kind": "e2e",
+      "line": 53,
+      "value": "test_the_downloaded_file_holds_the_bytes_that_were_uploaded"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 27,
+      "value": "test_an_empty_gallery_shows_no_thumbnail"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 34,
+      "value": "test_an_empty_gallery_says_there_are_no_photos_yet"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 41,
+      "value": "test_an_empty_gallery_shows_the_upload_control"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 48,
+      "value": "test_an_empty_gallery_reports_no_error"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 60,
+      "value": "test_uploaded_photos_appear_as_thumbnails"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 69,
+      "value": "test_the_no_photos_message_goes_once_a_photo_is_uploaded"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 78,
+      "value": "test_thumbnails_appear_newest_first"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 89,
+      "value": "test_no_numbered_page_control_is_shown"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_gallery_browser.py",
+      "kind": "e2e",
+      "line": 98,
+      "value": "test_scrolling_to_the_end_loads_more_thumbnails"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_actions_browser.py",
+      "kind": "e2e",
+      "line": 29,
+      "value": "test_the_larger_view_shows_save_description_and_close_side_by_side"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_actions_browser.py",
+      "kind": "e2e",
+      "line": 48,
+      "value": "test_the_close_button_closes_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 23,
+      "value": "test_the_larger_view_is_not_shown_before_a_thumbnail_is_activated"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 31,
+      "value": "test_activating_a_thumbnail_shows_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 41,
+      "value": "test_the_larger_view_shows_the_photo_that_was_activated"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 59,
+      "value": "test_the_photo_is_rendered_larger_than_its_thumbnail"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 72,
+      "value": "test_pressing_escape_closes_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 84,
+      "value": "test_the_gallery_is_shown_again_after_escape"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 95,
+      "value": "test_activating_the_close_control_closes_the_larger_view"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 107,
+      "value": "test_the_gallery_is_shown_again_after_the_close_control"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_browser.py",
+      "kind": "e2e",
+      "line": 118,
+      "value": "test_the_gallery_keeps_its_scroll_position_when_the_larger_view_closes"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_small_photo_browser.py",
+      "kind": "e2e",
+      "line": 52,
+      "value": "test_a_photo_smaller_than_its_thumbnail_is_still_rendered_larger"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_larger_view_small_photo_browser.py",
+      "kind": "e2e",
+      "line": 74,
+      "value": "test_a_photo_narrower_than_the_panel_is_centred_in_it"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 55,
+      "value": "test_a_thumbnail_card_is_wider_than_160_pixels"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 67,
+      "value": "test_a_thumbnail_is_shown_as_a_card_not_a_bare_image"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 80,
+      "value": "test_starting_an_upload_opens_a_popup"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 92,
+      "value": "test_an_empty_gallery_shows_a_control_that_opens_the_upload_popup"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 106,
+      "value": "test_the_close_control_is_inside_the_larger_view_panel"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 127,
+      "value": "test_the_upload_popup_close_control_is_inside_the_popup_at_its_top_right"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 146,
+      "value": "test_closing_the_upload_popup_adds_no_photo"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 158,
+      "value": "test_the_upload_popup_can_be_reopened_after_it_was_closed"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 170,
+      "value": "test_the_upload_popup_previews_every_chosen_file"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 187,
+      "value": "test_a_thumbnail_shows_its_photos_description_as_alt_text"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_uat_visual_browser.py",
+      "kind": "e2e",
+      "line": 201,
+      "value": "test_the_picker_still_chooses_files_when_dropping_is_available"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload.py",
+      "kind": "e2e",
+      "line": 20,
+      "value": "test_the_gallery_is_shown_without_a_sign_in_step"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload.py",
+      "kind": "e2e",
+      "line": 27,
+      "value": "test_uploading_a_photo_through_the_browser_adds_it_to_the_gallery"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload.py",
+      "kind": "e2e",
+      "line": 40,
+      "value": "test_uploading_a_batch_through_the_browser_adds_every_photo"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_failures_browser.py",
+      "kind": "e2e",
+      "line": 36,
+      "value": "test_a_batch_with_three_failures_keeps_the_photos_that_worked"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_failures_browser.py",
+      "kind": "e2e",
+      "line": 47,
+      "value": "test_each_failed_file_is_named_on_the_page"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_failures_browser.py",
+      "kind": "e2e",
+      "line": 60,
+      "value": "test_each_failure_shows_its_reason_beside_its_name"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_failures_browser.py",
+      "kind": "e2e",
+      "line": 71,
+      "value": "test_an_oversized_file_names_the_25_mb_limit_on_the_page"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_popup_look_browser.py",
+      "kind": "e2e",
+      "line": 79,
+      "value": "test_the_upload_popup_is_wider_than_680_pixels_on_a_1280_pixel_screen"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_popup_look_browser.py",
+      "kind": "e2e",
+      "line": 93,
+      "value": "test_the_upload_popup_close_control_looks_like_the_larger_views"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_popup_look_browser.py",
+      "kind": "e2e",
+      "line": 104,
+      "value": "test_the_upload_popup_has_the_larger_view_panels_border"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_popup_look_browser.py",
+      "kind": "e2e",
+      "line": 115,
+      "value": "test_choose_files_and_upload_look_like_save_description"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_preview_size_browser.py",
+      "kind": "e2e",
+      "line": 54,
+      "value": "test_a_wide_preview_is_as_wide_as_the_description_field"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_preview_size_browser.py",
+      "kind": "e2e",
+      "line": 61,
+      "value": "test_a_preview_keeps_its_images_proportions"
+    },
+    {
+      "confidence": "high",
+      "file": "tests/e2e/test_upload_preview_size_browser.py",
+      "kind": "e2e",
+      "line": 70,
+      "value": "test_a_narrow_preview_is_centred_in_the_popup"
+    }
+  ],
+  "translations": [],
+  "validation": []
+}
